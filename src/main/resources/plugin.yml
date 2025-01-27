@@ -1,0 +1,8 @@
+name: TangTaMeokGi
+version: '1.0-SNAPSHOT'
+main: com.github.it.tangTaMeokGi.TangTaMeokGi
+api-version: '1.21'
+
+permissions:
+  op:
+    default: op
