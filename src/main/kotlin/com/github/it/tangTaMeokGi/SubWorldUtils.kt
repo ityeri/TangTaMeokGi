@@ -5,7 +5,7 @@ import org.bukkit.World
 import org.bukkit.WorldCreator
 import org.bukkit.WorldType
 
-class WorldUtils {
+class SubWorldUtils {
     companion object {
         fun getSubOverWorld(): World {
             var world = Bukkit.getWorld("world_tmp")
