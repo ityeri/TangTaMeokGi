@@ -1,7 +1,6 @@
-package com.github.it.tangTaMeokGi.area
+package com.github.it.tangTaMeokGi.areaOld
 
 import org.bukkit.World
-import org.bukkit.entity.Panda.Gene
 import org.bukkit.potion.PotionEffect
 
 open class EffectArea(

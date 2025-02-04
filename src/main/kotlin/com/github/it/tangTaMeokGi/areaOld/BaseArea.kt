@@ -1,6 +1,5 @@
-package com.github.it.tangTaMeokGi.area
+package com.github.it.tangTaMeokGi.areaOld
 
-import com.github.it.tangTaMeokGi.Team
 import org.bukkit.World
 
 open class BaseArea(

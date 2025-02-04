@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi.area
+package com.github.it.tangTaMeokGi.areaOld
 
 import org.bukkit.World
 
