@@ -23,6 +23,13 @@ class Area(
         areaType.setTypeThis(this)
     }
 
+    fun onGeneralGroundEvent() {
+    }
+
+    fun onSpecialGroundEvent() {
+
+    }
+
     fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int, ) {
         val minY: Int
         val maxY: Int
