@@ -153,12 +153,13 @@ TODO
 * `setType` 을 통해 발생함
 
 
+
 ---
-  `WAR_AREA` -> `GENERAL_AREA`, `EFFECT_AREA`:
+`WAR_AREA` -> `GENERAL_AREA`, `EFFECT_AREA`:
 * 안됨. `IllegalTypeChangeException` 터짐
 
 ---
-  `WAR_AREA` -> 원래 주인의 `GENERAL_AREA`, `EFFECT_AREA`:
+`WAR_AREA` -> 원래 주인의 `GENERAL_AREA`, `EFFECT_AREA`:
 * 땅의 타입이 바뀌는 경우인
 
 * `gualdian` 이라는 개별 메서드을 통해 발생함
@@ -167,27 +168,20 @@ TODO
 * 원래 땅 소유자였던 팀이 PUBLIC_AREA
 
 ---
-  `WAR_AREA` -> 새 주인의 `GENERAL_AREA`, `EFFECT_AREA`:
+`WAR_AREA` -> 새 주인의 `GENERAL_AREA`, `EFFECT_AREA`:
 * 안됨. `IllegalTypeChangeException` 터짐
 * 전쟁 지역을 점령할떄는 한번 `PUBLIC_AREA` 를 거쳤다가
 * 최종적으로 뻈는팀의 소유가 됨
 
 
 
-
 ---
 주인 없는 `GENERAL_AREA`, `EFFECT_AREA` -> `PUBLIC_AREA`:
-* 땅의 타입이 바뀌는 경우인
-
-* 에토한테 물어봐야 함 어떤 방식으로 공용땅 되는기 기억 안나는;;
-* `PublicAreaState` 에 기존 이펙트 속성이(있다면) 전달됨
+* 안됨. `IllegalTypeChangeException` 터짐
 
 ---
 주인 있는 `GENERAL_AREA`, `EFFECT_AREA` -> `PUBLIC_AREA`:
-* 땅의 타입이 바뀌는 경우인
-
-* 에토한테 물어봐야 함 어떤 방식으로 공용땅 되는기 기억 안나는;;
-* `PublicAreaState` 에 기존 이펙트 속성이(있다면) 전달됨
+* 안됨. `IllegalTypeChangeException` 터짐
 
 
 
