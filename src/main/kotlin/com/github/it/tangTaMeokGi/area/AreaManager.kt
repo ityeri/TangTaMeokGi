@@ -1,6 +1,8 @@
 package com.github.it.tangTaMeokGi.area
 
+import com.github.it.tangTaMeokGi.SubWorldUtils
 import org.bukkit.World
+import kotlin.random.Random
 
 class AreaManager(
     val world: World,
@@ -10,13 +12,13 @@ class AreaManager(
     val areaDepth: Int
 ) {
 
-    private val areaMap: MutableList<MutableList<BaseArea>> = MutableList(mapDepth) { mutableListOf() }
+    private val areaMap: MutableList<MutableList<Area>> = MutableList(mapDepth) { mutableListOf() }
 
     init {
         for (z in 0 until  mapDepth) {
-            val currentLine = areaMap.get(z)
+            val currentLine = areaMap[z]
             for (x in 0 until  mapWidth) {
-                currentLine.add(BaseArea(world,
+                currentLine.add(Area(this, world,
                     x*areaWidth, z*areaDepth, areaDepth, areaDepth
                 ))
             }
@@ -25,19 +27,28 @@ class AreaManager(
 
 
     fun generate() {
-
+        for (z in 0 until  mapDepth) {
+            for (x in 0 until mapWidth) {
+                val world: World
+                if (Random.nextFloat() < 0.6) {
+                    world = SubWorldUtils.getSubOverWorld()
+                } else {
+                    world = SubWorldUtils.getSubNetherWorld()
+                }
+                getArea(x, z)!!.regenerateFrom(
+                    world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                )
+            }
+        }
     }
 
 
-    fun getArea(x: Int, z: Int): BaseArea? {
+
+    fun getArea(x: Int, z: Int): Area? {
         try {
             return areaMap[z][x]
         } catch (e: IndexOutOfBoundsException) {
             return null
         }
-    }
-
-    fun setArea(x: Int, z: Int, newArea: BaseArea) {
-        areaMap[z][x] = newArea
     }
 }
