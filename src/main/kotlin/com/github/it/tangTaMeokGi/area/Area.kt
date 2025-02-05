@@ -5,7 +5,7 @@ import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
 import org.bukkit.World
 
 class Area(
-    val world: World, val areaManager: AreaManager,
+    val areaManager: AreaManager, val world: World,
     val x: Int, val z: Int,
     val width: Int, val depth: Int
 ) {
