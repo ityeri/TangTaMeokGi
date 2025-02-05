@@ -2,18 +2,14 @@ package com.github.it.tangTaMeokGi.area.areaState
 
 import com.github.it.tangTaMeokGi.Team
 import com.github.it.tangTaMeokGi.area.Area
+import org.bukkit.potion.PotionEffect
 
-open class GeneralAreaState(area: Area, var ownerTeam: Team? = null) : EmptyAreaState(area) {
+class PublicAreaState(area: Area, val previousOwner: Team, val coolTimeSec: Int, val isEffectArea: Boolean = false,
+                      val buffPotionEffect: PotionEffect? = null,
+                      val debuffPotionEffect: PotionEffect? = null
+) : EmptyAreaState(area) {
 
-    var isOwned: Boolean
-
-    init {
-        if (ownerTeam != null) {
-            isOwned = true
-        } else {
-            isOwned = false
-        }
-    }
+    var timer: Int = coolTimeSec
 
     override fun update() {
         TODO("Not yet implemented")
@@ -26,5 +22,4 @@ open class GeneralAreaState(area: Area, var ownerTeam: Team? = null) : EmptyArea
     override fun onSpecialOccupation(attemptedTeam: Team) {
         TODO()
     }
-
 }
