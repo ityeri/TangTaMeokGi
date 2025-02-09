@@ -19,7 +19,7 @@ class AreaManager(
             val currentLine = areaMap[z]
             for (x in 0 until  mapWidth) {
                 currentLine.add(Area(this, world,
-                    x*areaWidth, z*areaDepth, areaDepth, areaDepth
+                    x, z, areaDepth, areaDepth
                 ))
             }
         }
