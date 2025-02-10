@@ -2,7 +2,9 @@ package com.github.it.tangTaMeokGi.area
 
 import com.github.it.tangTaMeokGi.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
+import org.bukkit.Material
 import org.bukkit.World
+import org.bukkit.entity.Item
 
 class Area(
     val areaManager: AreaManager, val world: World,
@@ -15,6 +17,7 @@ class Area(
     val maxX = minX + width
     val maxZ = minZ + depth
 
+    var type: AreaType = AreaType.EMPTY_AREA
     var state: BaseAreaState = EmptyAreaState(this)
 
 
@@ -28,6 +31,18 @@ class Area(
 
     fun onSpecialGroundEvent() {
 
+    }
+
+    fun update() {
+        state.update()
+
+        world.getEntities().filterIsInstance<Item>().filter { itemEntity ->
+            // 아이템 엔티티의 위치가 범위 내에 있는지 확인
+            val loc = itemEntity.location
+            loc.x in minX.toDouble()..maxX.toDouble() && loc.z in minZ.toDouble()..maxZ.toDouble() &&
+                    // 아이템이 철 도끼인지 확인
+                    itemEntity.itemStack.type == Material.IRON_AXE
+        }
     }
 
     fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int, ) {
@@ -62,5 +77,7 @@ class Area(
             }
         }
     }
+
+
 
 }
