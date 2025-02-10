@@ -43,6 +43,15 @@ class AreaManager(
     }
 
 
+    fun update() {
+        for (z in 0 until  mapDepth) {
+            for (x in 0 until mapWidth) {
+                
+            }
+        }
+    }
+
+
 
     fun getArea(x: Int, z: Int): Area? {
         try {
