@@ -46,7 +46,7 @@ class AreaManager(
     fun update() {
         for (z in 0 until  mapDepth) {
             for (x in 0 until mapWidth) {
-                
+                getArea(x, z)!!.update()
             }
         }
     }
