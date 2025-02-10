@@ -36,6 +36,24 @@
 
 
 
+# Area 관련 객체들
+
+## Area
+`AreaState` 를 감싸는 wrapper 같은 느낌, 
+`state.onGeneralGroundEvent`, `state.onSpecialGroundEvent`
+를 호출할지 말지를 예가 판단함
+
+## AreaState
+> `AreaState` 라는 객체가 있진 않고,
+> `BaseAreaState` 를 포함, 그 모든 자식 객체를 포함한걸 이렇게 부르는
+
+각 Area 에 state 라는 var 속성에 저장되며,
+각기 다른 종류의 영역을 표현하기 위함
+실질적으로 각 영역에 발생하는 일에 대해 어떤 액션을 취해야 하는지 결정함
+게임 내부의 상황으로 인해 Area 의 종류가 바뀌어야 하는 상황또한
+AreaState 에서 처리함
+
+
 # 코드상의 땅 종류:
 
 ---
@@ -90,8 +108,6 @@
 * 해당하는 땅:
 > 뺏기는 중인 일반땅
 
-TODO
-
 ---
 `WAR_EFFECT_AREA`:
 * `WarEffectAreaState`
@@ -102,8 +118,6 @@ TODO
 
 * 해당하는 땅:
 > 뺏기는 중인 효과땅
-
-TODO
 
 
 
