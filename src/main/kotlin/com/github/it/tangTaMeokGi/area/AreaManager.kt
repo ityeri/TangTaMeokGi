@@ -1,7 +1,10 @@
 package com.github.it.tangTaMeokGi.area
 
 import com.github.it.tangTaMeokGi.SubWorldUtils
+import org.bukkit.Material
 import org.bukkit.World
+import org.bukkit.event.EventHandler
+import org.bukkit.event.player.PlayerDropItemEvent
 import kotlin.random.Random
 
 class AreaManager(
@@ -13,6 +16,9 @@ class AreaManager(
 ) {
 
     private val areaMap: MutableList<MutableList<Area>> = MutableList(mapDepth) { mutableListOf() }
+
+    val generalGroundItem = Material.IRON_AXE
+    val specialGroundItem = Material.NETHERITE_AXE
 
     init {
         for (z in 0 until  mapDepth) {
@@ -59,5 +65,12 @@ class AreaManager(
         } catch (e: IndexOutOfBoundsException) {
             return null
         }
+    }
+
+
+
+    @EventHandler
+    fun onPlayerDropItem(event: PlayerDropItemEvent) {
+        event.itemDrop.itemStack.type
     }
 }
