@@ -13,7 +13,7 @@ class TangTaMeokGi : JavaPlugin() {
 
     override fun onEnable() {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
-        areaManager.generate()
+//        areaManager.generate()
 
     }
 
