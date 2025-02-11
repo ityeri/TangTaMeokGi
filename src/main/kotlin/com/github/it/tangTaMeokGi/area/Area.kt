@@ -17,43 +17,45 @@ class Area(
     val maxX = minX + width
     val maxZ = minZ + depth
 
-    var type: AreaType = AreaType.EMPTY_AREA
+    var type = AreaType.EMPTY_AREA
     var state: BaseAreaState = EmptyAreaState(this)
 
 
 
-    fun setType(areaType: AreaType) {
+    fun setTypeTo(areaType: AreaType) {
         areaType.setTypeThis(this)
     }
 
     fun onGeneralGroundEvent() {
+        TODO()
     }
 
     fun onSpecialGroundEvent() {
-
+        TODO()
     }
 
     fun update() {
         state.update()
 
-        world.getEntities().filterIsInstance<Item>().filter { itemEntity ->
-            // 아이템 엔티티의 위치가 범위 내에 있는지 확인
-            val loc = itemEntity.location
-            loc.x in minX.toDouble()..maxX.toDouble() && loc.z in minZ.toDouble()..maxZ.toDouble() &&
-                    // 아이템이 철 도끼인지 확인
-                    itemEntity.itemStack.type == Material.IRON_AXE
-        }
+        TODO()
+//        world.getEntities().filterIsInstance<Item>().filter { itemEntity ->
+//            // 아이템 엔티티의 위치가 범위 내에 있는지 확인
+//            val loc = itemEntity.location
+//            loc.x in minX.toDouble()..maxX.toDouble() && loc.z in minZ.toDouble()..maxZ.toDouble() &&
+//                    // 아이템이 철 도끼인지 확인
+//                    itemEntity.itemStack.type == Material.IRON_AXE
+//        }
     }
 
     fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int, ) {
         val minY: Int
         val maxY: Int
 
-        if (targetWorld.minHeight < world.minHeight) minY = world.minHeight
-        else minY = targetWorld.minHeight
+        if (targetWorld.minHeight < world.minHeight) minY = targetWorld.minHeight
+        else minY = world.minHeight
 
-        if (world.maxHeight < targetWorld.maxHeight) maxY = world.maxHeight
-        else maxY = targetWorld.maxHeight
+        if (world.maxHeight < targetWorld.maxHeight) maxY = targetWorld.maxHeight
+        else maxY = world.maxHeight
 
 
         for (y in minY until maxY) {
@@ -70,6 +72,10 @@ class Area(
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
+                    if (targetBlock.type == Material.VOID_AIR) {
+                        thisWorldBlock.type = Material.AIR
+                    }
+
                     thisWorldBlock.type = targetBlock.type
                     thisWorldBlock.blockData = targetBlock.blockData
                     thisWorldBlock.biome = targetBlock.biome
@@ -77,7 +83,5 @@ class Area(
             }
         }
     }
-
-
 
 }
