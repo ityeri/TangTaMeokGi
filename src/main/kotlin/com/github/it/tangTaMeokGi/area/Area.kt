@@ -2,12 +2,14 @@ package com.github.it.tangTaMeokGi.area
 
 import com.github.it.tangTaMeokGi.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.entity.Item
+import org.bukkit.plugin.java.JavaPlugin
 
 class Area(
-    val areaManager: AreaManager, val world: World,
+    val areaManager: AreaManager, val world: World, val plugin: JavaPlugin,
     val x: Int, val z: Int,
     val width: Int, val depth: Int
 ) {
@@ -72,6 +74,7 @@ class Area(
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
+
                     if (targetBlock.type == Material.VOID_AIR) {
                         thisWorldBlock.type = Material.AIR
                     }
@@ -79,6 +82,8 @@ class Area(
                     thisWorldBlock.type = targetBlock.type
                     thisWorldBlock.blockData = targetBlock.blockData
                     thisWorldBlock.biome = targetBlock.biome
+
+
                 }
             }
         }
