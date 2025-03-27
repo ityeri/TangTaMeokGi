@@ -9,12 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class TangTaMeokGi : JavaPlugin() {
     val areaManager: AreaManager = AreaManager(Bukkit.getWorld("world")!!,
-        8, 8, 8, 8)
+        this, 16, 16, 16, 16)
 
     override fun onEnable() {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
-//        areaManager.generate()
-
+        areaManager.generate()
     }
 
     override fun onDisable() {
