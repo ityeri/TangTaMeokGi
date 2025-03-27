@@ -2,29 +2,23 @@ package com.github.it.tangTaMeokGi.area.areaState
 
 import com.github.it.tangTaMeokGi.Team
 import com.github.it.tangTaMeokGi.area.Area
+import org.bukkit.entity.Player
 
-open class GeneralAreaState(area: Area, var ownerTeam: Team? = null) : EmptyAreaState(area) {
+open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(area) {
+    override fun enable() {
+        TODO("이벤트 리스너 추가 코드")
+    }
 
-    var isOwned: Boolean
-
-    init {
-        if (ownerTeam != null) {
-            isOwned = true
-        } else {
-            isOwned = false
-        }
+    override fun disable() {
+        TODO("이벤트 리스너 제거")
     }
 
     override fun update() {
+        // 일반땅은 효과 업을세디
+    }
+
+    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
         TODO("Not yet implemented")
-    }
-
-    override fun onGeneralOccupation(attemptedTeam: Team) {
-        TODO()
-    }
-
-    override fun onSpecialOccupation(attemptedTeam: Team) {
-        TODO()
     }
 
 }
