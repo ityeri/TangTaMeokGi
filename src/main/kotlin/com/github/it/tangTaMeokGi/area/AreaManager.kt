@@ -24,7 +24,10 @@ class AreaManager(
     val generalGroundItem = Material.IRON_AXE
     val specialGroundItem = Material.NETHERITE_AXE
 
-    init {
+
+
+    fun generate() {
+
         for (z in 0 until  mapDepth) {
             val currentLine = areaMap[z]
             for (x in 0 until  mapWidth) {
@@ -33,10 +36,6 @@ class AreaManager(
                 ))
             }
         }
-    }
-
-
-    fun generate() {
 
 
         val totalMapWidth: Int = mapWidth * areaWidth
