@@ -1,11 +1,11 @@
 package com.github.it.tangTaMeokGi.area
 
+import com.github.it.tangTaMeokGi.Team
 import com.github.it.tangTaMeokGi.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
-import org.bukkit.entity.Item
+import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
 class Area(
@@ -28,25 +28,13 @@ class Area(
         areaType.setTypeThis(this)
     }
 
-    fun onGeneralGroundEvent() {
-        TODO()
-    }
-
-    fun onSpecialGroundEvent() {
-        TODO()
+    fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+        state.onAttackEvent(attackerTeam, attacker)
     }
 
     fun update() {
         state.update()
-
-        TODO()
-//        world.getEntities().filterIsInstance<Item>().filter { itemEntity ->
-//            // 아이템 엔티티의 위치가 범위 내에 있는지 확인
-//            val loc = itemEntity.location
-//            loc.x in minX.toDouble()..maxX.toDouble() && loc.z in minZ.toDouble()..maxZ.toDouble() &&
-//                    // 아이템이 철 도끼인지 확인
-//                    itemEntity.itemStack.type == Material.IRON_AXE
-//        }
+        // TODO 도끼를 통한 점령 시도를 이 코드에서 식별함
     }
 
     fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int, ) {
@@ -89,4 +77,9 @@ class Area(
         }
     }
 
+    fun getEntity() {
+        TODO("해당 Area 내부의 모든 엔티티 가져오는 기능 추가")
+        // 해당 Area 가 포함하는 모든 청크만 일차적으로 가져오고,
+        // 이후 가져온 그 청크에서 Area 좌표 밖에 있는 애들은 거르기
+    }
 }
