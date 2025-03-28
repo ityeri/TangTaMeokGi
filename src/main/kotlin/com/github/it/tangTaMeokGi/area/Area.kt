@@ -147,13 +147,11 @@ class Area(
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
 
-        event.player.sendMessage(Component.text("ㅁㄴㅇㄹ"))
-
         if (isEntityInArea(event.player) &&
             areaManager.isGroundItem(event.player.itemInHand)) {
 
+            // TODO 플레이어로부터 팀 가져와서 onPlayerAttackEvent 하는 거 추가ㄱ
 
-//            onAttackEvent()
         }
     }
 }
