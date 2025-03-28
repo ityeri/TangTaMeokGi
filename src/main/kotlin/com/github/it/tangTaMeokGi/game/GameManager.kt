@@ -1,6 +1,5 @@
 package com.github.it.tangTaMeokGi.game
 
-import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.area.AreaManager
 import com.github.it.tangTaMeokGi.game.team.TeamManager
 import org.bukkit.Bukkit
@@ -41,18 +40,27 @@ class GameManager(val plugin: JavaPlugin) {
         gameStartTime = null
         gameEndTime = null
     }
+    fun init(
+        mapSize: Int,
+        areaSize: Int,
+        gameTimeMin: Int
+    ) {
+        this.mapSize = mapSize
+        this.areaSize = areaSize
+        gameTime = gameTimeMin * 60
+
+        initArea()
+    }
 
     fun checkSettingAvailable(): Boolean {
         mapSize ?: run { return false }
-
         areaSize ?: run { return false }
-
         gameTime ?: run { return false }
 
         return true
     }
 
-    fun areaGenerate() {
+    fun initArea() {
 
         if (!checkSettingAvailable()) {
             throw IllegalStateException("필수 설정이 지정되지 않았습니다")
