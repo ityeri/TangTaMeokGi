@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi
+package com.github.it.tangTaMeokGi.game.team
 
 import org.bukkit.Bukkit
 import org.bukkit.Color

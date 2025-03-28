@@ -1,6 +1,7 @@
 package com.github.it.tangTaMeokGi.area
 
 import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
+import com.github.it.tangTaMeokGi.area.areaState.PublicAreaState
 
 enum class AreaType {
     EMPTY_AREA {
@@ -26,7 +27,7 @@ enum class AreaType {
 
     PUBLIC_AREA {
         override fun setTypeThis(area: Area) {
-            TODO("Not yet implemented")
+            area.state = PublicAreaState(area, false)
         }
     },
 

@@ -1,66 +1,82 @@
 package com.github.it.tangTaMeokGi.area
 
 import com.github.it.tangTaMeokGi.SubWorldUtils
+import com.github.it.tangTaMeokGi.game.GameManager
 import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
-import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerDropItemEvent
-import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 
 class AreaManager(
-    val world: World,
-    val plugin: JavaPlugin,
-    val mapWidth: Int,
-    val mapDepth: Int,
-    val areaWidth: Int,
-    val areaDepth: Int
+    val gameManager: GameManager,
+    val mapSize: Int,
+    val areaSize: Int
 ) {
 
-    private val areaMap: MutableList<MutableList<Area>> = MutableList(mapDepth) { mutableListOf() }
+    val plugin = gameManager.plugin
+    val world = gameManager.world
 
-    val generalGroundItem = Material.IRON_AXE
-    val specialGroundItem = Material.NETHERITE_AXE
+    val areaMap: MutableList<MutableList<Area>> = MutableList(mapSize) { mutableListOf() }
 
+    
+    fun isGroundItem(item: ItemStack): Boolean {
+        // TODO 이 매서드는 GameManager 로 옮기거나 암튼 더 합리적인 위치로 이동 ㄱ
+        return item.type == Material.IRON_AXE
+    }
 
-
-    fun generate() {
-
-        for (z in 0 until  mapDepth) {
-            val currentLine = areaMap[z]
-            for (x in 0 until  mapWidth) {
-                currentLine.add(Area(this, world, plugin,
-                    x, z, areaDepth, areaDepth
-                ))
-            }
+    fun enableAll() {
+        for (area in getAllArea()) {
+            area.enable()
         }
+    }
+    fun disableAll() {
+        for (area in getAllArea()) {
+            area.disable()
+        }
+    }
 
+    fun setWorldBorder() {
+        val totalMapSize: Int = mapSize * areaSize
 
-        val totalMapWidth: Int = mapWidth * areaWidth
-        val totalMapDepth: Int = mapDepth * areaDepth
+        world.worldBorder.setCenter(totalMapSize / 2.0, totalMapSize / 2.0)
 
-        world.worldBorder.setCenter(totalMapWidth / 2.0, totalMapDepth / 2.0)
-
-        val worldBorderSize: Double
-
-        if (totalMapDepth < totalMapWidth) worldBorderSize = totalMapWidth.toDouble()
-        else worldBorderSize = totalMapDepth.toDouble()
-
-        world.worldBorder.size = worldBorderSize
+        world.worldBorder.size = totalMapSize.toDouble()
         world.worldBorder.damageBuffer = 0.0
         world.worldBorder.warningDistance = 0
         world.worldBorder.warningTime = 0
+    }
 
+    fun generate() {
+
+        for (z in 0 until  mapSize) {
+            val currentLine = areaMap[z]
+            for (x in 0 until  mapSize) {
+                currentLine.add(Area(this, x, z, areaSize))
+            }
+        }
+    }
+
+    fun generateRandom(effectAreaProbability: Float) {
+        for (area in getAllArea()) {
+            if (Random.nextFloat() < effectAreaProbability) {
+                area.type = AreaType.PUBLIC_AREA
+            }
+        }
+    }
+
+    fun mapGenerate() {
+        setWorldBorder()
+
+        val totalMapSize: Int = mapSize * areaSize
 
 
         Bukkit.getLogger()
-            .info("청크 기준 크기: $mapWidth * $mapDepth | 총 크기: $totalMapWidth * $totalMapDepth 영역의 생성을 시작합니다.")
+            .info("청크 기준 크기: $mapSize * $mapSize | 총 크기: $totalMapSize * $totalMapSize 영역의 생성을 시작합니다.")
 
 
 
-        val totalProgress: Double = (mapWidth * mapDepth).toDouble()
+        val totalProgress: Double = (mapSize * mapSize).toDouble()
         var currentProgress: Int = 0
 
         var x = 0
@@ -82,34 +98,31 @@ class AreaManager(
             currentProgress += 1
 
             Bukkit.getLogger()
-                .info("${((currentProgress / totalProgress) * 100).toInt()} % | [$x, $z] / [$mapWidth, $mapDepth] 영역 완료.")
+                .info("${((currentProgress / totalProgress) * 100).toInt()} % | [$x, $z] / [$mapSize, $mapSize] 영역 완료.")
 
             x += 1
 
-            if (mapWidth <= x) {
+            if (mapSize <= x) {
                 x = 0; z += 1
             }
-            if (mapDepth <= z) {
+            if (mapSize <= z) {
                 Bukkit.getLogger()
-                    .info("청크 기준 크기: $mapWidth * $mapDepth | 총 크기: $totalMapWidth * $totalMapDepth 영역의 생성이 완료되었습니다.")
+                    .info("청크 기준 크기: $mapSize * $mapSize | 총 크기: $totalMapSize * $totalMapSize 영역의 생성이 완료되었습니다.")
 
                 Bukkit.getScheduler().cancelTask(taskId)
             }
 
         }, 0L, 1L).taskId
-
-
-
     }
 
+
     fun update() {
-        for (z in 0 until  mapDepth) {
-            for (x in 0 until mapWidth) {
+        for (z in 0 until  mapSize) {
+            for (x in 0 until mapSize) {
                 getArea(x, z)!!.update()
             }
         }
     }
-
 
 
     fun getArea(x: Int, z: Int): Area? {
@@ -120,10 +133,13 @@ class AreaManager(
         }
     }
 
+    fun getAllArea(): List<Area> {
+        val areas: MutableList<Area> = mutableListOf()
 
+        for (line in areaMap) {
+            areas.addAll(line)
+        }
 
-    @EventHandler
-    fun onPlayerDropItem(event: PlayerDropItemEvent) {
-        event.itemDrop.itemStack.type
+        return areas.toList()
     }
 }
