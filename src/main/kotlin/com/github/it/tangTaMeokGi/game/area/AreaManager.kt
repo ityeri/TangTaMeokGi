@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi.area
+package com.github.it.tangTaMeokGi.game.area
 
 import com.github.it.tangTaMeokGi.SubWorldUtils
 import com.github.it.tangTaMeokGi.game.GameManager

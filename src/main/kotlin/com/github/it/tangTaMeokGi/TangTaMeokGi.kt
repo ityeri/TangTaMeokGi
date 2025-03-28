@@ -1,17 +1,13 @@
 package com.github.it.tangTaMeokGi
 
-import com.github.it.tangTaMeokGi.area.Area
-import com.github.it.tangTaMeokGi.area.AreaManager
-import com.github.it.tangTaMeokGi.area.areaState.PublicAreaState
+import com.github.it.tangTaMeokGi.game.area.Area
 import com.github.it.tangTaMeokGi.game.GameManager
 import com.github.it.tangTaMeokGi.game.team.Team
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class TangTaMeokGi : JavaPlugin(), Listener {

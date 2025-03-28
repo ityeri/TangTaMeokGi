@@ -1,10 +1,8 @@
-package com.github.it.tangTaMeokGi.area
+package com.github.it.tangTaMeokGi.game.area
 
 import com.github.it.tangTaMeokGi.game.team.Team
-import com.github.it.tangTaMeokGi.area.areaState.BaseAreaState
-import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
-import com.github.it.tangTaMeokGi.game.GameManager
-import net.kyori.adventure.text.Component
+import com.github.it.tangTaMeokGi.game.area.areaState.BaseAreaState
+import com.github.it.tangTaMeokGi.game.area.areaState.EmptyAreaState
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -14,7 +12,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.plugin.java.JavaPlugin
 import kotlin.math.ceil
 import kotlin.math.floor
 

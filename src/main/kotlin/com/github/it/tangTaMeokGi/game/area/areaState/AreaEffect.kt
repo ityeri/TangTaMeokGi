@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi.area.areaState
+package com.github.it.tangTaMeokGi.game.area.areaState
 
 import org.bukkit.potion.PotionEffect
 

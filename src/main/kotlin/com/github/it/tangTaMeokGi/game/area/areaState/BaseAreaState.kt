@@ -1,8 +1,8 @@
-package com.github.it.tangTaMeokGi.area.areaState
+package com.github.it.tangTaMeokGi.game.area.areaState
 
 import com.github.it.tangTaMeokGi.game.team.Team
-import com.github.it.tangTaMeokGi.area.Area
-import com.github.it.tangTaMeokGi.area.AreaType
+import com.github.it.tangTaMeokGi.game.area.Area
+import com.github.it.tangTaMeokGi.game.area.AreaType
 import org.bukkit.entity.Player
 
 abstract class BaseAreaState(

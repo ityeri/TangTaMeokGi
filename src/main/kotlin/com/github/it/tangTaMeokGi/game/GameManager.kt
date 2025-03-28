@@ -1,6 +1,6 @@
 package com.github.it.tangTaMeokGi.game
 
-import com.github.it.tangTaMeokGi.area.AreaManager
+import com.github.it.tangTaMeokGi.game.area.AreaManager
 import com.github.it.tangTaMeokGi.game.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
