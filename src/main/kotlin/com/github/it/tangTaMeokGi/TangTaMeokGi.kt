@@ -24,6 +24,8 @@ class TangTaMeokGi : JavaPlugin(), Listener {
             mapSize = 4, areaSize = 4, gameTimeMin = 1
         )
 
+        gameManager.mapGenerate()
+
         testArea = gameManager.areaManager!!.getArea(1, 1)!!
 
         gameManager.teamManager!!.addTeam(
@@ -31,6 +33,8 @@ class TangTaMeokGi : JavaPlugin(), Listener {
         )
 
         gameManager.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
+
+        testArea.enable()
     }
 
     override fun onDisable() {
