@@ -1,31 +1,64 @@
 package com.github.it.tangTaMeokGi.area
 
-import com.github.it.tangTaMeokGi.Team
+import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.area.areaState.EmptyAreaState
+import com.github.it.tangTaMeokGi.game.GameManager
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
+import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.HandlerList
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.plugin.java.JavaPlugin
+import kotlin.math.ceil
+import kotlin.math.floor
 
 class Area(
-    val areaManager: AreaManager, val world: World, val plugin: JavaPlugin,
-    val x: Int, val z: Int,
-    val width: Int, val depth: Int
-) {
-    val minX = x * width
-    val minZ = z * depth
+    val areaManager: AreaManager,
+    val x: Int, val z: Int, val size: Int
+) : Listener {
 
-    val maxX = minX + width
-    val maxZ = minZ + depth
+    val gameManager = areaManager.gameManager
+    val plugin = areaManager.plugin
+    val world = areaManager.world
+
+    val minX = x * size
+    val minZ = z * size
+
+    val maxX = minX + size
+    val maxZ = minZ + size
 
     var type = AreaType.EMPTY_AREA
+        set(newType) {
+            disable()
+            field = newType
+            newType.setTypeThis(this)
+        }
+
     var state: BaseAreaState = EmptyAreaState(this)
+        set(newState) {
+            disable()
+            field = state
+            if (type == state.type) { return }
+            type = newState.type
+        }
 
+    init {
+        type = AreaType.EMPTY_AREA
+    }
 
-
-    fun setTypeTo(areaType: AreaType) {
-        areaType.setTypeThis(this)
+    fun enable() {
+        state.enable()
+        Bukkit.getServer().pluginManager.registerEvents(this, plugin)
+    }
+    fun disable() {
+        state.disable()
+        HandlerList.unregisterAll(this)
     }
 
     fun onAttackEvent(attackerTeam: Team, attacker: Player) {
@@ -37,7 +70,7 @@ class Area(
         // TODO 도끼를 통한 점령 시도를 이 코드에서 식별함
     }
 
-    fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int, ) {
+    fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
         val minY: Int
         val maxY: Int
 
@@ -49,8 +82,8 @@ class Area(
 
 
         for (y in minY until maxY) {
-            for (z in 0 until depth) {
-                for (x in 0 until width) {
+            for (z in 0 until size) {
+                for (x in 0 until size) {
                     val thisWorldX = minX + x
                     val thisWorldZ = minZ + z
 
@@ -77,9 +110,50 @@ class Area(
         }
     }
 
-    fun getEntity() {
-        TODO("해당 Area 내부의 모든 엔티티 가져오는 기능 추가")
+    fun getEntities(): List<Entity> {
+        // 해당 Area 내부의 모든 엔티티 가져오는 기능 추가
         // 해당 Area 가 포함하는 모든 청크만 일차적으로 가져오고,
         // 이후 가져온 그 청크에서 Area 좌표 밖에 있는 애들은 거르기
+        val minChunkX = floor(minX / 16.0).toInt()
+        val minChunkZ = floor(minZ / 16.0).toInt()
+
+        val maxChunkX = ceil(maxX / 16.0).toInt()
+        val maxChunkZ = ceil(maxZ / 16.0).toInt()
+
+        val entities: MutableList<Entity> = mutableListOf()
+
+        for (chunkZ in minChunkZ until maxChunkZ) {
+            for (chunkX in minChunkX until maxChunkX) {
+                for (entity in world.getChunkAt(chunkX, chunkZ).entities) {
+
+                    if (isEntityInArea(entity)) {
+                        entities.add(entity)
+                    }
+
+                }
+            }
+        }
+
+        return entities
+    }
+
+    fun isEntityInArea(entity: Entity): Boolean {
+        return (minX <= entity.x && entity.x < maxX &&
+                minZ <= entity.z && entity.z < maxZ)
+    }
+
+
+
+    @EventHandler
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+
+        event.player.sendMessage(Component.text("ㅁㄴㅇㄹ"))
+
+        if (isEntityInArea(event.player) &&
+            areaManager.isGroundItem(event.player.itemInHand)) {
+
+
+//            onAttackEvent()
+        }
     }
 }
