@@ -8,7 +8,7 @@ import java.util.*
 
 class Team(
     val id: String, val displayName: String,
-    val teamColor: Color, val isEffectivePossible: Boolean = false
+    val teamColor: Color
 ) {
     val playerUUIDs: MutableSet<UUID> = mutableSetOf()
 
