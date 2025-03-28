@@ -24,6 +24,8 @@ class GameManager(val plugin: JavaPlugin) {
     var gameEndTime: Int? = null
     // TODO
 
+
+
     fun reset() {
         mapSize = null
         areaSize = null
@@ -40,6 +42,7 @@ class GameManager(val plugin: JavaPlugin) {
         gameStartTime = null
         gameEndTime = null
     }
+
     fun init(
         mapSize: Int,
         areaSize: Int,
@@ -50,14 +53,6 @@ class GameManager(val plugin: JavaPlugin) {
         gameTime = gameTimeMin * 60
 
         initArea()
-    }
-
-    fun checkSettingAvailable(): Boolean {
-        mapSize ?: run { return false }
-        areaSize ?: run { return false }
-        gameTime ?: run { return false }
-
-        return true
     }
 
     fun initArea() {
@@ -76,6 +71,26 @@ class GameManager(val plugin: JavaPlugin) {
         areaManager!!.generate()
         areaManager!!.setWorldBorder()
     }
+
+    fun mapGenerate() {
+        if (!checkSettingAvailable()) {
+            throw IllegalStateException("필수 설정이 지정되지 않았습니다")
+        }
+
+        areaManager!!.mapGenerate()
+    }
+
+
+
+    fun checkSettingAvailable(): Boolean {
+        mapSize ?: run { return false }
+        areaSize ?: run { return false }
+        gameTime ?: run { return false }
+
+        return true
+    }
+
+
 
     fun start() {
         isGameRunning = true
