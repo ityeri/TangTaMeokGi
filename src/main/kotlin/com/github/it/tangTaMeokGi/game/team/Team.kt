@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 import java.util.*
 
 class Team(
-    val teamId: String, val displayName: String,
+    val id: String, val displayName: String,
     val teamColor: Color, val isEffectivePossible: Boolean = false
 ) {
     val playerUUIDs: MutableSet<UUID> = mutableSetOf()
