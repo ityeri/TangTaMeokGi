@@ -25,7 +25,7 @@ class TangTaMeokGi : JavaPlugin(), Listener {
 
     override fun onEnable() {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
-        areaManager.mapGenerate()
+//        areaManager.mapGenerate()
         testArea.enable()
     }
 
