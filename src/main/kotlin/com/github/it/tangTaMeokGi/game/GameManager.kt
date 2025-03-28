@@ -2,26 +2,27 @@ package com.github.it.tangTaMeokGi.game
 
 import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.area.AreaManager
+import com.github.it.tangTaMeokGi.game.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.plugin.java.JavaPlugin
 
 class GameManager(val plugin: JavaPlugin) {
-    private var isGameRunning = false
+    var isGameRunning = false
 
     val world: World = Bukkit.getWorld("world")!!
 
     var mapSize: Int? = null
     var areaSize: Int? = null
 
-    private var areaManager: AreaManager? = null
+    var areaManager: AreaManager? = null
 
-    private val teamStore: MutableMap<String, Team> = mutableMapOf()
+    var teamManager: TeamManager? = null
 
-    private var gameTime: Int? = null
+    var gameTime: Int? = null
 
-    private var gameStartTime: Int? = null
-    private var gameEndTime: Int? = null
+    var gameStartTime: Int? = null
+    var gameEndTime: Int? = null
     // TODO
 
     fun reset() {
@@ -33,8 +34,7 @@ class GameManager(val plugin: JavaPlugin) {
         }
 
         areaManager = null
-
-        teamStore.clear()
+        teamManager = null
 
         gameTime = null
 
