@@ -150,7 +150,16 @@ class Area(
         if (isEntityInArea(event.player) &&
             areaManager.isGroundItem(event.player.itemInHand)) {
 
-            // TODO 플레이어로부터 팀 가져와서 onPlayerAttackEvent 하는 거 추가ㄱ
+            val team = gameManager.teamManager!!.getTeam(event.player)
+
+            team?.let {
+                onAttackEvent(
+                    team, event.player
+                )
+            } ?: {
+                // 플레이어가 그 어느팀에도 없을경우
+                // 암것도 실행하지 않음
+            }
 
         }
     }
