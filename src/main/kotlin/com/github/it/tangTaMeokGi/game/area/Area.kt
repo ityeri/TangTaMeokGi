@@ -45,9 +45,13 @@ class Area(
             type = newState.type
         }
 
+
+
     init {
         type = AreaType.EMPTY_AREA
     }
+
+
 
     fun enable() {
         state.enable()
@@ -58,13 +62,12 @@ class Area(
         HandlerList.unregisterAll(this)
     }
 
-    fun onAttackEvent(attackerTeam: Team, attacker: Player) {
-        state.onAttackEvent(attackerTeam, attacker)
-    }
-
     fun update() {
         state.update()
-        // TODO 도끼를 통한 점령 시도를 이 코드에서 식별함
+    }
+
+    fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+        state.onAttackEvent(attackerTeam, attacker)
     }
 
     fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
@@ -107,6 +110,30 @@ class Area(
         }
     }
 
+
+
+    @EventHandler
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+
+        if (isEntityInArea(event.player) &&
+            areaManager.isGroundItem(event.player.itemInHand)) {
+
+            val team = gameManager.teamManager!!.getTeam(event.player)
+
+            team?.let {
+                onAttackEvent(
+                    team, event.player
+                )
+            } ?: {
+                // 플레이어가 그 어느팀에도 없을경우
+                // 암것도 실행하지 않음
+            }
+
+        }
+    }
+
+
+
     fun getEntities(): List<Entity> {
         // 해당 Area 내부의 모든 엔티티 가져오는 기능 추가
         // 해당 Area 가 포함하는 모든 청크만 일차적으로 가져오고,
@@ -139,25 +166,4 @@ class Area(
                 minZ <= entity.z && entity.z < maxZ)
     }
 
-
-
-    @EventHandler
-    fun onPlayerInteract(event: PlayerInteractEvent) {
-
-        if (isEntityInArea(event.player) &&
-            areaManager.isGroundItem(event.player.itemInHand)) {
-
-            val team = gameManager.teamManager!!.getTeam(event.player)
-
-            team?.let {
-                onAttackEvent(
-                    team, event.player
-                )
-            } ?: {
-                // 플레이어가 그 어느팀에도 없을경우
-                // 암것도 실행하지 않음
-            }
-
-        }
-    }
 }
