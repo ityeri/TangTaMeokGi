@@ -1,5 +1,6 @@
 package com.github.it.tangTaMeokGi.game
 
+import com.github.it.tangTaMeokGi.BukkitDispatcher
 import com.github.it.tangTaMeokGi.game.area.AreaManager
 import com.github.it.tangTaMeokGi.game.team.TeamManager
 import org.bukkit.Bukkit
@@ -8,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class GameManager(val plugin: JavaPlugin) {
     var isGameRunning = false
+
+    val dispatcher = BukkitDispatcher(plugin)
 
     val world: World = Bukkit.getWorld("world")!!
 
@@ -51,6 +54,7 @@ class GameManager(val plugin: JavaPlugin) {
         this.mapSize = mapSize
         this.areaSize = areaSize
         gameTime = gameTimeMin * 60
+        teamManager = TeamManager()
 
         initArea()
     }
@@ -72,7 +76,7 @@ class GameManager(val plugin: JavaPlugin) {
         areaManager!!.setWorldBorder()
     }
 
-    fun mapGenerate() {
+    suspend fun mapGenerate() {
         if (!checkSettingAvailable()) {
             throw IllegalStateException("필수 설정이 지정되지 않았습니다")
         }
