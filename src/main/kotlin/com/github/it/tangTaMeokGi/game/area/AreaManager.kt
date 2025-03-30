@@ -69,9 +69,15 @@ class AreaManager(
 
     suspend fun mapGenerate() {
 
+        Bukkit.getScheduler().callSyncMethod(plugin) {
+            Bukkit.getServer().sendMessage(Component.text(
+                "생성 시작"
+            ))
+        }
+
         val batch = BukkitSyncTaskBatch(plugin, 100)
 
-        val deferredTasks: MutableList<Deferred<Unit>> = mutableListOf()
+        val deferredTasks: MutableList<Job> = mutableListOf()
 
         batch.start()
 
@@ -93,22 +99,38 @@ class AreaManager(
                     }.get()
                 }
 
-                val deferred = CoroutineScope(Dispatchers.Default).async {
+                val job = CoroutineScope(Dispatchers.Default).launch {
                     getArea(x, z)!!.batchRegenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
                 }
 
                 Bukkit.getScheduler().callSyncMethod(plugin) {
-                    Bukkit.getServer().sendMessage(Component.text("끝"))
+                    Bukkit.getServer().sendMessage(Component.text(
+                        "[$x, $z] 영역 작업 예약 완료."
+                    ))
                 }
 
-//                deferredTasks.add(deferred)
+                deferredTasks.add(job)
             }
         }
 
-        for (deferred in deferredTasks) {
-            deferred.await()
+        Bukkit.getScheduler().callSyncMethod(plugin) {
+            Bukkit.getServer().sendMessage(Component.text(
+                "모든 작업 예약 완료. 대기 시작"
+            ))
+        }
+
+        for (job in deferredTasks) {
+            job.join()
+        }
+
+        batch.close()
+
+        Bukkit.getScheduler().callSyncMethod(plugin) {
+            Bukkit.getServer().sendMessage(Component.text(
+                "전체 완료"
+            ))
         }
 
     }
