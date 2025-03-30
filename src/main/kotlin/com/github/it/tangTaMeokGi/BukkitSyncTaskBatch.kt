@@ -42,11 +42,12 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
 
     fun run() {
         val startTime = System.currentTimeMillis()
-        val tasksArray = tasks.toList()
-        tasks.clear()
+        val taskAmount = tasks.size
 
 
-        for (task in tasksArray) {
+        for (i in 0 until taskAmount) {
+            val task = tasks.removeFirst()
+
             task.run()
 
             if (timeOutMillis <= System.currentTimeMillis() - startTime) {
