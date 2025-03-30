@@ -76,7 +76,7 @@ class GameManager(val plugin: JavaPlugin) {
         areaManager!!.setWorldBorder()
     }
 
-    fun mapGenerate() {
+    suspend fun mapGenerate() {
         if (!checkSettingAvailable()) {
             throw IllegalStateException("필수 설정이 지정되지 않았습니다")
         }
