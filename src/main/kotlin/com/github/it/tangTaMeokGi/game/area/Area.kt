@@ -102,16 +102,14 @@ class Area(
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
-                    withContext(gameManager.dispatcher) {
-                        if (targetBlock.type == Material.VOID_AIR) {
-                            thisWorldBlock.type = Material.AIR
-                        }
-
-                        thisWorldBlock.type = targetBlock.type
-                        thisWorldBlock.blockData = targetBlock.blockData
-                        thisWorldBlock.biome = targetBlock.biome
-                        targetBlock.state.copy(thisWorldBlock.location)
+                    if (targetBlock.type == Material.VOID_AIR) {
+                        thisWorldBlock.type = Material.AIR
                     }
+
+                    thisWorldBlock.type = targetBlock.type
+                    thisWorldBlock.blockData = targetBlock.blockData
+                    thisWorldBlock.biome = targetBlock.biome
+                    targetBlock.state.copy(thisWorldBlock.location)
 
 
                 }
