@@ -14,12 +14,12 @@ enum class AreaType {
 
     GENERAL_AREA {
         override fun setTypeThis(area: Area) {
-            TODO("Not yet implemented")
+            // TODO
         }
     },
     EFFECT_AREA {
         override fun setTypeThis(area: Area) {
-            TODO("Not yet implemented")
+            // TODO
         }
     },
 
@@ -35,12 +35,12 @@ enum class AreaType {
 
     WAR_GENERAL_AREA {
         override fun setTypeThis(area: Area) {
-            TODO("Not yet implemented")
+            // TODO
         }
     },
     WAR_EFFECT_AREA {
         override fun setTypeThis(area: Area) {
-            TODO("Not yet implemented")
+            // TODO
         }
     };
 
