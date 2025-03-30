@@ -8,6 +8,7 @@ import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 import kotlinx.coroutines.*
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 
 class AreaManager(
@@ -92,10 +93,14 @@ class AreaManager(
                     }.get()
                 }
 
-                val deferred = CoroutineScope(Dispatchers.Default).launch {
+                val deferred = CoroutineScope(Dispatchers.Default).async {
                     getArea(x, z)!!.batchRegenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
+                }
+
+                Bukkit.getScheduler().callSyncMethod(plugin) {
+                    Bukkit.getServer().sendMessage(Component.text("끝"))
                 }
 
 //                deferredTasks.add(deferred)
