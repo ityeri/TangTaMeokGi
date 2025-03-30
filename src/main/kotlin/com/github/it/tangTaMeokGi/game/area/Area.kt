@@ -119,9 +119,7 @@ class Area(
     }
 
     fun batchRegenerateFrom(batch: BukkitSyncTaskBatch,
-                            targetWorld: World, targetX: Int, targetZ: Int): Task {
-
-        val task = Task(true)
+                            targetWorld: World, targetX: Int, targetZ: Int) {
 
         val minY: Int
         val maxY: Int
@@ -162,10 +160,6 @@ class Area(
                 }
             }
         }
-        task.done()
-
-        return task
-
     }
 
 
