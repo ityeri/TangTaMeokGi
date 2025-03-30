@@ -4,6 +4,7 @@ import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.game.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.game.area.areaState.EmptyAreaState
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -157,6 +158,13 @@ class Area(
 
                 }
             }
+
+            Bukkit.getScheduler().callSyncMethod(plugin) {
+                Bukkit.getServer().sendMessage(Component.text(
+                    "[$x, $z] 영역의 y $y 영역 예약 완료"
+                ))
+            }
+
         }
     }
 
