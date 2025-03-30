@@ -4,10 +4,13 @@ import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.SubWorldUtils
 import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.GameManager
+import kotlinx.coroutines.runBlocking
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
+import kotlinx.coroutines.*
+import org.checkerframework.framework.qual.DefaultFor
 
 class AreaManager(
     val gameManager: GameManager,
@@ -70,6 +73,8 @@ class AreaManager(
 
         val batch = BukkitSyncTaskBatch(plugin, 100)
 
+        val deferredTasks: MutableList<Deferred<Unit>> = mutableListOf()
+
         batch.start()
 
         for (z in 0 until  mapSize) {
@@ -82,9 +87,13 @@ class AreaManager(
                     world = SubWorldUtils.getSubNetherWorld()
                 }
 
-                getArea(x, z)!!.batchRegenerateFrom(batch,
-                    world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
-                )
+                val task = CoroutineScope(Dispatchers.Default).async {
+                    getArea(x, z)!!.batchRegenerateFrom(batch,
+                        world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                    )
+                }
+
+                deferredTasks.add(task)
             }
         }
 
