@@ -81,11 +81,9 @@ class AreaManager(
 
         val jobs: MutableList<Job> = mutableListOf()
 
-        batch.start()
-
-        batch.addTask(
-            Runnable { setWorldBorder() }
-        )
+        Bukkit.getScheduler().callSyncMethod(plugin) {
+            setWorldBorder()
+        }
 
         for (z in 0 until  mapSize) {
             for (x in 0 until mapSize) {
@@ -122,7 +120,7 @@ class AreaManager(
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
-                "모든 작업 예약 완료. 대기 시작"
+                "모든 작업 예약 완료. 대기 및 예약된 작업 실행 시작"
             ))
         }
 
@@ -132,8 +130,9 @@ class AreaManager(
 
         for (batch in batches) {
             batch.close()
-            batch.join()
+            batch.start()
         }
+        for (batch in batches) { batch.join() }
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
