@@ -92,13 +92,13 @@ class AreaManager(
                     }.get()
                 }
 
-                val deferred = CoroutineScope(Dispatchers.Default).async {
+                val deferred = CoroutineScope(Dispatchers.Default).launch {
                     getArea(x, z)!!.batchRegenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
                 }
 
-                deferredTasks.add(deferred)
+//                deferredTasks.add(deferred)
             }
         }
 
