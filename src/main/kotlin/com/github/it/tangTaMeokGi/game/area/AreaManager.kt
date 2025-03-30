@@ -8,6 +8,7 @@ import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 import kotlinx.coroutines.*
+import org.bukkit.Bukkit
 
 class AreaManager(
     val gameManager: GameManager,
@@ -66,13 +67,16 @@ class AreaManager(
     }
 
     suspend fun mapGenerate() {
-        setWorldBorder()
 
         val batch = BukkitSyncTaskBatch(plugin, 100)
 
         val deferredTasks: MutableList<Deferred<Unit>> = mutableListOf()
 
         batch.start()
+
+        batch.addTask(
+            Runnable { setWorldBorder() }
+        )
 
         for (z in 0 until  mapSize) {
             for (x in 0 until mapSize) {
