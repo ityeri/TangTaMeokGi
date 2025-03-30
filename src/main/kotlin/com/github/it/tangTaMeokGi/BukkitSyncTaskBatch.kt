@@ -6,13 +6,13 @@ import org.bukkit.plugin.Plugin
 
 class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     var isRunning: Boolean = false
-    val tasks: MutableList<Runnable> = mutableListOf()
+    val taskQue: MutableList<Runnable> = mutableListOf()
 
     var taskId: Int? = null
 
     fun addTask(runnable: Runnable) {
-        synchronized(tasks) {
-            tasks.add(runnable)
+        synchronized(taskQue) {
+            taskQue.add(runnable)
         }
     }
 
@@ -39,19 +39,19 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     }
 
     fun join() {
-        while (0 < tasks.size) {}
+        while (0 < taskQue.size) {}
     }
 
     fun run() {
         val startTime = System.currentTimeMillis()
-        val taskAmount = tasks.size
+        val taskAmount = taskQue.size
 
 
         for (i in 0 until taskAmount) {
             val task: Runnable?
             try {
-                synchronized(tasks) {
-                    task = tasks.removeFirst()
+                synchronized(taskQue) {
+                    task = taskQue.removeFirst()
                 }
             } catch (e: NoSuchElementException) {
                 break
