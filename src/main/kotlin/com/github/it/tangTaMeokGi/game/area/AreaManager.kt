@@ -75,6 +75,8 @@ class AreaManager(
             ))
         }
 
+        val scope = CoroutineScope(Dispatchers.Default + Job())
+
         val batch = BukkitSyncTaskBatch(plugin, 100)
 
         val jobs: MutableList<Job> = mutableListOf()
@@ -99,7 +101,7 @@ class AreaManager(
                     }.get()
                 }
 
-                val job = CoroutineScope(Dispatchers.Default).launch {
+                val job = scope.launch {
                     getArea(x, z)!!.batchGenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
