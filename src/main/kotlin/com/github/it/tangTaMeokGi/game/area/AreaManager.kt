@@ -99,7 +99,7 @@ class AreaManager(
                     }.get()
                 }
 
-                val batch = BukkitSyncTaskBatch(plugin, 100)
+                val batch = BukkitSyncTaskBatch(plugin, 10)
                 batches.add(batch)
 
                 val job = scope.launch {
