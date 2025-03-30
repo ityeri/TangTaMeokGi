@@ -77,7 +77,7 @@ class AreaManager(
 
         val batch = BukkitSyncTaskBatch(plugin, 100)
 
-        val deferredTasks: MutableList<Job> = mutableListOf()
+        val jobs: MutableList<Job> = mutableListOf()
 
         batch.start()
 
@@ -100,7 +100,7 @@ class AreaManager(
                 }
 
                 val job = CoroutineScope(Dispatchers.Default).launch {
-                    getArea(x, z)!!.batchRegenerateFrom(batch,
+                    getArea(x, z)!!.batchGenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
                 }
@@ -111,7 +111,7 @@ class AreaManager(
                     ))
                 }
 
-                deferredTasks.add(job)
+                jobs.add(job)
             }
         }
 
@@ -121,11 +121,12 @@ class AreaManager(
             ))
         }
 
-        for (job in deferredTasks) {
+        for (job in jobs) {
             job.join()
         }
 
         batch.close()
+        batch.join()
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
