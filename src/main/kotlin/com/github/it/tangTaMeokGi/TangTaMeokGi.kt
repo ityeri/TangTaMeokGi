@@ -19,8 +19,8 @@ class TangTaMeokGi : JavaPlugin() {
 
     val gameManager = GameManager(this)
 
-    lateinit var testPlayer: Player
-    lateinit var testArea: Area
+//    lateinit var testPlayer: Player
+//    lateinit var testArea: Area
 
 
     override fun onEnable() {
@@ -34,19 +34,18 @@ class TangTaMeokGi : JavaPlugin() {
             gameManager.mapGenerate()
         }
 
-        testArea = gameManager.areaManager!!.getArea(1, 1)!!
-
-        gameManager.teamManager!!.addTeam(
-            Team("test", "test", Color.RED)
-        )
-
-        testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
-        gameManager.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
-
-        testArea.enable()
+//        testArea = gameManager.areaManager!!.getArea(1, 1)!!
+//
+//        gameManager.teamManager!!.addTeam(
+//            Team("test", "test", Color.RED)
+//        )
+//
+//        testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
+//        gameManager.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
+//
+//        testArea.enable()
     }
 
     override fun onDisable() {
-        pluginScope.cancel()
     }
 }
