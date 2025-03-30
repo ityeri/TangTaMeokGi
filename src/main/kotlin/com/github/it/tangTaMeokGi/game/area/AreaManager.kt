@@ -72,8 +72,6 @@ class AreaManager(
 
         batch.start()
 
-        val tasks: MutableList<Task> = mutableListOf()
-
         for (z in 0 until  mapSize) {
             for (x in 0 until mapSize) {
                 val world: World
