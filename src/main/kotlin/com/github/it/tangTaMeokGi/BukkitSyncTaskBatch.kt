@@ -53,6 +53,10 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
                 break
             }
 
+            if (task == null) {
+                continue
+            }
+
             task.run()
 
             if (timeOutMillis <= System.currentTimeMillis() - startTime) {
