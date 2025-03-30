@@ -2,15 +2,12 @@ package com.github.it.tangTaMeokGi.game.area
 
 import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.SubWorldUtils
-import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.GameManager
-import kotlinx.coroutines.runBlocking
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 import kotlinx.coroutines.*
-import org.checkerframework.framework.qual.DefaultFor
 
 class AreaManager(
     val gameManager: GameManager,
@@ -68,7 +65,7 @@ class AreaManager(
         }
     }
 
-    fun mapGenerate() {
+    suspend fun mapGenerate() {
         setWorldBorder()
 
         val batch = BukkitSyncTaskBatch(plugin, 100)
@@ -87,14 +84,18 @@ class AreaManager(
                     world = SubWorldUtils.getSubNetherWorld()
                 }
 
-                val task = CoroutineScope(Dispatchers.Default).async {
+                val deferred = CoroutineScope(Dispatchers.Default).async {
                     getArea(x, z)!!.batchRegenerateFrom(batch,
                         world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
                     )
                 }
 
-                deferredTasks.add(task)
+                deferredTasks.add(deferred)
             }
+        }
+
+        for (deferred in deferredTasks) {
+            deferred.await()
         }
 
     }
