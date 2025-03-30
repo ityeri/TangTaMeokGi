@@ -84,13 +84,9 @@ class AreaManager(
                     world = SubWorldUtils.getSubNetherWorld()
                 }
 
-                val thread = Thread {
-                    getArea(x, z)!!.batchRegenerateFrom(batch,
-                        world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
-                    )
-                }
-
-                thread.start()
+                getArea(x, z)!!.batchRegenerateFrom(batch,
+                    world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                )
             }
         }
 
