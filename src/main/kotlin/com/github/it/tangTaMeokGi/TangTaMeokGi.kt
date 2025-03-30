@@ -3,6 +3,8 @@ package com.github.it.tangTaMeokGi
 import com.github.it.tangTaMeokGi.game.area.Area
 import com.github.it.tangTaMeokGi.game.GameManager
 import com.github.it.tangTaMeokGi.game.team.Team
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Runnable
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Color
@@ -10,7 +12,11 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
-class TangTaMeokGi : JavaPlugin(), Listener {
+
+
+class TangTaMeokGi : JavaPlugin() {
+    val pluginScope = CoroutineScope(Dispatchers.Default + Job())
+
     val gameManager = GameManager(this)
 
     lateinit var testPlayer: Player
@@ -21,10 +27,12 @@ class TangTaMeokGi : JavaPlugin(), Listener {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
 
         gameManager.init(
-            mapSize = 4, areaSize = 4, gameTimeMin = 1
+            mapSize = 4, areaSize = 16, gameTimeMin = 1
         )
 
-        gameManager.mapGenerate()
+        pluginScope.launch {
+            gameManager.mapGenerate()
+        }
 
         testArea = gameManager.areaManager!!.getArea(1, 1)!!
 
@@ -32,12 +40,13 @@ class TangTaMeokGi : JavaPlugin(), Listener {
             Team("test", "test", Color.RED)
         )
 
+        testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
         gameManager.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
 
         testArea.enable()
     }
 
     override fun onDisable() {
-        // Plugin shutdown logic
+        pluginScope.cancel()
     }
 }
