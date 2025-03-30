@@ -1,12 +1,10 @@
 package com.github.it.tangTaMeokGi.game.area
 
-import com.github.it.tangTaMeokGi.BukkitDispatcher
-import com.github.it.tangTaMeokGi.BukkitSynchronousBatch
+import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.game.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.game.area.areaState.EmptyAreaState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -122,8 +120,8 @@ class Area(
 
     }
 
-    fun batchRegenerateFrom(batch: BukkitSynchronousBatch,
-                                    targetWorld: World, targetX: Int, targetZ: Int): Task {
+    fun batchRegenerateFrom(batch: BukkitSyncTaskBatch,
+                            targetWorld: World, targetX: Int, targetZ: Int): Task {
 
         val task = Task(true)
 

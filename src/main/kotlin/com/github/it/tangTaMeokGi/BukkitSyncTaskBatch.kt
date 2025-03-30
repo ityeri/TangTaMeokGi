@@ -4,7 +4,7 @@ import kotlinx.coroutines.Runnable
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 
-class BukkitSynchronousBatch(val plugin: Plugin, val timeOutMillis: Int) {
+class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     var isRunning: Boolean = false
     val tasks: MutableList<Runnable> = mutableListOf()
 

@@ -1,12 +1,9 @@
 package com.github.it.tangTaMeokGi.game.area
 
-import com.github.it.tangTaMeokGi.BukkitSynchronousBatch
+import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.SubWorldUtils
 import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.GameManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
@@ -71,7 +68,7 @@ class AreaManager(
     fun mapGenerate() {
         setWorldBorder()
 
-        val batch = BukkitSynchronousBatch(plugin, 100)
+        val batch = BukkitSyncTaskBatch(plugin, 100)
 
         batch.start()
 
