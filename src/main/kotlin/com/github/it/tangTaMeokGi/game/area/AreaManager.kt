@@ -1,7 +1,11 @@
 package com.github.it.tangTaMeokGi.game.area
 
+import com.github.it.tangTaMeokGi.BukkitSynchronousBatch
 import com.github.it.tangTaMeokGi.SubWorldUtils
+import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.GameManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -18,7 +22,6 @@ class AreaManager(
     val world = gameManager.world
 
     val areaMap: MutableList<MutableList<Area>> = MutableList(mapSize) { mutableListOf() }
-
     
     fun isGroundItem(item: ItemStack): Boolean {
         // TODO 이 매서드는 GameManager 로 옮기거나 암튼 더 합리적인 위치로 이동 ㄱ
@@ -65,54 +68,56 @@ class AreaManager(
         }
     }
 
-    fun mapGenerate() {
-        setWorldBorder()
+    suspend fun mapGenerate() {
+        withContext(gameManager.dispatcher) {
+                setWorldBorder()
+        }
+
+        val batch = BukkitSynchronousBatch(plugin, 100)
 
         val totalMapSize: Int = mapSize * areaSize
-
-
-        Bukkit.getLogger()
-            .info("청크 기준 크기: $mapSize * $mapSize | 총 크기: $totalMapSize * $totalMapSize 영역의 생성을 시작합니다.")
-
-
 
         val totalProgress: Double = (mapSize * mapSize).toDouble()
         var currentProgress: Int = 0
 
-        var x = 0
-        var z = 0
+        Bukkit.getLogger()
+            .info("청크 기준 크기: $mapSize * $mapSize" +
+                    " | 총 크기: $totalMapSize * $totalMapSize 영역의 생성을 시작합니다.")
 
-        var taskId = -1
+        batch.start()
 
-        taskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
-            val world: World
-            if (Random.nextFloat() < 0.7) {
-                world = SubWorldUtils.getSubOverWorld()
-            } else {
-                world = SubWorldUtils.getSubNetherWorld()
+        val tasks: MutableList<Task> = mutableListOf()
+
+        withContext(Dispatchers.IO) {
+            for (z in 0 until  mapSize) {
+                for (x in 0 until mapSize) {
+                    val world: World
+
+                    withContext(gameManager.dispatcher) {
+                        if (Random.nextFloat() < 0.7) {
+                            world = SubWorldUtils.getSubOverWorld()
+                        } else {
+                            world = SubWorldUtils.getSubNetherWorld()
+                        }
+                    }
+
+                    val thread = Thread {
+                        getArea(x, z)!!.batchRegenerateFrom(batch,
+                            world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                        )
+                    }
+
+                    thread.start()
+                }
             }
-            getArea(x, z)!!.regenerateFrom(
-                world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
-            )
+        }
 
-            currentProgress += 1
-
-            Bukkit.getLogger()
-                .info("${((currentProgress / totalProgress) * 100).toInt()} % | [$x, $z] / [$mapSize, $mapSize] 영역 완료.")
-
-            x += 1
-
-            if (mapSize <= x) {
-                x = 0; z += 1
-            }
-            if (mapSize <= z) {
-                Bukkit.getLogger()
-                    .info("청크 기준 크기: $mapSize * $mapSize | 총 크기: $totalMapSize * $totalMapSize 영역의 생성이 완료되었습니다.")
-
-                Bukkit.getScheduler().cancelTask(taskId)
-            }
-
-        }, 0L, 1L).taskId
+//        for (task in tasks) {
+//            task.join()
+//        }
+//
+//        batch.join()
+//        batch.stop()
     }
 
 
