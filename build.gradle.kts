@@ -1,12 +1,14 @@
+tasks {
+    jar {
+        destinationDirectory.set(file(".server\\plugins"))
+    }
+}
+
+
+
 plugins {
     kotlin("jvm") version "2.1.20-Beta1"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-}
-
-tasks {
-    jar {
-        destinationDirectory.set(file(".서버 플러그인 폴더경로"))
-    }
 }
 
 group = "com.github.it"
@@ -14,9 +16,11 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+
     maven("https://repo.papermc.io/repository/maven-public/") {
         name = "papermc-repo"
     }
+
     maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
     }
@@ -27,6 +31,9 @@ repositories {
 }
 
 dependencies {
+    // 코루틴
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
     // 패이퍼 / 스피갓 / 코틀린
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -34,6 +41,8 @@ dependencies {
 
     // CommandFramework
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+
+
 }
 
 val targetJavaVersion = 21
@@ -46,8 +55,8 @@ tasks.build {
 }
 
 tasks.shadowJar {
-    relocate("co.aikar.commands", "me.it.chunkHah.acf")
-    relocate("co.aikar.locales", "me.it.chunkHah.locales")
+    relocate("co.aikar.commands", "com.github.it.tangTaMeokGi")
+    relocate("co.aikar.locales", "com.github.it.tangTaMeokGi")
 }
 
 tasks.processResources {
@@ -59,9 +68,10 @@ tasks.processResources {
     }
 }
 
+
 tasks.jar {
     manifest {
-        attributes["Implementation-Title"] = "땅따먹기"
+        attributes["Implementation-Title"] = "탕타묵기"
         attributes["Implementation-Version"] = version
     }
     from(configurations.compileClasspath.get().filter { it.name.endsWith("kotlin-stdlib.jar") }.map { if (it.isDirectory) it else zipTree(it) })
@@ -69,7 +79,7 @@ tasks.jar {
     // To avoid the duplicate handling strategy error
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    // To add all of the dependencies
+    // To add all the dependencies
     from(sourceSets.main.get().output)
 
     dependsOn(configurations.runtimeClasspath)
