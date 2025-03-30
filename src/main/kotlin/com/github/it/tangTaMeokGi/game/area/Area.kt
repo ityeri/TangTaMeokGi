@@ -1,8 +1,13 @@
 package com.github.it.tangTaMeokGi.game.area
 
+import com.github.it.tangTaMeokGi.BukkitDispatcher
+import com.github.it.tangTaMeokGi.BukkitSynchronousBatch
+import com.github.it.tangTaMeokGi.Task
 import com.github.it.tangTaMeokGi.game.team.Team
 import com.github.it.tangTaMeokGi.game.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.game.area.areaState.EmptyAreaState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -14,6 +19,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import kotlin.math.ceil
 import kotlin.math.floor
+
+
 
 class Area(
     val areaManager: AreaManager,
@@ -70,7 +77,8 @@ class Area(
         state.onAttackEvent(attackerTeam, attacker)
     }
 
-    fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
+    suspend fun regenerateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
+
         val minY: Int
         val maxY: Int
 
@@ -84,6 +92,7 @@ class Area(
         for (y in minY until maxY) {
             for (z in 0 until size) {
                 for (x in 0 until size) {
+
                     val thisWorldX = minX + x
                     val thisWorldZ = minZ + z
 
@@ -95,19 +104,72 @@ class Area(
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
+                    withContext(gameManager.dispatcher) {
+                        if (targetBlock.type == Material.VOID_AIR) {
+                            thisWorldBlock.type = Material.AIR
+                        }
 
-                    if (targetBlock.type == Material.VOID_AIR) {
-                        thisWorldBlock.type = Material.AIR
+                        thisWorldBlock.type = targetBlock.type
+                        thisWorldBlock.blockData = targetBlock.blockData
+                        thisWorldBlock.biome = targetBlock.biome
+                        targetBlock.state.copy(thisWorldBlock.location)
                     }
-
-                    thisWorldBlock.type = targetBlock.type
-                    thisWorldBlock.blockData = targetBlock.blockData
-                    thisWorldBlock.biome = targetBlock.biome
 
 
                 }
             }
         }
+
+    }
+
+    fun batchRegenerateFrom(batch: BukkitSynchronousBatch,
+                                    targetWorld: World, targetX: Int, targetZ: Int): Task {
+
+        val task = Task(true)
+
+        val minY: Int
+        val maxY: Int
+
+        if (targetWorld.minHeight < world.minHeight) minY = targetWorld.minHeight
+        else minY = world.minHeight
+
+        if (world.maxHeight < targetWorld.maxHeight) maxY = targetWorld.maxHeight
+        else maxY = world.maxHeight
+
+
+        for (y in minY until maxY) {
+            for (z in 0 until size) {
+                for (x in 0 until size) {
+
+                    val thisWorldX = minX + x
+                    val thisWorldZ = minZ + z
+
+                    val targetWorldX = targetX + x
+                    val targetWorldZ = targetZ + z
+
+                    // targetWorld 로부터 복사할 블럭을 가져옴
+                    val targetBlock = targetWorld.getBlockAt(targetWorldX, y, targetWorldZ)
+                    // world 로부터 붙여넣을 블럭알 가져옴
+                    val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
+
+                    batch.addTask(Runnable {
+                        if (targetBlock.type == Material.VOID_AIR) {
+                            thisWorldBlock.type = Material.AIR
+                        }
+
+                        thisWorldBlock.type = targetBlock.type
+                        thisWorldBlock.blockData = targetBlock.blockData
+                        thisWorldBlock.biome = targetBlock.biome
+                        targetBlock.state.copy(thisWorldBlock.location)
+                    })
+
+                }
+            }
+        }
+        task.done()
+
+        return task
+
     }
 
 
