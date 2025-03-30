@@ -78,10 +78,6 @@ class AreaManager(
         val totalProgress: Double = (mapSize * mapSize).toDouble()
         var currentProgress: Int = 0
 
-        Bukkit.getLogger()
-            .info("청크 기준 크기: $mapSize * $mapSize" +
-                    " | 총 크기: $totalMapSize * $totalMapSize 영역의 생성을 시작합니다.")
-
         batch.start()
 
         val tasks: MutableList<Task> = mutableListOf()
@@ -106,12 +102,6 @@ class AreaManager(
             }
         }
 
-//        for (task in tasks) {
-//            task.join()
-//        }
-//
-//        batch.join()
-//        batch.stop()
     }
 
 
