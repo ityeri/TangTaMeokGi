@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi
 import kotlinx.coroutines.Runnable
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
+import kotlin.random.Random
 
 class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     var isRunning: Boolean = false
@@ -49,12 +50,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
 
         for (i in 0 until taskAmount) {
             val task: Runnable?
-            try {
-                synchronized(taskQue) {
-                    task = taskQue.removeFirst()
-                }
-            } catch (e: NoSuchElementException) {
-                break
+            synchronized(taskQue) {
+                task = taskQue.removeAt(Random.nextInt(0, taskQue.size))
             }
 
             if (task == null) {
