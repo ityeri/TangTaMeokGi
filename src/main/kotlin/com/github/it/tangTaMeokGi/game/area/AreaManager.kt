@@ -68,10 +68,8 @@ class AreaManager(
         }
     }
 
-    suspend fun mapGenerate() {
-        withContext(gameManager.dispatcher) {
-                setWorldBorder()
-        }
+    fun mapGenerate() {
+        setWorldBorder()
 
         val batch = BukkitSynchronousBatch(plugin, 100)
 
@@ -88,27 +86,23 @@ class AreaManager(
 
         val tasks: MutableList<Task> = mutableListOf()
 
-        withContext(Dispatchers.IO) {
-            for (z in 0 until  mapSize) {
-                for (x in 0 until mapSize) {
-                    val world: World
+        for (z in 0 until  mapSize) {
+            for (x in 0 until mapSize) {
+                val world: World
 
-                    withContext(gameManager.dispatcher) {
-                        if (Random.nextFloat() < 0.7) {
-                            world = SubWorldUtils.getSubOverWorld()
-                        } else {
-                            world = SubWorldUtils.getSubNetherWorld()
-                        }
-                    }
-
-                    val thread = Thread {
-                        getArea(x, z)!!.batchRegenerateFrom(batch,
-                            world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
-                        )
-                    }
-
-                    thread.start()
+                if (Random.nextFloat() < 0.7) {
+                    world = SubWorldUtils.getSubOverWorld()
+                } else {
+                    world = SubWorldUtils.getSubNetherWorld()
                 }
+
+                val thread = Thread {
+                    getArea(x, z)!!.batchRegenerateFrom(batch,
+                        world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                    )
+                }
+
+                thread.start()
             }
         }
 
