@@ -59,7 +59,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
         for (i in 0 until taskAmount) {
             val task: Runnable?
             synchronized(taskQue) {
-                task = taskQue.removeAt(Random.nextInt(0, taskQue.size))
+                task = taskQue.removeFirst()
+//                task = taskQue.removeAt(Random.nextInt(0, taskQue.size))
             }
 
             if (task == null) {
