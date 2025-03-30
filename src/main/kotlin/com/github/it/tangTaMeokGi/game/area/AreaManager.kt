@@ -82,10 +82,12 @@ class AreaManager(
             for (x in 0 until mapSize) {
                 val world: World
 
-                if (Random.nextFloat() < 0.7) {
-                    world = SubWorldUtils.getSubOverWorld()
-                } else {
-                    world = SubWorldUtils.getSubNetherWorld()
+                Bukkit.getScheduler().run {
+                    if (Random.nextFloat() < 0.7) {
+                        world = SubWorldUtils.getSubOverWorld()
+                    } else {
+                        world = SubWorldUtils.getSubNetherWorld()
+                    }
                 }
 
                 val deferred = CoroutineScope(Dispatchers.Default).async {
