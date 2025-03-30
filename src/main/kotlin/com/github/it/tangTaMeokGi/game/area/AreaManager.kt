@@ -73,11 +73,6 @@ class AreaManager(
 
         val batch = BukkitSynchronousBatch(plugin, 100)
 
-        val totalMapSize: Int = mapSize * areaSize
-
-        val totalProgress: Double = (mapSize * mapSize).toDouble()
-        var currentProgress: Int = 0
-
         batch.start()
 
         val tasks: MutableList<Task> = mutableListOf()
