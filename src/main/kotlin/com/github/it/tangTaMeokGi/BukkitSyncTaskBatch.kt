@@ -11,7 +11,9 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     var taskId: Int? = null
 
     fun addTask(runnable: Runnable) {
-        tasks.add(runnable)
+        synchronized(tasks) {
+            tasks.add(runnable)
+        }
     }
 
     fun start() {
@@ -48,7 +50,9 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
         for (i in 0 until taskAmount) {
             val task: Runnable?
             try {
-                task = tasks.removeFirst()
+                synchronized(tasks) {
+                    task = tasks.removeFirst()
+                }
             } catch (e: NoSuchElementException) {
                 break
             }
