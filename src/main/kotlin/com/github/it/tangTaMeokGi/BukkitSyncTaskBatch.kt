@@ -7,11 +7,16 @@ import kotlin.random.Random
 
 class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     var isRunning: Boolean = false
+    var isOpen: Boolean = true
     val taskQue: MutableList<Runnable> = mutableListOf()
 
     var taskId: Int? = null
 
     fun addTask(runnable: Runnable) {
+        if (!isOpen) {
+            throw RuntimeException("batch 가 열려있지 않습니다")
+        }
+
         synchronized(taskQue) {
             taskQue.add(runnable)
         }
@@ -38,6 +43,9 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
 
         isRunning = false
     }
+
+    fun open() { isOpen = true }
+    fun close() { isOpen = false }
 
     fun join() {
         while (0 < taskQue.size) {}
