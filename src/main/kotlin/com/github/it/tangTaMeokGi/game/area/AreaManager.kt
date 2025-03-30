@@ -77,7 +77,7 @@ class AreaManager(
 
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
-        val batch = BukkitSyncTaskBatch(plugin, 100)
+        val batches: MutableList<BukkitSyncTaskBatch> = mutableListOf()
 
         val jobs: MutableList<Job> = mutableListOf()
 
@@ -100,6 +100,9 @@ class AreaManager(
                         SubWorldUtils.getSubNetherWorld()
                     }.get()
                 }
+
+                val batch = BukkitSyncTaskBatch(plugin, 100)
+                batches.add(batch)
 
                 val job = scope.launch {
                     getArea(x, z)!!.batchGenerateFrom(batch,
@@ -127,8 +130,10 @@ class AreaManager(
             job.join()
         }
 
-        batch.close()
-        batch.join()
+        for (batch in batches) {
+            batch.close()
+            batch.join()
+        }
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
