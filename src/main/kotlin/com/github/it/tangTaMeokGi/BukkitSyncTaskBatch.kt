@@ -46,7 +46,12 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
 
 
         for (i in 0 until taskAmount) {
-            val task = tasks.removeFirst()
+            val task: Runnable?
+            try {
+                task = tasks.removeFirst()
+            } catch (e: NoSuchElementException) {
+                break
+            }
 
             task.run()
 
