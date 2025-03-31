@@ -1,6 +1,6 @@
 package com.github.it.tangTaMeokGi.game
 
-import com.github.it.tangTaMeokGi.BukkitDispatcher
+import com.github.it.tangTaMeokGi.GameSetting
 import com.github.it.tangTaMeokGi.game.area.AreaManager
 import com.github.it.tangTaMeokGi.game.team.TeamManager
 import org.bukkit.Bukkit
@@ -10,18 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin
 class GameManager(val plugin: JavaPlugin) {
     var isGameRunning = false
 
-    val dispatcher = BukkitDispatcher(plugin)
-
     val world: World = Bukkit.getWorld("world")!!
 
-    var mapSize: Int? = null
-    var areaSize: Int? = null
-
     var areaManager: AreaManager? = null
-
     var teamManager: TeamManager? = null
 
-    var gameTime: Int? = null
+    var setting: GameSetting? = null
 
     var gameStartTime: Int? = null
     var gameEndTime: Int? = null
@@ -30,8 +24,6 @@ class GameManager(val plugin: JavaPlugin) {
 
 
     fun reset() {
-        mapSize = null
-        areaSize = null
 
         areaManager.let {
             areaManager!!.disableAll()
@@ -40,7 +32,7 @@ class GameManager(val plugin: JavaPlugin) {
         areaManager = null
         teamManager = null
 
-        gameTime = null
+        setting = null
 
         gameStartTime = null
         gameEndTime = null
@@ -49,27 +41,34 @@ class GameManager(val plugin: JavaPlugin) {
     fun init(
         mapSize: Int,
         areaSize: Int,
-        gameTimeMin: Int
+        totalGameTimeMin: Int,
+        warTimeSec: Int
     ) {
-        this.mapSize = mapSize
-        this.areaSize = areaSize
-        gameTime = gameTimeMin * 60
+        setting = GameSetting(
+            mapSize = mapSize,
+            areaSize = areaSize,
+            totalGameTime = totalGameTimeMin * 60,
+            warTime = warTimeSec
+        )
+
         teamManager = TeamManager()
 
         initArea()
     }
 
+
+
     fun initArea() {
 
-        if (!checkSettingAvailable()) {
-            throw IllegalStateException("필수 설정이 지정되지 않았습니다")
+        setting ?: {
+            throw IllegalStateException("설정이 지정되지 않았습니다")
         }
 
         areaManager = AreaManager(
             gameManager = this,
 
-            mapSize = mapSize!!,
-            areaSize = areaSize!!
+            mapSize = setting!!.mapSize,
+            areaSize = setting!!.areaSize
         )
 
         areaManager!!.generate()
@@ -77,21 +76,11 @@ class GameManager(val plugin: JavaPlugin) {
     }
 
     suspend fun mapGenerate() {
-        if (!checkSettingAvailable()) {
-            throw IllegalStateException("필수 설정이 지정되지 않았습니다")
+        setting ?: {
+            throw IllegalStateException("설정이 지정되지 않았습니다")
         }
 
         areaManager!!.mapGenerate()
-    }
-
-
-
-    fun checkSettingAvailable(): Boolean {
-        mapSize ?: run { return false }
-        areaSize ?: run { return false }
-        gameTime ?: run { return false }
-
-        return true
     }
 
 
