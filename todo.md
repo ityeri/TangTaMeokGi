@@ -1,0 +1,1 @@
+* onAttackEvent 테스트 (AreaState 단계에서)
