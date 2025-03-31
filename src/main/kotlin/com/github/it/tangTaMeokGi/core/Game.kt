@@ -1,6 +1,5 @@
 package com.github.it.tangTaMeokGi.core
 
-import com.github.it.tangTaMeokGi.GameSetting
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
