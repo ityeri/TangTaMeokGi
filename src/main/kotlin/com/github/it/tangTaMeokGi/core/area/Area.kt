@@ -82,7 +82,15 @@ class Area(
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
         val attackEvent = AttackEvent(attackerTeam, attacker, this)
-        state.onAttack(attackEvent)
+        // TODO 나중에 개발할 GameEventDispatcher 에서 먼저 처리하는 코드 이 위치에 추가
+
+        if (!attackEvent.canceled) {
+            state.onAttack(attackEvent)
+
+            if(!attackEvent.canceled) {
+                attacker.inventory.removeItem()
+            }
+        }
     }
 
     suspend fun generateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
