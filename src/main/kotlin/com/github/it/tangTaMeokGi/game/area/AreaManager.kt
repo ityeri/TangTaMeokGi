@@ -75,9 +75,6 @@ class AreaManager(
             ))
         }
 
-        // TODO BukkitBatch 의 타임아웃 빈도수 체크
-        // 서버 초기화 하고 테스트 ㄱ
-
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
         val batch = BukkitSyncTaskBatch(plugin, 400, 512)
@@ -120,7 +117,7 @@ class AreaManager(
 
                 Bukkit.getScheduler().callSyncMethod(plugin) {
                     Bukkit.getServer().sendMessage(Component.text(
-                        "[$x, $z] 영역 작업 예약 완료."
+                        "[$x, $z] 영역 완료."
                     ))
                 }
 
@@ -129,12 +126,6 @@ class AreaManager(
         }
 
         batch.stop()
-
-//        Bukkit.getScheduler().callSyncMethod(plugin) {
-//            Bukkit.getServer().sendMessage(Component.text(
-//                "모든 작업 예약 완료. 예약된 작업 완료 대기 시작"
-//            ))
-//        }
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
