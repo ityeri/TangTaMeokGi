@@ -5,6 +5,7 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
+import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -82,13 +83,13 @@ class Area(
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
         val attackEvent = AttackEvent(attackerTeam, attacker, this)
-        // TODO 나중에 개발할 GameEventDispatcher 에서 먼저 처리하는 코드 이 위치에 추가
+        GameEventDispatcher.callEvent(attackEvent)
 
         if (!attackEvent.canceled) {
             state.onAttack(attackEvent)
 
             if(!attackEvent.canceled) {
-                attacker.inventory.removeItem()
+                attacker.inventory.removeItem(attacker.inventory.itemInHand)
             }
         }
     }
