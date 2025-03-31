@@ -2,6 +2,10 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.event.AttackEvent
+import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
+import com.github.it.tangTaMeokGi.core.event.GameEventHandler
+import com.github.it.tangTaMeokGi.core.event.GameEventListener
 import com.github.it.tangTaMeokGi.core.team.Team
 import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
@@ -12,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 
 
-class TangTaMeokGi : JavaPlugin() {
+class TangTaMeokGi : JavaPlugin(), GameEventListener {
     val pluginScope = CoroutineScope(Dispatchers.Default + Job())
 
     val game = Game(this)
@@ -46,8 +50,15 @@ class TangTaMeokGi : JavaPlugin() {
 
         testArea.enable()
         println(testArea.type)
+
+        GameEventDispatcher.register(this)
     }
 
     override fun onDisable() {
+    }
+
+    @GameEventHandler
+    fun onAttack(event: AttackEvent) {
+        event.attacker.sendMessage("이벤트 리스너 테스느")
     }
 }
