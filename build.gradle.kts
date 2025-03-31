@@ -33,6 +33,8 @@ repositories {
 dependencies {
     // 코루틴
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    // 리플렉션
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.20-Beta1")
 
     // 패이퍼 / 스피갓 / 코틀린
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
