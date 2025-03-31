@@ -78,7 +78,7 @@ class AreaManager(
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
         val batches: List<BukkitSyncTaskBatch> =
-            (0 until 4).map { BukkitSyncTaskBatch(plugin, 10) }
+            (0 until 4).map { BukkitSyncTaskBatch(plugin, 100) }
         batches.map { it.start() }
 
         val jobs: MutableList<Job> = mutableListOf()
