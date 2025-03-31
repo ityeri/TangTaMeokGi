@@ -19,7 +19,7 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
         }
 
         // 쓰레드나 비동기 관련 이슈로 delay 가 있어야 전역 블로킹이 안걸림
-        while (maxQueSize <= taskQue.size) { delay(0) }
+//        while (maxQueSize <= taskQue.size) { delay(0) }
 
         synchronized(taskQue) {
             taskQue.add(runnable)
@@ -59,6 +59,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
     fun run() {
         val startTime = System.currentTimeMillis()
         val taskAmount = taskQue.size
+
+        println("테스킹중 ${taskQue.size}")
 
 
         for (i in 0 until taskAmount) {
