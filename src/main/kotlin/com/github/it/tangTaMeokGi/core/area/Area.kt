@@ -182,6 +182,7 @@ class Area(
             val team = game.teamManager!!.getTeam(event.player)
 
             team?.let {
+                println(type)
                 onAttackEvent(
                     team, event.player
                 )
