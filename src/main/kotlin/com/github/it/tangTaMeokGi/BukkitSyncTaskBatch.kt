@@ -48,9 +48,7 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     fun close() { isOpen = false }
 
     fun join() {
-        while (0 < taskQue.size) {
-            Bukkit.getLogger().info("${taskQue.size}")
-        }
+        while (0 < taskQue.size) {}
     }
 
     fun run() {
