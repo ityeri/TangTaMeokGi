@@ -1,25 +1,24 @@
-package com.github.it.tangTaMeokGi.game.area
+package com.github.it.tangTaMeokGi.core.area
 
 import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.SubWorldUtils
-import com.github.it.tangTaMeokGi.game.GameManager
+import com.github.it.tangTaMeokGi.core.Game
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Runnable
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 
 class AreaManager(
-    val gameManager: GameManager,
+    val game: Game,
     val mapSize: Int,
     val areaSize: Int
 ) {
 
-    val plugin = gameManager.plugin
-    val world = gameManager.world
+    val plugin = game.plugin
+    val world = game.world
 
     val areaMap: MutableList<MutableList<Area>> = MutableList(mapSize) { mutableListOf() }
     

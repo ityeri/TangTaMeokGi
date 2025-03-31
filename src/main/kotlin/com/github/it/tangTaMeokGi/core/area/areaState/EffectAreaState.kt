@@ -1,8 +1,8 @@
-package com.github.it.tangTaMeokGi.game.area.areaState
+package com.github.it.tangTaMeokGi.core.area.areaState
 
-import com.github.it.tangTaMeokGi.game.team.Team
-import com.github.it.tangTaMeokGi.game.area.Area
-import com.github.it.tangTaMeokGi.game.area.AreaType
+import com.github.it.tangTaMeokGi.core.team.Team
+import com.github.it.tangTaMeokGi.core.area.Area
+import com.github.it.tangTaMeokGi.core.area.AreaType
 import org.bukkit.entity.Player
 
 open class EffectAreaState(area: Area, ownerTeam: Team,

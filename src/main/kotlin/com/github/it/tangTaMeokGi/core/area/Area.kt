@@ -1,10 +1,9 @@
-package com.github.it.tangTaMeokGi.game.area
+package com.github.it.tangTaMeokGi.core.area
 
 import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
-import com.github.it.tangTaMeokGi.game.team.Team
-import com.github.it.tangTaMeokGi.game.area.areaState.BaseAreaState
-import com.github.it.tangTaMeokGi.game.area.areaState.EmptyAreaState
-import net.kyori.adventure.text.Component
+import com.github.it.tangTaMeokGi.core.team.Team
+import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -24,9 +23,11 @@ class Area(
     val x: Int, val z: Int, val size: Int
 ) : Listener {
 
-    val gameManager = areaManager.gameManager
+    val game = areaManager.game
     val plugin = areaManager.plugin
     val world = areaManager.world
+
+    var isEnabled = false
 
     val minX = x * size
     val minZ = z * size
@@ -58,10 +59,18 @@ class Area(
 
 
     fun enable() {
+        if (isEnabled) {
+            return
+        }
+
         state.enable()
         Bukkit.getServer().pluginManager.registerEvents(this, plugin)
     }
     fun disable() {
+        if (!isEnabled) {
+            return
+        }
+
         state.disable()
         HandlerList.unregisterAll(this)
     }
@@ -170,7 +179,7 @@ class Area(
         if (isEntityInArea(event.player) &&
             areaManager.isGroundItem(event.player.itemInHand)) {
 
-            val team = gameManager.teamManager!!.getTeam(event.player)
+            val team = game.teamManager!!.getTeam(event.player)
 
             team?.let {
                 onAttackEvent(

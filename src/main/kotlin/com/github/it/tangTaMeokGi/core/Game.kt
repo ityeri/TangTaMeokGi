@@ -1,13 +1,13 @@
-package com.github.it.tangTaMeokGi.game
+package com.github.it.tangTaMeokGi.core
 
 import com.github.it.tangTaMeokGi.GameSetting
-import com.github.it.tangTaMeokGi.game.area.AreaManager
-import com.github.it.tangTaMeokGi.game.team.TeamManager
+import com.github.it.tangTaMeokGi.core.area.AreaManager
+import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.plugin.java.JavaPlugin
 
-class GameManager(val plugin: JavaPlugin) {
+class Game(val plugin: JavaPlugin) {
     var isGameRunning = false
 
     val world: World = Bukkit.getWorld("world")!!
@@ -65,7 +65,7 @@ class GameManager(val plugin: JavaPlugin) {
         }
 
         areaManager = AreaManager(
-            gameManager = this,
+            game = this,
 
             mapSize = setting!!.mapSize,
             areaSize = setting!!.areaSize
