@@ -1,7 +1,7 @@
 package com.github.it.tangTaMeokGi.core.area
 
-import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
-import com.github.it.tangTaMeokGi.SubWorldUtils
+import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
+import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
 import org.bukkit.Material
 import org.bukkit.World
