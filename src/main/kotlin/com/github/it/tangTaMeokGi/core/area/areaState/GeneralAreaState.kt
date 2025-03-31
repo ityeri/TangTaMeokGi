@@ -21,7 +21,7 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
         // 일반땅은 효과 업을세디
     }
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackerTeam: Team, attacker: Player) {
         TODO("Not yet implemented")
     }
 

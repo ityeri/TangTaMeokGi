@@ -23,7 +23,7 @@ open class EffectAreaState(area: Area, ownerTeam: Team,
         TODO("이펙 넣는거 추가 ㄱ")
     }
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackerTeam: Team, attacker: Player) {
         TODO("Not yet implemented")
     }
 

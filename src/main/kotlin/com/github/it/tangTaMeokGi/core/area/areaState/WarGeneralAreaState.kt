@@ -28,7 +28,7 @@ class WarGeneralAreaState(
         // ㅁㄴㅇㄹ
     }
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackerTeam: Team, attacker: Player) {
         TODO("전장으로 들어오는 공격 이밴트는 씹어야함")
     }
 

@@ -21,8 +21,8 @@ open class EmptyAreaState(
 
     override fun update() {}
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
-        attacker.sendMessage("어이ㅣㅇㅇ예예ㅔㅔㅔㅖ!!!!!")
+    override fun onAttack(attackerTeam: Team, attacker: Player) {
+        attacker.sendMessage("[$type] 공격이 지원되지 않는 땅입니다.")
     }
 
 }

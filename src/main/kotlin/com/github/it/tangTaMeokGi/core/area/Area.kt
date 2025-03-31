@@ -79,8 +79,8 @@ class Area(
         state.update()
     }
 
-    fun onAttackEvent(attackerTeam: Team, attacker: Player) {
-        state.onAttackEvent(attackerTeam, attacker)
+    fun onAttack(attackerTeam: Team, attacker: Player) {
+        state.onAttack(attackerTeam, attacker)
     }
 
     suspend fun generateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
@@ -182,7 +182,7 @@ class Area(
             val team = game.teamManager!!.getTeam(event.player)
 
             team?.let {
-                onAttackEvent(
+                onAttack(
                     team, event.player
                 )
             } ?: {

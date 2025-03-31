@@ -17,7 +17,7 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, areaEffect: AreaEff
     }
 
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackerTeam: Team, attacker: Player) {
         // TODO 즉시 확률적으로 attackerTeam 소유의 일반땅 또는 효과땅으로 바뀌는 기능 구현
         attacker.sendMessage("공격시도 감지함")
     }

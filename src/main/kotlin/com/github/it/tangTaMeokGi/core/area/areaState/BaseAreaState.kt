@@ -33,6 +33,6 @@ abstract class BaseAreaState(
 
     abstract fun update()
 
-    abstract fun onAttackEvent(attackerTeam: Team, attacker: Player)
+    abstract fun onAttack(attackerTeam: Team, attacker: Player)
 
 }
