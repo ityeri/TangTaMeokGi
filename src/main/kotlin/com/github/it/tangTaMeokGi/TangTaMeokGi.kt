@@ -25,12 +25,14 @@ class TangTaMeokGi : JavaPlugin() {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
 
         game.init(
-            mapSize = 16, areaSize = 16, gameTimeMin = 1
+            mapSize = 16, areaSize = 16,
+            totalGameTimeMin = 60,
+            warTimeSec = 60
         )
 
-        pluginScope.launch {
-            game.mapGenerate()
-        }
+//        pluginScope.launch {
+//            game.mapGenerate()
+//        }
 
         testArea = game.areaManager!!.getArea(1, 1)!!
 
