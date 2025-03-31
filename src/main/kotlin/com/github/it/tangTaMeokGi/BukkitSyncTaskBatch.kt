@@ -48,7 +48,9 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     fun close() { isOpen = false }
 
     fun join() {
-        while (0 < taskQue.size) {}
+        while (0 < taskQue.size) {
+            Bukkit.getLogger().info("${taskQue.size}")
+        }
     }
 
     fun run() {
@@ -60,7 +62,6 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
             val task: Runnable?
             synchronized(taskQue) {
                 task = taskQue.removeFirst()
-//                task = taskQue.removeAt(Random.nextInt(0, taskQue.size))
             }
 
             if (task == null) {
