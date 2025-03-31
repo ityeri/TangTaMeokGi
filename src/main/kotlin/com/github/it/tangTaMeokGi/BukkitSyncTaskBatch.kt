@@ -49,7 +49,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     fun close() { isOpen = false }
 
     suspend fun join() {
-        while (0 < taskQue.size) {  }
+        // 쓰레드나 비동기 관련 이슈로 delay 가 있어야 블로킹이 안걸림
+        while (0 < taskQue.size) { delay(0) }
     }
 
     fun run() {
