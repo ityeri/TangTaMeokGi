@@ -1,6 +1,6 @@
 package com.github.it.tangTaMeokGi.core.area
 
-import com.github.it.tangTaMeokGi.BukkitSyncTaskBatch
+import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
