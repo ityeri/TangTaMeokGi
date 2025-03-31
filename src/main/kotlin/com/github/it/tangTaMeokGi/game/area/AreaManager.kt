@@ -67,7 +67,7 @@ class AreaManager(
         }
     }
 
-    suspend fun mapGenerate() {
+    suspend fun mapGenerate(batchCount: Int = 4) {
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
@@ -77,7 +77,9 @@ class AreaManager(
 
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
-        val batches: MutableList<BukkitSyncTaskBatch> = mutableListOf()
+        val batches: List<BukkitSyncTaskBatch> =
+            (0 until 4).map { BukkitSyncTaskBatch(plugin, 10) }
+        batches.map { it.start() }
 
         val jobs: MutableList<Job> = mutableListOf()
 
@@ -99,8 +101,7 @@ class AreaManager(
                     }.get()
                 }
 
-                val batch = BukkitSyncTaskBatch(plugin, 10)
-                batches.add(batch)
+                val batch = batches[Random.nextInt(0, batchCount)]
 
                 val job = scope.launch {
                     getArea(x, z)!!.batchGenerateFrom(batch,
@@ -120,19 +121,15 @@ class AreaManager(
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
-                "모든 작업 예약 완료. 대기 및 예약된 작업 실행 시작"
+                "모든 작업 예약 완료. 예약된 작업 완료 대기 시작"
             ))
         }
 
         for (job in jobs) {
             job.join()
         }
-
         for (batch in batches) {
             batch.close()
-            batch.start()
-        }
-        for (batch in batches) {
             batch.join()
             batch.stop()
         }
