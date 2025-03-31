@@ -21,6 +21,8 @@ open class EmptyAreaState(
 
     override fun update() {}
 
-    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {}
+    override fun onAttackEvent(attackerTeam: Team, attacker: Player) {
+        attacker.sendMessage("어이ㅣㅇㅇ예예ㅔㅔㅔㅖ!!!!!")
+    }
 
 }
