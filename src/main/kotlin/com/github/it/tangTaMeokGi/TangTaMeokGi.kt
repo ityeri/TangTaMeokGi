@@ -35,6 +35,7 @@ class TangTaMeokGi : JavaPlugin() {
 //        }
 
         testArea = game.areaManager!!.getArea(1, 1)!!
+//        testArea.type = AreaType.EMPTY_AREA
 
         game.teamManager!!.addTeam(
             Team("test", "test", Color.RED)
@@ -44,6 +45,7 @@ class TangTaMeokGi : JavaPlugin() {
         game.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
 
         testArea.enable()
+        println(testArea.type)
     }
 
     override fun onDisable() {
