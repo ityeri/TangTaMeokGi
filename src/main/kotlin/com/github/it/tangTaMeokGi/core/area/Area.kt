@@ -4,6 +4,7 @@ import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
+import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -80,7 +81,8 @@ class Area(
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
-        state.onAttack(attackerTeam, attacker)
+        val attackEvent = AttackEvent(attackerTeam, attacker, this)
+        state.onAttack(attackEvent)
     }
 
     suspend fun generateFrom(targetWorld: World, targetX: Int, targetZ: Int) {

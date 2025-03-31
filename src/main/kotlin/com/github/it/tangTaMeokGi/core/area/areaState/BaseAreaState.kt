@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi.core.area.areaState
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
 
 abstract class BaseAreaState(
@@ -33,6 +34,6 @@ abstract class BaseAreaState(
 
     abstract fun update()
 
-    abstract fun onAttack(attackerTeam: Team, attacker: Player)
+    abstract fun onAttack(attackEvent: AttackEvent)
 
 }
