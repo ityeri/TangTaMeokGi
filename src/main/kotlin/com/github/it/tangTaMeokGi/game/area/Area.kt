@@ -117,7 +117,7 @@ class Area(
 
     }
 
-    fun batchGenerateFrom(batch: BukkitSyncTaskBatch,
+    suspend fun batchGenerateFrom(batch: BukkitSyncTaskBatch,
                           targetWorld: World, targetX: Int, targetZ: Int) {
 
         val minY: Int
