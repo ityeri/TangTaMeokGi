@@ -159,12 +159,6 @@ class Area(
                 }
             }
 
-//            Bukkit.getScheduler().callSyncMethod(plugin) {
-//                Bukkit.getServer().sendMessage(Component.text(
-//                    "[$x, $z] 영역의 y $y 영역 예약 완료"
-//                ))
-//            }
-
         }
     }
 
