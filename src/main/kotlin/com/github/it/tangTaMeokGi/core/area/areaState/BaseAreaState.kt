@@ -28,8 +28,8 @@ abstract class BaseAreaState(
         onDisable()
     }
 
-    abstract protected fun onEnable()
-    abstract protected fun onDisable()
+    protected abstract fun onEnable()
+    protected abstract fun onDisable()
 
     abstract fun update()
 
