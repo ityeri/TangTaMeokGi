@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi.core.area.areaState
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
 
 open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(area) {
@@ -21,7 +22,7 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
         // 일반땅은 효과 업을세디
     }
 
-    override fun onAttack(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackEvent: AttackEvent) {
         TODO("Not yet implemented")
     }
 

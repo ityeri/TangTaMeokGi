@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi.core.area.areaState
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
 
 class WarGeneralAreaState(
@@ -28,7 +29,7 @@ class WarGeneralAreaState(
         // ㅁㄴㅇㄹ
     }
 
-    override fun onAttack(attackerTeam: Team, attacker: Player) {
+    override fun onAttack(attackEvent: AttackEvent) {
         TODO("전장으로 들어오는 공격 이밴트는 씹어야함")
     }
 
