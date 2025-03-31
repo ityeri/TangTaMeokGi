@@ -75,11 +75,13 @@ class AreaManager(
             ))
         }
 
+        // TODO BukkitBatch 의 타임아웃 빈도수 체크
+        // 서버 초기화 하고 테스트 ㄱ
+
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
         val batches: List<BukkitSyncTaskBatch> =
-            (0 until 4).map { BukkitSyncTaskBatch(plugin, 100) }
-        batches.map { it.start() }
+            (0 until batchCount).map { BukkitSyncTaskBatch(plugin, 10) }
 
         val jobs: MutableList<Job> = mutableListOf()
 
@@ -102,10 +104,12 @@ class AreaManager(
                 }
 
                 val batch = batches[Random.nextInt(0, batchCount)]
+                val area = getArea(x, z)!!
 
                 val job = scope.launch {
-                    getArea(x, z)!!.batchGenerateFrom(batch,
-                        world, Random.nextInt(-100000, 100000), Random.nextInt(-100000, 100000)
+                    area.batchGenerateFrom(batch, world,
+                        Random.nextInt(-100000, 100000),
+                        Random.nextInt(-100000, 100000)
                     )
                 }
 
@@ -127,6 +131,9 @@ class AreaManager(
 
         for (job in jobs) {
             job.join()
+        }
+        for (batch in batches) {
+            batch.start()
         }
         for (batch in batches) {
             batch.close()
