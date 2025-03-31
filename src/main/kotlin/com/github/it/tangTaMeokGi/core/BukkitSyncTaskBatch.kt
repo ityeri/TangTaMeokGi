@@ -1,10 +1,9 @@
-package com.github.it.tangTaMeokGi
+package com.github.it.tangTaMeokGi.core
 
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.delay
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import kotlin.random.Random
 
 class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQueSize: Int) {
     var isRunning: Boolean = false

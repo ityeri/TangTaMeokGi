@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi
+package com.github.it.tangTaMeokGi.core
 
 import org.bukkit.Bukkit
 import org.bukkit.World

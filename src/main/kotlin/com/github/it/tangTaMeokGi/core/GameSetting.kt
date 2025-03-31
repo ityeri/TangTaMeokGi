@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi
+package com.github.it.tangTaMeokGi.core
 
 data class GameSetting(
     var mapSize: Int,
