@@ -132,7 +132,10 @@ class AreaManager(
             batch.close()
             batch.start()
         }
-        for (batch in batches) { batch.join() }
+        for (batch in batches) {
+            batch.join()
+            batch.stop()
+        }
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
