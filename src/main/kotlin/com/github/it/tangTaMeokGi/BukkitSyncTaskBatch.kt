@@ -60,8 +60,6 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
         val startTime = System.currentTimeMillis()
         val taskAmount = taskQue.size
 
-        println("테스킹중 ${taskQue.size}")
-
 
         for (i in 0 until taskAmount) {
             val task: Runnable?
