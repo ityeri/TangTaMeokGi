@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import kotlin.random.Random
 
-class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
+class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQueSize: Int) {
     var isRunning: Boolean = false
     var isOpen: Boolean = true
     val taskQue: MutableList<Runnable> = mutableListOf()
@@ -17,6 +17,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
         if (!isOpen) {
             throw RuntimeException("batch 가 열려있지 않습니다")
         }
+
+        while (maxQueSize <= taskQue.size) {}
 
         synchronized(taskQue) {
             taskQue.add(runnable)
