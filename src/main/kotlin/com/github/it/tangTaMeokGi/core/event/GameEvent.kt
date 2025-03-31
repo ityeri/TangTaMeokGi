@@ -6,4 +6,4 @@ import org.bukkit.entity.Player
 
 interface GameEvent
 
-class AttackEvent(attackerTeam: Team, attacker: Player, attackedArea: Area): GameEvent
+class AttackEvent(val attackerTeam: Team, val attacker: Player, val attackedArea: Area): GameEvent
