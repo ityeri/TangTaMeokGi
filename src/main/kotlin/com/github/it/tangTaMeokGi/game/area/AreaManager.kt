@@ -8,6 +8,7 @@ import org.bukkit.World
 import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Runnable
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 
@@ -77,10 +78,13 @@ class AreaManager(
 
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
-        val batch = BukkitSyncTaskBatch(plugin, 400, 512)
+        val batch = BukkitSyncTaskBatch(plugin, 50, 512)
         batch.start()
 
         val jobs: MutableList<Job> = mutableListOf()
+
+        var worldUnloadTimer = 0
+        val worldUnloadInterval = 10
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             setWorldBorder()
@@ -99,6 +103,7 @@ class AreaManager(
                         SubWorldUtils.getSubNetherWorld()
                     }.get()
                 }
+
 
                 val area = getArea(x, z)!!
 
@@ -122,6 +127,16 @@ class AreaManager(
                 }
 
                 jobs.add(job)
+
+
+                worldUnloadTimer += 1
+
+                if (worldUnloadInterval <= worldUnloadTimer) {
+                    worldUnloadTimer = 0
+                    Bukkit.getScheduler().callSyncMethod(plugin)  {
+                        Bukkit.unloadWorld(world, true)
+                    }
+                }
             }
         }
 
