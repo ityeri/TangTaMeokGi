@@ -81,6 +81,7 @@ class AreaManager(
         val scope = CoroutineScope(Dispatchers.Default + Job())
 
         val batch = BukkitSyncTaskBatch(plugin, 400, 512)
+        batch.start()
 
         val jobs: MutableList<Job> = mutableListOf()
 
@@ -104,12 +105,18 @@ class AreaManager(
 
                 val area = getArea(x, z)!!
 
+                batch.open()
                 val job = scope.launch {
                     area.batchGenerateFrom(batch, world,
                         Random.nextInt(-100000, 100000),
                         Random.nextInt(-100000, 100000)
                     )
                 }
+
+                job.join()
+
+                batch.close()
+                batch.join()
 
                 Bukkit.getScheduler().callSyncMethod(plugin) {
                     Bukkit.getServer().sendMessage(Component.text(
@@ -121,19 +128,13 @@ class AreaManager(
             }
         }
 
-        Bukkit.getScheduler().callSyncMethod(plugin) {
-            Bukkit.getServer().sendMessage(Component.text(
-                "모든 작업 예약 완료. 예약된 작업 완료 대기 시작"
-            ))
-        }
-
-        for (job in jobs) {
-            job.join()
-        }
-        batch.close()
-        batch.start()
-        batch.join()
         batch.stop()
+
+//        Bukkit.getScheduler().callSyncMethod(plugin) {
+//            Bukkit.getServer().sendMessage(Component.text(
+//                "모든 작업 예약 완료. 예약된 작업 완료 대기 시작"
+//            ))
+//        }
 
         Bukkit.getScheduler().callSyncMethod(plugin) {
             Bukkit.getServer().sendMessage(Component.text(
