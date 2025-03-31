@@ -1,6 +1,7 @@
 package com.github.it.tangTaMeokGi
 
 import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.delay
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import kotlin.random.Random
@@ -47,8 +48,8 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     fun open() { isOpen = true }
     fun close() { isOpen = false }
 
-    fun join() {
-        while (0 < taskQue.size) {}
+    suspend fun join() {
+        while (0 < taskQue.size) { delay(1) }
     }
 
     fun run() {
