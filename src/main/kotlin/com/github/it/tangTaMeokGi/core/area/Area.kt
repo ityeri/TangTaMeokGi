@@ -37,6 +37,8 @@ class Area(
     val maxX = minX + size
     val maxZ = minZ + size
 
+    var lastAttackedTick: Int = -1
+
     var type = AreaType.EMPTY_AREA
         set(newType) {
             disable()
@@ -82,6 +84,12 @@ class Area(
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
+        // onAttack 은 한 틱당 한번만 가능
+        if (lastAttackedTick == Bukkit.getServer().currentTick) {
+            return
+        }
+        lastAttackedTick = Bukkit.getServer().currentTick
+
         val attackEvent = AttackEvent(attackerTeam, attacker, this)
         GameEventDispatcher.callEvent(attackEvent)
 
@@ -93,6 +101,8 @@ class Area(
             }
         }
     }
+
+
 
     suspend fun generateFrom(targetWorld: World, targetX: Int, targetZ: Int) {
 
