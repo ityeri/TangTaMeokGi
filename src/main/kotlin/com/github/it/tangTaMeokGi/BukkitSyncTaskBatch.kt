@@ -13,12 +13,13 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
 
     var taskId: Int? = null
 
-    fun addTask(runnable: Runnable) {
+    suspend fun addTask(runnable: Runnable) {
         if (!isOpen) {
             throw RuntimeException("batch 가 열려있지 않습니다")
         }
 
-        while (maxQueSize <= taskQue.size) {}
+        // 쓰레드나 비동기 관련 이슈로 delay 가 있어야 전역 블로킹이 안걸림
+        while (maxQueSize <= taskQue.size) { delay(0) }
 
         synchronized(taskQue) {
             taskQue.add(runnable)
@@ -51,7 +52,7 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
     fun close() { isOpen = false }
 
     suspend fun join() {
-        // 쓰레드나 비동기 관련 이슈로 delay 가 있어야 블로킹이 안걸림
+        // 쓰레드나 비동기 관련 이슈로 delay 가 있어야 전역 블로킹이 안걸림
         while (0 < taskQue.size) { delay(0) }
     }
 
