@@ -49,7 +49,7 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int) {
     fun close() { isOpen = false }
 
     suspend fun join() {
-        while (0 < taskQue.size) { delay(1) }
+        while (0 < taskQue.size) {  }
     }
 
     fun run() {
