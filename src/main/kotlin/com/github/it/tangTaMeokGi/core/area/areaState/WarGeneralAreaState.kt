@@ -21,20 +21,19 @@ class WarGeneralAreaState(
 
 
     override fun onEnable() {
-        // TODO 이벤트 리스너 추가 코드
     }
+
     override fun onDisable() {
-        // TODO 이벤트 리스너 제거
     }
 
     override fun update() {
         val currentTime = System.currentTimeMillis()/1000
         if (warEndTime <= currentTime) {
-            disable()
             Bukkit.getServer().sendMessage(
                 Component.text(
-                "공성전 끝"
-            ))
+                    "공성전 끝"
+                ))
+            disable()
         }
     }
 
