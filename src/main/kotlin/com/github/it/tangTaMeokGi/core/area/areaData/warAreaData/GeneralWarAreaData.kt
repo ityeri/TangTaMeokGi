@@ -7,7 +7,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaD
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
 
-class WarGeneralAreaData(
+class GeneralWarAreaData(
     area: Area,
     ownerTeam: Team,
     attackerTeam: Team,

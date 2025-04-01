@@ -4,7 +4,7 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
-import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.WarGeneralAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.GeneralWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 
@@ -29,7 +29,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
             return
         }
 
-        area.data = WarGeneralAreaData(
+        area.data = GeneralWarAreaData(
             area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime
         )
         area.enable()

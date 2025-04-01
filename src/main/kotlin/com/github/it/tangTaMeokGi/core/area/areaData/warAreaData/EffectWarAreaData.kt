@@ -6,7 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-class WarEffectAreaData(
+class EffectWarAreaData(
     area: Area,
     ownerTeam: Team,
     areaPotionEffect: AreaEffect,
