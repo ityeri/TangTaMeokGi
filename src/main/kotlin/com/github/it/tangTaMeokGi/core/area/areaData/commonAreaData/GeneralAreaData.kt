@@ -4,7 +4,7 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
-import com.github.it.tangTaMeokGi.core.area.areaData.WarGeneralAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.WarGeneralAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 
