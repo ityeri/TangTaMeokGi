@@ -16,6 +16,6 @@ abstract class CancelableEvent: GameEvent { var canceled = false }
 class AreaAttackEvent(val area: Area, val attackerTeam: Team, val attacker: Player): CancelableEvent()
 class AreaOccupationEvent(val area: Area, val losingTeam: Team?, val winningTeam: Team, val attacker: Player): GameEvent
 
-//class WarStartEvent
+class WarStartEvent(val area: Area, ownerTeam: Team, attackerTeam: Team): GameEvent
 
 class PlayerEnterAreaEvent(val area: Area, val player: Player): GameEvent
