@@ -60,4 +60,11 @@ class UserInterface(val game: Game): GameEventListener {
             "공성전 시작"
         ))
     }
+
+    @GameEventHandler
+    fun onWarEnd(warEndEvent: WarEndEvent) {
+        Bukkit.getServer().sendMessage(Component.text(
+                "공성전 끝"
+        ))
+    }
 }
