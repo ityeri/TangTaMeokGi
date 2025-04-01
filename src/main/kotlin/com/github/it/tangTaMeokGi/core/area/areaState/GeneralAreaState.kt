@@ -4,6 +4,7 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
+import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 
 open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(area, ownerTeam) {
 
@@ -22,7 +23,7 @@ open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(are
     }
 
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
-            // 자기 팀에 자기가 공격 시도했을 경우
+        // 자기 팀에 자기가 공격 시도했을 경우
         if (ownerTeam == areaAttackEvent.attackerTeam) {
             areaAttackEvent.canceled = true
             return
@@ -32,6 +33,10 @@ open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(are
             area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime
         )
         area.enable()
+
+        area.game.eventDispatcher.callEvent(
+            WarStartEvent(area, ownerTeam, areaAttackEvent.attackerTeam)
+        )
     }
 
 }
