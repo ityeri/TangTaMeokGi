@@ -22,7 +22,7 @@ class GetAreaInfoCommand(val game: Game) : BaseCommand() {
                 area.let {
                     area!!
                     sender.sendMessage("""
-                        현재 영역 위치: [${area.x}]
+                        현재 영역 위치: [${area.x}, ${area.z}]
                         영역 종류: ${area.type}
                         영역 활성화 여부: ${area.isEnabled}
                     """.trimIndent())
