@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaData
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -27,8 +27,8 @@ class GetAreaInfoCommand(val game: Game) : BaseCommand() {
                         영역 종류: ${area.type}
                         영역 활성화 여부: ${area.isEnabled}
                     """.trimIndent())
-                    if (area.state is OwnerbleAreaState) {
-                        sender.sendMessage("땅 주인팀: ${(area.state as OwnerbleAreaState).ownerTeam.id}")
+                    if (area.state is OwnerbleAreaData) {
+                        sender.sendMessage("땅 주인팀: ${(area.state as OwnerbleAreaData).ownerTeam.id}")
                     }
                 }
                 area ?: {

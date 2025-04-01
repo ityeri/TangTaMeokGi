@@ -2,11 +2,11 @@ package com.github.it.tangTaMeokGi.core.area.areaState
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
-import com.github.it.tangTaMeokGi.core.area.areaState.EffectAreaState.AreaEffect
+import com.github.it.tangTaMeokGi.core.area.areaState.EffectAreaData.AreaEffect
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: AreaEffect? = null) : BaseAreaState(area) {
+class PublicAreaData(area: Area, var isEffectArea: Boolean, val areaEffect: AreaEffect? = null) : BaseAreaData(area) {
 
     override val type = AreaType.PUBLIC_AREA
 
@@ -28,12 +28,12 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: Are
 
         if (isEffectArea) {
 
-            area.state = EffectAreaState(
+            area.state = EffectAreaData(
                 area, areaAttackEvent.attackerTeam, areaEffect!!
             )
 
         } else {
-            area.state = GeneralAreaState(
+            area.state = GeneralAreaData(
                 area, areaAttackEvent.attackerTeam
             )
         }

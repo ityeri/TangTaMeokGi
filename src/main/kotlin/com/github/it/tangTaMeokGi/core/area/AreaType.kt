@@ -1,19 +1,19 @@
 package com.github.it.tangTaMeokGi.core.area
 
-import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
-import com.github.it.tangTaMeokGi.core.area.areaState.PublicAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaData
+import com.github.it.tangTaMeokGi.core.area.areaState.PublicAreaData
 
 enum class AreaType {
     EMPTY_AREA {
         override fun setTypeThis(area: Area) {
-            area.state = EmptyAreaState(area)
+            area.state = EmptyAreaData(area)
         }
     },
 
 
     PUBLIC_AREA {
         override fun setTypeThis(area: Area) {
-            area.state = PublicAreaState(area, false)
+            area.state = PublicAreaData(area, false)
         }
     },
 

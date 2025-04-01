@@ -2,8 +2,8 @@ package com.github.it.tangTaMeokGi.core.area
 
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.team.Team
-import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
-import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaData
+import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.PlayerEnterAreaEvent
 import org.bukkit.Bukkit
@@ -45,7 +45,7 @@ class Area(
             newType.setTypeThis(this)
         }
 
-    var state: BaseAreaState = EmptyAreaState(this)
+    var state: BaseAreaData = EmptyAreaData(this)
         set(newState) {
             disable()
             field = newState

@@ -2,7 +2,7 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaState.GeneralAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.GeneralAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.UserInterface
@@ -51,7 +51,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
-        testArea.state = GeneralAreaState(
+        testArea.state = GeneralAreaData(
             testArea, testTeam2
         )
         testArea.enable()

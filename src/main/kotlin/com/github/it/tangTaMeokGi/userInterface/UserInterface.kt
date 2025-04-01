@@ -2,11 +2,9 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import co.aikar.commands.PaperCommandManager
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaState.BaseWarAreaState
-import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaState
+import com.github.it.tangTaMeokGi.core.area.areaState.BaseWarAreaData
+import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
-import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
 
 class UserInterface(val game: Game): GameEventListener {
     fun enable() {
@@ -25,13 +23,13 @@ class UserInterface(val game: Game): GameEventListener {
         val attackerTeam = areaAttackEvent.attackerTeam
 
         when(state) {
-            is BaseWarAreaState -> {
+            is BaseWarAreaData -> {
                 attacker.sendMessage(
                     "이미 공성전중인 땅에 공격 못함;;"
                 )
             }
 
-            is OwnerbleAreaState -> {
+            is OwnerbleAreaData -> {
                 if (state.ownerTeam == attackerTeam) {
                     attacker.sendMessage(
                         "님팀 땅에 님이 공격할라 하면 어떡함;;"
@@ -56,7 +54,7 @@ class UserInterface(val game: Game): GameEventListener {
 
         enteredPlayerTeam.let {
             when (state) {
-                is OwnerbleAreaState -> {
+                is OwnerbleAreaData -> {
                     val ownerTeam = state.ownerTeam
                     ownerTeam.sendMessage(
                         "님들 팀 x ${area.x * area.size} z ${area.z * area.size} 쪽 땅에 " +

@@ -6,9 +6,9 @@ import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import org.bukkit.potion.PotionEffect
 
-open class EffectAreaState(area: Area, ownerTeam: Team,
-                           val areaEffect: AreaEffect
-) : GeneralAreaState(area, ownerTeam) {
+open class EffectAreaData(area: Area, ownerTeam: Team,
+                          val areaEffect: AreaEffect
+) : GeneralAreaData(area, ownerTeam) {
 
     data class AreaEffect(val buffEffect: PotionEffect? = null, val debuffEffect: PotionEffect? = null)
 

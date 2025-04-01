@@ -5,13 +5,13 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-class WarEffectAreaState(
+class WarEffectAreaData(
     area: Area,
     ownerTeam: Team,
     areaPotionEffect: AreaEffect,
     val attackerTeam: Team,
     val timeLimitSec: Int
-) : EffectAreaState(area, ownerTeam, areaPotionEffect) {
+) : EffectAreaData(area, ownerTeam, areaPotionEffect) {
 
     override val type = AreaType.WAR_EFFECT_AREA
 

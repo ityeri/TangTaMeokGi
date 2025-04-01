@@ -4,7 +4,7 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-abstract class BaseAreaState(
+abstract class BaseAreaData(
     val area: Area
 ) {
     /*

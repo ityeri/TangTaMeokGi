@@ -5,16 +5,14 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
-import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
 
-class WarGeneralAreaState(
+class WarGeneralAreaData(
     area: Area,
     ownerTeam: Team,
     attackerTeam: Team,
     warTime: Int
 
-) : BaseWarAreaState(area, ownerTeam, attackerTeam, warTime) {
+) : BaseWarAreaData(area, ownerTeam, attackerTeam, warTime) {
 
     override val type = AreaType.WAR_GENERAL_AREA
 
@@ -36,7 +34,7 @@ class WarGeneralAreaState(
                 area, ownerTeam, attackerTeam, false
             )
         )
-        area.state = GeneralAreaState(
+        area.state = GeneralAreaData(
             area, ownerTeam
         )
         area.enable()
@@ -48,7 +46,7 @@ class WarGeneralAreaState(
                 area, ownerTeam, attackerTeam, true
             )
         )
-        area.state = GeneralAreaState(
+        area.state = GeneralAreaData(
             area, attackerTeam
         )
         area.enable()

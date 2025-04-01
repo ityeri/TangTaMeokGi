@@ -4,11 +4,11 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-open class EmptyAreaState(
+open class EmptyAreaData(
     area: Area
-) : BaseAreaState(area) {
+) : BaseAreaData(area) {
     /*
-    BaseAreaState 의 생성 가능한 클래스.
+    BaseAreaData 의 생성 가능한 클래스.
     기본적으로 아무 기능도 없으며, AreaManager 에서 generate 호출 극초기에
     사용되는 클래스. 사실상 setType 으로 바꾸기 위해 있음.
      */

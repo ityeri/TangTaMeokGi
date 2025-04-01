@@ -6,7 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 
-open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(area, ownerTeam) {
+open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area, ownerTeam) {
 
     override val type = AreaType.GENERAL_AREA
 
@@ -27,7 +27,7 @@ open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(are
             return
         }
 
-        area.state = WarGeneralAreaState(
+        area.state = WarGeneralAreaData(
             area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime
         )
         area.enable()
