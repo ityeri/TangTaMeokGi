@@ -41,7 +41,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
 
         testArea.enable()
-        GameEventDispatcher.register(this)
+        game.eventDispatcher.register(this)
     }
 
     override fun onDisable() {
