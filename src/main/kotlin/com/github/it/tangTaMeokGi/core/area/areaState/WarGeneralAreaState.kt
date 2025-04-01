@@ -4,6 +4,8 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 
 class WarGeneralAreaState(
     area: Area,
@@ -29,7 +31,10 @@ class WarGeneralAreaState(
         val currentTime = System.currentTimeMillis()/1000
         if (warEndTime <= currentTime) {
             disable()
-            println("전쟁 중단됨")
+            Bukkit.getServer().sendMessage(
+                Component.text(
+                "공성전 끝"
+            ))
         }
     }
 
