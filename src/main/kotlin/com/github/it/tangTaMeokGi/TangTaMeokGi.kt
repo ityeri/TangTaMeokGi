@@ -34,7 +34,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.init(
             mapSize = 16, areaSize = 16,
             totalGameTimeMin = 60,
-            warTimeSec = 60
+            warTimeSec = 10
         )
 
         testArea = game.areaManager!!.getArea(1, 1)!!
