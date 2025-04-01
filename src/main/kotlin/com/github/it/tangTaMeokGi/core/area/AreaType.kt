@@ -11,6 +11,13 @@ enum class AreaType {
     },
 
 
+    PUBLIC_AREA {
+        override fun setTypeThis(area: Area) {
+            area.state = PublicAreaState(area, false)
+            println("asdfadsfasf;lakjf;alksjf;lakdsjfl;akj")
+        }
+    },
+
 
     GENERAL_AREA {
         override fun setTypeThis(area: Area) {
@@ -22,15 +29,6 @@ enum class AreaType {
             // TODO
         }
     },
-
-
-
-    PUBLIC_AREA {
-        override fun setTypeThis(area: Area) {
-            area.state = PublicAreaState(area, false)
-        }
-    },
-
 
 
     WAR_GENERAL_AREA {
