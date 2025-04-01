@@ -6,7 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
-import com.github.it.tangTaMeokGi.core.event.PlayerAreaEnterEvent
+import com.github.it.tangTaMeokGi.core.event.PlayerEnterAreaEvent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -103,7 +103,7 @@ class Area(
             when (entity) {
                 is Player -> {
                     GameEventDispatcher.callEvent(
-                        PlayerAreaEnterEvent(this, entity)
+                        PlayerEnterAreaEvent(this, entity)
                     )
                 }
             }

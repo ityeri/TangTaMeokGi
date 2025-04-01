@@ -2,10 +2,7 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.event.AttackEvent
-import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
-import com.github.it.tangTaMeokGi.core.event.GameEventHandler
-import com.github.it.tangTaMeokGi.core.event.GameEventListener
+import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
@@ -48,5 +45,10 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
     }
 
     override fun onDisable() {
+    }
+
+    @GameEventHandler
+    fun onPlayerEnterArea(event: PlayerEnterAreaEvent) {
+        Bukkit.getServer().sendMessage(Component.text(event.player.name))
     }
 }
