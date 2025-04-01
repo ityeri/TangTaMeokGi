@@ -26,6 +26,14 @@ class WarGeneralAreaState(
     override fun onDisable() {
     }
 
+    override fun onOwnerTeamWin() {
+
+    }
+
+    override fun onAttackerTeamWin() {
+
+    }
+
     override fun update() {
         val currentTime = System.currentTimeMillis()/1000
         if (warEndTime <= currentTime) {
