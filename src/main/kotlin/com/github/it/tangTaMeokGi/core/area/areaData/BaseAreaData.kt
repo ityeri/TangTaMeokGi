@@ -12,6 +12,7 @@ abstract class BaseAreaData(
     기본적으로 소유자 속성을 가지지 않음
      */
 
+    val game = area.game
     abstract val type: AreaType
 
     var isEnabled = false
