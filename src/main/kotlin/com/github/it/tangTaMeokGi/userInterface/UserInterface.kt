@@ -2,8 +2,8 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import co.aikar.commands.PaperCommandManager
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaState.BaseWarAreaData
-import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.BaseWarAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 
 class UserInterface(val game: Game): GameEventListener {

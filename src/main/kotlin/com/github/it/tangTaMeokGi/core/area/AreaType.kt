@@ -1,7 +1,7 @@
 package com.github.it.tangTaMeokGi.core.area
 
-import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaData
-import com.github.it.tangTaMeokGi.core.area.areaState.PublicAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.EmptyAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.PublicAreaData
 
 enum class AreaType {
     EMPTY_AREA {

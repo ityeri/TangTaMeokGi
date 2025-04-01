@@ -2,8 +2,8 @@ package com.github.it.tangTaMeokGi.core.area
 
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.team.Team
-import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaData
-import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.BaseAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.EmptyAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.PlayerEnterAreaEvent
 import org.bukkit.Bukkit

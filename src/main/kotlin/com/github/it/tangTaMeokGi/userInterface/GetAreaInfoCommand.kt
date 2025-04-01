@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
