@@ -2,7 +2,6 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaState.GeneralAreaState
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
@@ -24,7 +23,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
     lateinit var testPlayer: Player
     lateinit var testArea: Area
-    lateinit var testTeam: Team
+    lateinit var testTeam1: Team
+    lateinit var testTeam2: Team
 
 
     override fun onEnable() {
@@ -38,14 +38,17 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         testArea = game.areaManager!!.getArea(1, 1)!!
 
-        testTeam = Team("test", "test", Color.RED)
-        game.teamManager!!.addTeam(testTeam)
+        testTeam1 = Team("test1", "test1", Color.RED)
+        testTeam2 = Team("test2", "test2", Color.BLUE)
+
+        game.teamManager!!.addTeam(testTeam1)
+        game.teamManager!!.addTeam(testTeam2)
 
         testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
-        game.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
+        game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer)
 
         testArea.state = GeneralAreaState(
-            testArea, testTeam
+            testArea, testTeam2
         )
         testArea.enable()
 
