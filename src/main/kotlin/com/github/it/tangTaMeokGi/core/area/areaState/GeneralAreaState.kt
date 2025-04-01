@@ -6,7 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
 
-open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(area) {
+open class GeneralAreaState(area: Area, ownerTeam: Team) : OwnerbleAreaState(area, ownerTeam) {
 
     override val type = AreaType.GENERAL_AREA
 
