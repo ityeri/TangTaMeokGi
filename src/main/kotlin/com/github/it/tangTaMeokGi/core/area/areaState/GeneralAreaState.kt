@@ -11,11 +11,11 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
     override val type = AreaType.GENERAL_AREA
 
     override fun onEnable() {
-        TODO("이벤트 리스너 추가 코드")
+        // TODO 이벤트 리스너 추가 코드
     }
 
     override fun onDisable() {
-        TODO("이벤트 리스너 제거")
+        // TODO 이벤트 리스너 제거
     }
 
     override fun update() {
@@ -26,7 +26,12 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
         if (ownerTeam == attackEvent.attackerTeam) {
             attackEvent.attacker.sendMessage("자폭은 안됨ㅇㅇ")
             attackEvent.canceled = true
+            return
         }
+
+        area.state = WarGeneralAreaState(
+            area, ownerTeam, attackEvent.attackerTeam, area.game.setting!!.warTime
+        )
     }
 
 }
