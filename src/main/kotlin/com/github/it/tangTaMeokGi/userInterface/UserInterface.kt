@@ -70,19 +70,24 @@ class UserInterface(val game: Game): GameEventListener {
 
     @GameEventHandler
     fun onWarStart(warStartEvent: WarStartEvent) {
-        Bukkit.getServer().sendMessage(Component.text(
-            "공성전 시작"
-        ))
+        val attackerTeam = warStartEvent.attackerTeam
+        val ownerTeam = warStartEvent.ownerTeam
+
+        attackerTeam.sendMessage("공선전 시작! 빨래 제한시간 안에 땅 뺐어야 함")
+        ownerTeam.sendMessage("님들 땅에서 공성전 시작됨! 빨리 방어하러 가삼")
     }
 
     @GameEventHandler
     fun onWarEnd(warEndEvent: WarEndEvent) {
         val attackerTeam = warEndEvent.attackerTeam
         val ownerTeam = warEndEvent.ownerTeam
+
         if (warEndEvent.isAttackerWin) {
             attackerTeam.sendMessage("ㅊㅋㅊㅋ 님들 땅하나 뺏음")
             ownerTeam.sendMessage("이걸 땅을 뺐기노 흐접")
-        } else {
+        }
+
+        else {
             attackerTeam.sendMessage("이걸 땅을 못뺐노 흐접")
             ownerTeam.sendMessage("땅 지켜냄 ㅅㄱ")
         }
