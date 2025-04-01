@@ -6,6 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
+import com.github.it.tangTaMeokGi.core.event.PlayerAreaEnterEvent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
@@ -37,8 +38,6 @@ class Area(
     val maxX = minX + size
     val maxZ = minZ + size
 
-    var lastAttackedTick: Int = -1
-
     var type = AreaType.EMPTY_AREA
         set(newType) {
             disable()
@@ -54,6 +53,11 @@ class Area(
             type = newState.type
         }
 
+    var lastAttackedTick: Int = -1
+
+    var updateTaskId: Int? = null
+    var cachedEntities: Set<Entity> = setOf()
+
 
 
     init {
@@ -67,20 +71,43 @@ class Area(
             return
         }
 
+        isEnabled = true
+
         state.enable()
         Bukkit.getServer().pluginManager.registerEvents(this, plugin)
+
+        updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+            update()
+        }, 1L, 1L).taskId
     }
     fun disable() {
         if (!isEnabled) {
             return
         }
 
+        isEnabled = false
+
         state.disable()
         HandlerList.unregisterAll(this)
+        Bukkit.getScheduler().cancelTask(updateTaskId!!)
     }
 
     fun update() {
         state.update()
+
+        val currentEntities = getEntities().toSet()
+
+        val newEntities = currentEntities - cachedEntities
+
+        for (entity in newEntities) {
+            when (entity) {
+                is Player -> {
+                    GameEventDispatcher.callEvent(
+                        PlayerAreaEnterEvent(this, entity)
+                    )
+                }
+            }
+        }
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {

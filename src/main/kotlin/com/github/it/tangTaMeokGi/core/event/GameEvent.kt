@@ -6,6 +6,9 @@ import org.bukkit.entity.Player
 
 interface GameEvent
 
+class PlayerAreaEnterEvent(val area: Area, player: Player): GameEvent
+
+
 abstract class CancelableEvent: GameEvent { var canceled = false }
 
 class AttackEvent(val attackerTeam: Team, val attacker: Player, val attackedArea: Area): CancelableEvent()
