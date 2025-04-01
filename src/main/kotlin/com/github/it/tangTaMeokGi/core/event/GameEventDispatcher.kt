@@ -4,7 +4,7 @@ import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.jvm.isAccessible
 
-object GameEventDispatcher {
+class GameEventDispatcher {
     private val listeners = mutableListOf<GameEventListener>()
 
     fun register(listener: GameEventListener) {
