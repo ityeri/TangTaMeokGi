@@ -27,7 +27,7 @@ class UserInterface(val game: Game): GameEventListener {
         when(state) {
             is BaseWarAreaState -> {
                 attacker.sendMessage(
-                    "이미 전쟁중인 땅에 공격 못함;;"
+                    "이미 공성전중인 땅에 공격 못함;;"
                 )
             }
 
