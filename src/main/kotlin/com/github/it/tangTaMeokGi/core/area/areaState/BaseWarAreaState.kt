@@ -5,4 +5,7 @@ import com.github.it.tangTaMeokGi.core.team.Team
 
 abstract class BaseWarAreaState(area: Area, ownerTeam: Team, val attackerTeam: Team,
                                 val warTime: Int):
-    OwnerbleAreaState(area, ownerTeam)
+    OwnerbleAreaState(area, ownerTeam) {
+    abstract fun onOwnerTeamWin()
+    abstract fun onAttackerTeamWin()
+    }
