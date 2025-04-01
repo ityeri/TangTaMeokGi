@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.area.areaState.GeneralAreaState
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.UserInterface
@@ -23,6 +24,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
     lateinit var testPlayer: Player
     lateinit var testArea: Area
+    lateinit var testTeam: Team
 
 
     override fun onEnable() {
@@ -36,26 +38,20 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         testArea = game.areaManager!!.getArea(1, 1)!!
 
-        game.teamManager!!.addTeam(
-            Team("test", "test", Color.RED)
-        )
+        testTeam = Team("test", "test", Color.RED)
+        game.teamManager!!.addTeam(testTeam)
 
         testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
         game.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
 
-        testArea.type = AreaType.PUBLIC_AREA
+        testArea.state = GeneralAreaState(
+            testArea, testTeam
+        )
         testArea.enable()
-
-        game.eventDispatcher.register(this)
 
         userInterface.enable()
     }
 
     override fun onDisable() {
-    }
-
-    @GameEventHandler
-    fun onPlayerEnterArea(event: PlayerEnterAreaEvent) {
-        Bukkit.getServer().sendMessage(Component.text(event.player.name))
     }
 }
