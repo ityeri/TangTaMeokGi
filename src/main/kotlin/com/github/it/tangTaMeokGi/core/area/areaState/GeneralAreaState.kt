@@ -23,7 +23,10 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
     }
 
     override fun onAttack(attackEvent: AttackEvent) {
-        TODO("Not yet implemented")
+        if (ownerTeam == attackEvent.attackerTeam) {
+            attackEvent.attacker.sendMessage("자폭은 안됨ㅇㅇ")
+            attackEvent.canceled = true
+        }
     }
 
 }
