@@ -204,10 +204,10 @@ TODO
 ===
 
 이 플러그인은 `Area` 라는 객체가 있고
-그 내부에 속성으로 `AreaState` 가 들어갑니다.
+그 내부에 속성으로 `AreaData` 가 들어갑니다.
 
 실질적으로, 땅의 고유한 속성(효과땅의 효과, 소유 팀 정보) 등등은
-`AreaState` 에 저장되며 `Area` 는 `AreaState` 를 감싸는
+`AreaData` 에 저장되며 `Area` 는 `AreaData` 를 감싸는
 레퍼 클래스에 가깝습니다.
 
 
@@ -217,7 +217,7 @@ TODO
 ===
 
 `PUBLIC_AREA`:
-* `PublicAreaState`
+* `PublicAreaData`
 
 
 
