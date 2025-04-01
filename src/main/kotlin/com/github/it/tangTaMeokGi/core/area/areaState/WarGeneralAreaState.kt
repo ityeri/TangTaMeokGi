@@ -4,8 +4,10 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
+import com.github.it.tangTaMeokGi.core.event.WarEndEvent
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
+import java.security.cert.TrustAnchor
 
 class WarGeneralAreaState(
     area: Area,
@@ -31,17 +33,21 @@ class WarGeneralAreaState(
     }
 
     override fun onAttackerTeamWin() {
-
+        area.game.eventDispatcher.callEvent(
+            WarEndEvent(
+                area, ownerTeam, attackerTeam, true
+            )
+        )
+        area.state = GeneralAreaState(
+            area, attackerTeam
+        )
+        area.enable()
     }
 
     override fun update() {
         val currentTime = System.currentTimeMillis()/1000
         if (warEndTime <= currentTime) {
-            Bukkit.getServer().sendMessage(
-                Component.text(
-                    "공성전 끝"
-                ))
-            disable()
+            onAttackerTeamWin()
         }
     }
 
