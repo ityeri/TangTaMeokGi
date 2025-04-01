@@ -2,6 +2,7 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.UserInterface
@@ -42,7 +43,9 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
         game.teamManager!!.getTeam("test")!!.addPlayer(testPlayer)
 
+        testArea.type = AreaType.PUBLIC_AREA
         testArea.enable()
+
         game.eventDispatcher.register(this)
 
         userInterface.enable()
