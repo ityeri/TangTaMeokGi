@@ -21,16 +21,19 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: Are
 
 
     override fun onAttack(attackEvent: AttackEvent) {
-        // TODO 즉시 확률적으로 attackerTeam 소유의 일반땅 또는 효과땅으로 바뀌는 기능 구현
+
+        area.game.eventDispatcher.callEvent(
+            AreaOccupationEvent(null,
+                attackEvent.attackerTeam,
+                attackEvent.attacker, area)
+        )
+
         if (isEffectArea) {
+
             area.state = EffectAreaState(
                 area, attackEvent.attackerTeam, areaEffect!!
             )
-            area.game.eventDispatcher.callEvent(
-                AreaOccupationEvent(null,
-                    attackEvent.attackerTeam,
-                    attackEvent.attacker, area)
-            )
+
         } else {
             area.state = GeneralAreaState(
                 area, attackEvent.attackerTeam
