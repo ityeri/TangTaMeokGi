@@ -8,14 +8,15 @@ import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 class WarGeneralAreaState(
     area: Area,
     ownerTeam: Team,
-    val attackerTeam: Team,
-    val timeLimitSec: Int
+    attackerTeam: Team,
+    warTime: Int
 
-) : GeneralAreaState(area, ownerTeam) {
+) : BaseWarAreaState(area, ownerTeam, attackerTeam, warTime) {
 
     override val type = AreaType.WAR_GENERAL_AREA
 
-//    var warEndTime
+    val warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
+
 
     override fun onEnable() {
         // TODO 이벤트 리스너 추가 코드
@@ -25,7 +26,11 @@ class WarGeneralAreaState(
     }
 
     override fun update() {
-        // ㅁㄴㅇㄹ
+        val currentTime = System.currentTimeMillis()/1000
+        if (warEndTime <= currentTime) {
+            disable()
+            println("전쟁 중단됨")
+        }
     }
 
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
@@ -34,7 +39,5 @@ class WarGeneralAreaState(
         )
         areaAttackEvent.canceled = true
     }
-
-
 
 }
