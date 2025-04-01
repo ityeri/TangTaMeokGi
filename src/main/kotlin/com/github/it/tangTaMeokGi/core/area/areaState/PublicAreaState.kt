@@ -7,7 +7,7 @@ import com.github.it.tangTaMeokGi.core.area.areaState.EffectAreaState.AreaEffect
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
 
-class PublicAreaState(area: Area, var isEffectArea: Boolean, areaEffect: AreaEffect? = null) : BaseAreaState(area) {
+class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: AreaEffect? = null) : BaseAreaState(area) {
 
     override val type = AreaType.PUBLIC_AREA
 
@@ -21,7 +21,16 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, areaEffect: AreaEff
 
     override fun onAttack(attackEvent: AttackEvent) {
         // TODO 즉시 확률적으로 attackerTeam 소유의 일반땅 또는 효과땅으로 바뀌는 기능 구현
-       attackEvent.attacker.sendMessage("공격시도 감지함")
+        attackEvent.attacker.sendMessage("공격시도 감지함. 해당 팀의 땅으로 바꿈")
+        if (isEffectArea) {
+            area.state = EffectAreaState(
+                area, attackEvent.attackerTeam, areaEffect!!
+            )
+        } else {
+            area.state = GeneralAreaState(
+                area, attackEvent.attackerTeam
+            )
+        }
     }
 
 }
