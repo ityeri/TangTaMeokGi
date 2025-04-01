@@ -7,7 +7,6 @@ import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
-import java.security.cert.TrustAnchor
 
 class WarGeneralAreaState(
     area: Area,
@@ -20,6 +19,9 @@ class WarGeneralAreaState(
     override val type = AreaType.WAR_GENERAL_AREA
 
     val warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
+    
+    val timeLeft: Int
+        get() = (System.currentTimeMillis()/1000).toInt() - warEndTime
 
 
     override fun onEnable() {
@@ -45,7 +47,10 @@ class WarGeneralAreaState(
     }
 
     override fun update() {
-        val currentTime = System.currentTimeMillis()/1000
+        Bukkit.getServer().sendMessage(
+            Component.text(timeLeft)
+        )
+        val currentTime = (System.currentTimeMillis()/1000).toInt()
         if (warEndTime <= currentTime) {
             onAttackerTeamWin()
         }
