@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi.core.area.areaData
+package com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData
 
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area

@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi.core.area.areaData
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
 class WarEffectAreaData(

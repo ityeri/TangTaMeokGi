@@ -1,8 +1,9 @@
-package com.github.it.tangTaMeokGi.core.area.areaData
+package com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
-import com.github.it.tangTaMeokGi.core.area.areaData.EffectAreaData.AreaEffect
+import com.github.it.tangTaMeokGi.core.area.areaData.BaseAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaEffect
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
