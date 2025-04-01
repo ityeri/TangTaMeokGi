@@ -31,7 +31,15 @@ class WarGeneralAreaState(
     }
 
     override fun onOwnerTeamWin() {
-
+        area.game.eventDispatcher.callEvent(
+            WarEndEvent(
+                area, ownerTeam, attackerTeam, false
+            )
+        )
+        area.state = GeneralAreaState(
+            area, ownerTeam
+        )
+        area.enable()
     }
 
     override fun onAttackerTeamWin() {
