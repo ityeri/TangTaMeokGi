@@ -17,5 +17,6 @@ class AreaAttackEvent(val area: Area, val attackerTeam: Team, val attacker: Play
 class AreaOccupationEvent(val area: Area, val losingTeam: Team?, val winningTeam: Team, val attacker: Player): GameEvent
 
 class WarStartEvent(val area: Area, val ownerTeam: Team, val attackerTeam: Team): GameEvent
+class WarEndEvent(val area: Area, val ownerTeam: Team, val attackerTeam: Team, val isAttackerWin: Boolean)
 
 class PlayerEnterAreaEvent(val area: Area, val player: Player): GameEvent
