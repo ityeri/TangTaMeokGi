@@ -15,7 +15,7 @@ class WarGeneralAreaState(
 
     override val type = AreaType.WAR_GENERAL_AREA
 
-    var timer: Int = timeLimitSec
+//    var warEndTime
 
     override fun onEnable() {
         // TODO 이벤트 리스너 추가 코드
@@ -29,7 +29,10 @@ class WarGeneralAreaState(
     }
 
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
-        // TODO 전장으로 들어오는 공격 이밴트는 씹어야함
+        areaAttackEvent.attacker.sendMessage(
+            "전쟁 영역에는 점령 시도를 할수 없습니다"
+        )
+        areaAttackEvent.canceled = true
     }
 
 
