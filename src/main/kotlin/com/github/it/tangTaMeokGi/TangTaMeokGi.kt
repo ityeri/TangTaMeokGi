@@ -21,7 +21,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
     val game = Game(this)
     val userInterface = UserInterface(game)
 
-    lateinit var testPlayer: Player
+    lateinit var testPlayer1: Player
+    lateinit var testPlayer2: Player
     lateinit var testArea: Area
     lateinit var testTeam1: Team
     lateinit var testTeam2: Team
@@ -44,8 +45,11 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.addTeam(testTeam1)
         game.teamManager!!.addTeam(testTeam2)
 
-        testPlayer = Bukkit.getServer().getPlayer("ityeri")!!
-        game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer)
+        testPlayer1 = Bukkit.getServer().getPlayer("ityeri")!!
+        testPlayer2 = Bukkit.getServer().getPlayer("ritiey")!!
+
+        game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
+        game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
         testArea.state = GeneralAreaState(
             testArea, testTeam2
