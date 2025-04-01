@@ -18,7 +18,7 @@ class UserInterface(val game: Game): GameEventListener {
     @GameEventHandler
     fun onAreaAttack(areaAttackEvent: AreaAttackEvent) {
         val area = areaAttackEvent.area
-        val state = area.state
+        val state = area.data
         val attacker = areaAttackEvent.attacker
         val attackerTeam = areaAttackEvent.attackerTeam
 
@@ -48,7 +48,7 @@ class UserInterface(val game: Game): GameEventListener {
     @GameEventHandler
     fun onPlayerEnterArea(playerEnterAreaEvent: PlayerEnterAreaEvent) {
         val area = playerEnterAreaEvent.area
-        val state = area.state
+        val state = area.data
         val enteredPlayer = playerEnterAreaEvent.player
         val enteredPlayerTeam = game.teamManager!!.getTeam(enteredPlayer)
 

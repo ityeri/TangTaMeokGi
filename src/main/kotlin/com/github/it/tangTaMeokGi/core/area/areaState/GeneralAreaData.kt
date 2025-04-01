@@ -27,7 +27,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
             return
         }
 
-        area.state = WarGeneralAreaData(
+        area.data = WarGeneralAreaData(
             area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime
         )
         area.enable()

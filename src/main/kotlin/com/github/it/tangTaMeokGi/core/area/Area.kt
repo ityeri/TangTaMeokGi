@@ -41,15 +41,15 @@ class Area(
         set(newType) {
             disable()
             field = newType
-            if (type == state.type) { return }
+            if (type == data.type) { return }
             newType.setTypeThis(this)
         }
 
-    var state: BaseAreaData = EmptyAreaData(this)
+    var data: BaseAreaData = EmptyAreaData(this)
         set(newState) {
             disable()
             field = newState
-            if (type == state.type) { return }
+            if (type == data.type) { return }
             type = newState.type
         }
 
@@ -73,7 +73,7 @@ class Area(
 
         isEnabled = true
 
-        state.enable()
+        data.enable()
         Bukkit.getServer().pluginManager.registerEvents(this, plugin)
 
         updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
@@ -87,13 +87,13 @@ class Area(
 
         isEnabled = false
 
-        state.disable()
+        data.disable()
         HandlerList.unregisterAll(this)
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
     }
 
     fun update() {
-        state.update()
+        data.update()
 
         val currentEntities = getEntities().toSet()
 
@@ -123,7 +123,7 @@ class Area(
         game.eventDispatcher.callEvent(areaAttackEvent)
 
         if (!areaAttackEvent.canceled) {
-            state.onAttack(areaAttackEvent)
+            data.onAttack(areaAttackEvent)
 
             if(!areaAttackEvent.canceled) {
                 attacker.inventory.removeItem(attacker.inventory.itemInHand)

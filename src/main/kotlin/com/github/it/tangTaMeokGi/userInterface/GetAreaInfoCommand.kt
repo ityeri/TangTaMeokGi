@@ -27,8 +27,8 @@ class GetAreaInfoCommand(val game: Game) : BaseCommand() {
                         영역 종류: ${area.type}
                         영역 활성화 여부: ${area.isEnabled}
                     """.trimIndent())
-                    if (area.state is OwnerbleAreaData) {
-                        sender.sendMessage("땅 주인팀: ${(area.state as OwnerbleAreaData).ownerTeam.id}")
+                    if (area.data is OwnerbleAreaData) {
+                        sender.sendMessage("땅 주인팀: ${(area.data as OwnerbleAreaData).ownerTeam.id}")
                     }
                 }
                 area ?: {

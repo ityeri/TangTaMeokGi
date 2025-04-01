@@ -6,14 +6,14 @@ import com.github.it.tangTaMeokGi.core.area.areaState.PublicAreaData
 enum class AreaType {
     EMPTY_AREA {
         override fun setTypeThis(area: Area) {
-            area.state = EmptyAreaData(area)
+            area.data = EmptyAreaData(area)
         }
     },
 
 
     PUBLIC_AREA {
         override fun setTypeThis(area: Area) {
-            area.state = PublicAreaData(area, false)
+            area.data = PublicAreaData(area, false)
         }
     },
 

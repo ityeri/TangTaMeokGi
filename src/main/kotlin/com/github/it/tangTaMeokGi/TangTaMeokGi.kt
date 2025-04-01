@@ -51,7 +51,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
-        testArea.state = GeneralAreaData(
+        testArea.data = GeneralAreaData(
             testArea, testTeam2
         )
         testArea.enable()

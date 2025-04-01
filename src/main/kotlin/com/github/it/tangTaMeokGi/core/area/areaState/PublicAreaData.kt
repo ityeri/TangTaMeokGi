@@ -28,12 +28,12 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val areaEffect: Area
 
         if (isEffectArea) {
 
-            area.state = EffectAreaData(
+            area.data = EffectAreaData(
                 area, areaAttackEvent.attackerTeam, areaEffect!!
             )
 
         } else {
-            area.state = GeneralAreaData(
+            area.data = GeneralAreaData(
                 area, areaAttackEvent.attackerTeam
             )
         }

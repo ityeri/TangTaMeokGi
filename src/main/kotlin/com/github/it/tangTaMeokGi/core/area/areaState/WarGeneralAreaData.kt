@@ -34,7 +34,7 @@ class WarGeneralAreaData(
                 area, ownerTeam, attackerTeam, false
             )
         )
-        area.state = GeneralAreaData(
+        area.data = GeneralAreaData(
             area, ownerTeam
         )
         area.enable()
@@ -46,7 +46,7 @@ class WarGeneralAreaData(
                 area, ownerTeam, attackerTeam, true
             )
         )
-        area.state = GeneralAreaData(
+        area.data = GeneralAreaData(
             area, attackerTeam
         )
         area.enable()
