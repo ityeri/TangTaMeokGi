@@ -54,10 +54,7 @@ class WarGeneralAreaState(
     }
 
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
-        // TODO 공성전 지역에 점령 시도시 점령 불가 메세지 전송을 UserInterface 로 넘기기
-        areaAttackEvent.attacker.sendMessage(
-            "전쟁 영역에는 점령 시도를 할수 없습니다"
-        )
+        // 공성전이 진행중인 땅에 공격을 할순 없음
         areaAttackEvent.canceled = true
     }
 

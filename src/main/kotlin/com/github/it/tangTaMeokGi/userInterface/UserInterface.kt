@@ -2,6 +2,7 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import co.aikar.commands.PaperCommandManager
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.areaState.BaseWarAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaState
 import com.github.it.tangTaMeokGi.core.event.*
 import net.kyori.adventure.text.Component
@@ -24,10 +25,23 @@ class UserInterface(val game: Game): GameEventListener {
         val attackerTeam = areaAttackEvent.attackerTeam
 
         when(state) {
+            is BaseWarAreaState -> {
+                attacker.sendMessage(
+                    "이미 전쟁중인 땅에 공격 못함;;"
+                )
+            }
+
             is OwnerbleAreaState -> {
-                state.ownerTeam.sendMessage(
-                    "님 팀의 x ${area.x * area.size} z ${area.z * area.size} 쪽 땅이 " +
-                    "${attackerTeam.displayName} 팀의 ${attacker.name} 라는 놈한테 공격맞음 ㅅㄱ")
+                if (state.ownerTeam == attackerTeam) {
+                    attacker.sendMessage(
+                        "님팀 땅에 님이 공격할라 하면 어떡함;;"
+                    )
+                } else {
+                    state.ownerTeam.sendMessage(
+                        "님 팀의 x ${area.x * area.size} z ${area.z * area.size} 쪽 땅이 " +
+                                "${attackerTeam.displayName} 팀의 ${attacker.name} 라는 놈한테 공격맞음 ㅅㄱ")
+                }
+
             }
         }
 
