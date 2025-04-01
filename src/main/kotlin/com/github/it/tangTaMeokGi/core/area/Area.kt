@@ -56,7 +56,7 @@ class Area(
     var lastAttackedTick: Int = -1
 
     var updateTaskId: Int? = null
-    var cachedEntities: Set<Entity> = setOf()
+    var recentEntities: Set<Entity> = setOf()
 
 
 
@@ -97,7 +97,7 @@ class Area(
 
         val currentEntities = getEntities().toSet()
 
-        val newEntities = currentEntities - cachedEntities
+        val newEntities = currentEntities - recentEntities
 
         for (entity in newEntities) {
             when (entity) {
@@ -108,6 +108,8 @@ class Area(
                 }
             }
         }
+
+        recentEntities = currentEntities
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
