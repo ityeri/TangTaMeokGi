@@ -10,6 +10,7 @@ import kotlin.random.Random
 import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
+import org.bukkit.entity.Entity
 
 class AreaManager(
     val game: Game,
@@ -165,6 +166,12 @@ class AreaManager(
         } catch (e: IndexOutOfBoundsException) {
             return null
         }
+    }
+    fun getArea(entity: Entity): Area? {
+        val x = (entity.x / areaSize).toInt()
+        val z = (entity.z / areaSize).toInt()
+
+        return getArea(x, z)
     }
 
     fun getAllArea(): List<Area> {
