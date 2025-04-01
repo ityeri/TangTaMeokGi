@@ -3,12 +3,13 @@ package com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import org.bukkit.potion.PotionEffect
 
 open class EffectAreaData(area: Area, ownerTeam: Team,
                           val areaEffect: AreaEffect
-) : GeneralAreaData(area, ownerTeam) {
+) : OwnerbleAreaData(area, ownerTeam) {
 
     data class AreaEffect(val buffEffect: PotionEffect? = null, val debuffEffect: PotionEffect? = null)
 
