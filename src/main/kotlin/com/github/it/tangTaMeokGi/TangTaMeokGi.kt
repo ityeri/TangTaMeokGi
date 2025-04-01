@@ -34,12 +34,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
             warTimeSec = 60
         )
 
-//        pluginScope.launch {
-//            game.mapGenerate()
-//        }
-
         testArea = game.areaManager!!.getArea(1, 1)!!
-//        testArea.type = AreaType.EMPTY_AREA
 
         game.teamManager!!.addTeam(
             Team("test", "test", Color.RED)
@@ -50,15 +45,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         testArea.enable()
         println(testArea.type)
-
-        GameEventDispatcher.register(this)
     }
 
     override fun onDisable() {
-    }
-
-    @GameEventHandler
-    fun onAttack(event: AttackEvent) {
-        event.attacker.sendMessage("이벤트 리스너 테스느")
     }
 }
