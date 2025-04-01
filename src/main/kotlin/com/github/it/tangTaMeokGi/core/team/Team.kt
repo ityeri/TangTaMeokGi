@@ -1,5 +1,6 @@
 package com.github.it.tangTaMeokGi.core.team
 
+import com.mojang.brigadier.Message
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.OfflinePlayer
@@ -38,6 +39,13 @@ class Team(
 
             return playerSet
         }
+
+
+    fun sendMessage(message: String) {
+        for (player in onlinePlayers) {
+            player.sendMessage(message)
+        }
+    }
 
 
     fun addPlayer(player: Player) {
