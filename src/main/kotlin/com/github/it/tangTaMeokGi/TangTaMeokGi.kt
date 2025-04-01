@@ -4,6 +4,7 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
+import com.github.it.tangTaMeokGi.userInterface.UserInterface
 import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -17,6 +18,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
     val pluginScope = CoroutineScope(Dispatchers.Default + Job())
 
     val game = Game(this)
+    val userInterface = UserInterface(game)
 
     lateinit var testPlayer: Player
     lateinit var testArea: Area
@@ -42,6 +44,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         testArea.enable()
         game.eventDispatcher.register(this)
+
+        userInterface.enable()
     }
 
     override fun onDisable() {
