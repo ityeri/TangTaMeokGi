@@ -1,6 +1,7 @@
 package com.github.it.tangTaMeokGi.core
 
 import com.github.it.tangTaMeokGi.core.area.AreaManager
+import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
 import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
@@ -13,6 +14,7 @@ class Game(val plugin: JavaPlugin) {
 
     var areaManager: AreaManager? = null
     var teamManager: TeamManager? = null
+    val eventDispatcher = GameEventDispatcher()
 
     var setting: GameSetting? = null
 
