@@ -57,7 +57,8 @@ class WarGeneralAreaState(
     override fun update() {
         val currentTime = (System.currentTimeMillis()/1000).toInt()
         if (timeLeft <= 0) {
-            onAttackerTeamWin()
+//            onAttackerTeamWin()
+            onOwnerTeamWin()
         }
     }
 
