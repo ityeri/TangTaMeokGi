@@ -5,10 +5,13 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.event.AttackEvent
 import org.bukkit.entity.Player
+import org.bukkit.potion.PotionEffect
 
 open class EffectAreaState(area: Area, ownerTeam: Team,
                            val areaEffect: AreaEffect
 ) : GeneralAreaState(area, ownerTeam) {
+
+    data class AreaEffect(val buffEffect: PotionEffect? = null, val debuffEffect: PotionEffect? = null)
 
     override val type = AreaType.EFFECT_AREA
 
