@@ -27,7 +27,9 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: Are
                 area, attackEvent.attackerTeam, areaEffect!!
             )
             area.game.eventDispatcher.callEvent(
-                AreaOccupationEvent(null, attackEvent.attackerTeam, area)
+                AreaOccupationEvent(null,
+                    attackEvent.attackerTeam,
+                    attackEvent.attacker, area)
             )
         } else {
             area.state = GeneralAreaState(
