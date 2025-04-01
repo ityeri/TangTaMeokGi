@@ -3,8 +3,7 @@ package com.github.it.tangTaMeokGi.core.area.areaState
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
-import com.github.it.tangTaMeokGi.core.event.AttackEvent
-import org.bukkit.entity.Player
+import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import org.bukkit.potion.PotionEffect
 
 open class EffectAreaState(area: Area, ownerTeam: Team,
@@ -27,7 +26,7 @@ open class EffectAreaState(area: Area, ownerTeam: Team,
         TODO("이펙 넣는거 추가 ㄱ")
     }
 
-    override fun onAttack(attackEvent: AttackEvent) {
+    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
         TODO("Not yet implemented")
     }
 

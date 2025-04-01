@@ -4,8 +4,7 @@ import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.areaState.BaseAreaState
 import com.github.it.tangTaMeokGi.core.area.areaState.EmptyAreaState
-import com.github.it.tangTaMeokGi.core.event.AttackEvent
-import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
+import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.PlayerEnterAreaEvent
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -120,13 +119,13 @@ class Area(
         }
         lastAttackedTick = Bukkit.getServer().currentTick
 
-        val attackEvent = AttackEvent(attackerTeam, attacker, this)
-        game.eventDispatcher.callEvent(attackEvent)
+        val areaAttackEvent = AreaAttackEvent(attackerTeam, attacker, this)
+        game.eventDispatcher.callEvent(areaAttackEvent)
 
-        if (!attackEvent.canceled) {
-            state.onAttack(attackEvent)
+        if (!areaAttackEvent.canceled) {
+            state.onAttack(areaAttackEvent)
 
-            if(!attackEvent.canceled) {
+            if(!areaAttackEvent.canceled) {
                 attacker.inventory.removeItem(attacker.inventory.itemInHand)
             }
         }

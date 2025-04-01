@@ -1,10 +1,8 @@
 package com.github.it.tangTaMeokGi.core.area.areaState
 
-import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
-import com.github.it.tangTaMeokGi.core.event.AttackEvent
-import org.bukkit.entity.Player
+import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
 open class EmptyAreaState(
     area: Area
@@ -22,8 +20,8 @@ open class EmptyAreaState(
 
     override fun update() {}
 
-    override fun onAttack(attackEvent: AttackEvent) {
-        attackEvent.attacker.sendMessage("[$type] 공격이 지원되지 않는 땅입니다.")
+    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
+        areaAttackEvent.attacker.sendMessage("[$type] 공격이 지원되지 않는 땅입니다.")
     }
 
 }

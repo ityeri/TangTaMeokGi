@@ -1,12 +1,10 @@
 package com.github.it.tangTaMeokGi.core.area.areaState
 
-import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaState.EffectAreaState.AreaEffect
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
-import com.github.it.tangTaMeokGi.core.event.AttackEvent
-import org.bukkit.entity.Player
+import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
 class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: AreaEffect? = null) : BaseAreaState(area) {
 
@@ -20,23 +18,23 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: Are
     }
 
 
-    override fun onAttack(attackEvent: AttackEvent) {
+    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
 
         area.game.eventDispatcher.callEvent(
             AreaOccupationEvent(null,
-                attackEvent.attackerTeam,
-                attackEvent.attacker, area)
+                areaAttackEvent.attackerTeam,
+                areaAttackEvent.attacker, area)
         )
 
         if (isEffectArea) {
 
             area.state = EffectAreaState(
-                area, attackEvent.attackerTeam, areaEffect!!
+                area, areaAttackEvent.attackerTeam, areaEffect!!
             )
 
         } else {
             area.state = GeneralAreaState(
-                area, attackEvent.attackerTeam
+                area, areaAttackEvent.attackerTeam
             )
         }
     }
