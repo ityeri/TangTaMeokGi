@@ -119,7 +119,7 @@ class Area(
         }
         lastAttackedTick = Bukkit.getServer().currentTick
 
-        val areaAttackEvent = AreaAttackEvent(attackerTeam, attacker, this)
+        val areaAttackEvent = AreaAttackEvent(this, attackerTeam, attacker)
         game.eventDispatcher.callEvent(areaAttackEvent)
 
         if (!areaAttackEvent.canceled) {

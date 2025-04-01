@@ -21,9 +21,9 @@ class PublicAreaState(area: Area, var isEffectArea: Boolean, val areaEffect: Are
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
 
         area.game.eventDispatcher.callEvent(
-            AreaOccupationEvent(null,
+            AreaOccupationEvent(area, null,
                 areaAttackEvent.attackerTeam,
-                areaAttackEvent.attacker, area)
+                areaAttackEvent.attacker)
         )
 
         if (isEffectArea) {
