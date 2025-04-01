@@ -46,11 +46,11 @@ class Area(
         }
 
     var data: BaseAreaData = EmptyAreaData(this)
-        set(newState) {
+        set(newData) {
             disable()
-            field = newState
+            field = newData
             if (type == data.type) { return }
-            type = newState.type
+            type = newData.type
         }
 
     var lastAttackedTick: Int = -1
