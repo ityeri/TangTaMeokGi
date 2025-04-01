@@ -21,7 +21,7 @@ class WarGeneralAreaState(
     val warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
     
     val timeLeft: Int
-        get() = (System.currentTimeMillis()/1000).toInt() - warEndTime
+        get() = warEndTime + (System.currentTimeMillis()/1000).toInt()
 
 
     override fun onEnable() {
