@@ -23,8 +23,8 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
     }
 
     override fun onAttack(attackEvent: AttackEvent) {
+            // 자기 팀에 자기가 공격 시도했을 경우
         if (ownerTeam == attackEvent.attackerTeam) {
-            attackEvent.attacker.sendMessage("자폭은 안됨ㅇㅇ")
             attackEvent.canceled = true
             return
         }
@@ -32,6 +32,7 @@ open class GeneralAreaState(area: Area, val ownerTeam: Team) : BaseAreaState(are
         area.state = WarGeneralAreaState(
             area, ownerTeam, attackEvent.attackerTeam, area.game.setting!!.warTime
         )
+        area.enable()
     }
 
 }
