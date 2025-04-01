@@ -3,10 +3,9 @@ package com.github.it.tangTaMeokGi.userInterface
 import co.aikar.commands.PaperCommandManager
 import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.area.areaState.OwnerbleAreaState
-import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
-import com.github.it.tangTaMeokGi.core.event.GameEventHandler
-import com.github.it.tangTaMeokGi.core.event.GameEventListener
-import com.github.it.tangTaMeokGi.core.event.PlayerEnterAreaEvent
+import com.github.it.tangTaMeokGi.core.event.*
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 
 class UserInterface(val game: Game): GameEventListener {
     fun enable() {
@@ -53,5 +52,12 @@ class UserInterface(val game: Game): GameEventListener {
             }
         }
 
+    }
+
+    @GameEventHandler
+    fun onWarStart(warStartEvent: WarStartEvent) {
+        Bukkit.getServer().sendMessage(Component.text(
+            "공성전 시작"
+        ))
     }
 }
