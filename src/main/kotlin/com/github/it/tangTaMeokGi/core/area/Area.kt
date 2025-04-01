@@ -102,7 +102,7 @@ class Area(
         for (entity in newEntities) {
             when (entity) {
                 is Player -> {
-                    GameEventDispatcher.callEvent(
+                    game.eventDispatcher.callEvent(
                         PlayerEnterAreaEvent(this, entity)
                     )
                 }
@@ -120,7 +120,7 @@ class Area(
         lastAttackedTick = Bukkit.getServer().currentTick
 
         val attackEvent = AttackEvent(attackerTeam, attacker, this)
-        GameEventDispatcher.callEvent(attackEvent)
+        game.eventDispatcher.callEvent(attackEvent)
 
         if (!attackEvent.canceled) {
             state.onAttack(attackEvent)
