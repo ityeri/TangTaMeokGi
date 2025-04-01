@@ -47,11 +47,8 @@ class WarGeneralAreaState(
     }
 
     override fun update() {
-        Bukkit.getServer().sendMessage(
-            Component.text(timeLeft)
-        )
         val currentTime = (System.currentTimeMillis()/1000).toInt()
-        if (warEndTime <= currentTime) {
+        if (timeLeft <= 0) {
             onAttackerTeamWin()
         }
     }
