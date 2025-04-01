@@ -42,13 +42,14 @@ class Area(
         set(newType) {
             disable()
             field = newType
+            if (type == state.type) { return }
             newType.setTypeThis(this)
         }
 
     var state: BaseAreaState = EmptyAreaState(this)
         set(newState) {
             disable()
-            field = state
+            field = newState
             if (type == state.type) { return }
             type = newState.type
         }
