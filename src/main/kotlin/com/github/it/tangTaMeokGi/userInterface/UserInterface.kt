@@ -77,8 +77,14 @@ class UserInterface(val game: Game): GameEventListener {
 
     @GameEventHandler
     fun onWarEnd(warEndEvent: WarEndEvent) {
-        Bukkit.getServer().sendMessage(Component.text(
-                "공성전 끝"
-        ))
+        val attackerTeam = warEndEvent.attackerTeam
+        val ownerTeam = warEndEvent.ownerTeam
+        if (warEndEvent.isAttackerWin) {
+            attackerTeam.sendMessage("ㅊㅋㅊㅋ 님들 땅하나 뺏음")
+            ownerTeam.sendMessage("이걸 땅을 뺐기노 흐접")
+        } else {
+            attackerTeam.sendMessage("이걸 땅을 못뺐노 흐접")
+            ownerTeam.sendMessage("땅 지켜냄 ㅅㄱ")
+        }
     }
 }
