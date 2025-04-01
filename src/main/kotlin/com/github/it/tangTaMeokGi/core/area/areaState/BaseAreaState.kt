@@ -19,11 +19,13 @@ abstract class BaseAreaState(
     fun enable() {
         if (isEnabled) { return }
         isEnabled = true
+        area.enable()
         onEnable()
     }
     fun disable() {
         if (!isEnabled) { return }
         isEnabled = false
+        area.disable()
         onDisable()
     }
 
