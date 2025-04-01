@@ -14,7 +14,6 @@ enum class AreaType {
     PUBLIC_AREA {
         override fun setTypeThis(area: Area) {
             area.state = PublicAreaState(area, false)
-            println("asdfadsfasf;lakjf;alksjf;lakdsjfl;akj")
         }
     },
 
