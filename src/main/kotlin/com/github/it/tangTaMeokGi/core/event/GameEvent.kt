@@ -5,6 +5,10 @@ import com.github.it.tangTaMeokGi.core.team.Team
 import org.bukkit.entity.Player
 
 interface GameEvent
+/*
+게임 이벤트는 진짜 취소할게 확실한거 아니면 취소 안되는걸 기본으로 깔고 만드삼
+취소 가능한 이벤트로 만드는건 나중에 얼마든지 가능
+ */
 
 
 abstract class CancelableEvent: GameEvent { var canceled = false }
