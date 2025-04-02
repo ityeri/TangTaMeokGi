@@ -14,6 +14,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.inventory.meta.MapMeta
 
 @CommandAlias("map")
 @CommandPermission("op")
@@ -24,12 +25,12 @@ class MapCommand(val game: Game) : BaseCommand() {
         when (sender) {
             is Player -> {
                 val map = ItemStack(Material.FILLED_MAP)
-                val meta = Bukkit.createMap(sender.world).also { mapView ->
+                val view = Bukkit.createMap(sender.world).also { mapView ->
                     mapView.renderers.forEach(mapView::removeRenderer) // 기본 렌더러 제거
                     mapView.addRenderer(AreaMapRenderer(game.areaManager!!)) // 영역 렌더러 추가
-                } as ItemMeta
+                }
 
-                map.itemMeta = meta
+                (map.itemMeta as MapMeta).mapView = view
                 sender.inventory.addItem(map) // 유저에게 지도 지급
             }
 
