@@ -2,7 +2,9 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.UserInterface
@@ -51,8 +53,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
-        testArea.data = GeneralAreaData(
-            testArea, testTeam2
+        testArea.data = PublicAreaData(
+            testArea, true, AreaPotionEffect()
         )
         testArea.enable()
 
