@@ -15,7 +15,7 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
     override fun onDisable() {}
 
     override fun update() {
-        // TODO areaPotionEffect 로 해당 영역 내에 플레ㅔ이어 한테 효과 넣는거 구현 ㄱ
+        // TODO potionEffect 로 해당 영역 내에 플레ㅔ이어 한테 효과 넣는거 구현 ㄱ
     }
 
 
