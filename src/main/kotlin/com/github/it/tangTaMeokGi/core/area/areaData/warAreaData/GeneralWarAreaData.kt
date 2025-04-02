@@ -17,20 +17,15 @@ class GeneralWarAreaData(
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, warTime) {
 
     override val type = AreaType.WAR_GENERAL_AREA
-
-    val warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
-    
-    val timeLeft: Int
-        get() = warEndTime - (System.currentTimeMillis()/1000).toInt()
-
+    override var warEndTime: Int? = null
 
 
     override fun onEnable() {
+        warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
     }
 
     override fun onDisable() {
     }
-
 
 
     fun onWarEnd() {
@@ -83,14 +78,11 @@ class GeneralWarAreaData(
     }
 
 
-
     override fun update() {
-        val currentTime = (System.currentTimeMillis()/1000).toInt()
         if (timeLeft <= 0) {
             onWarEnd()
         }
     }
-
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
         // 공성전이 진행중인 땅에 공격을 할순 없음
         areaAttackEvent.canceled = true
