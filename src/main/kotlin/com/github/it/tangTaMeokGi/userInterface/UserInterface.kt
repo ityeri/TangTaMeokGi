@@ -5,6 +5,7 @@ import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
+import com.github.it.tangTaMeokGi.userInterface.command.GetAreaInfoCommand
 
 class UserInterface(val game: Game): GameEventListener {
     fun enable() {
