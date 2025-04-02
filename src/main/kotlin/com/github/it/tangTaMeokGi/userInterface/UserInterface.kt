@@ -6,12 +6,14 @@ import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.userInterface.command.GetAreaInfoCommand
+import com.github.it.tangTaMeokGi.userInterface.command.MapCommand
 
 class UserInterface(val game: Game): GameEventListener {
     fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
 
         commandManager.registerCommand(GetAreaInfoCommand(game))
+        commandManager.registerCommand(MapCommand(game))
 
         game.eventDispatcher.register(this)
     }
