@@ -7,7 +7,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaDa
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 
-class PublicAreaData(area: Area, var isEffectArea: Boolean, val areaPotionEffect: AreaPotionEffect? = null) : BaseAreaData(area) {
+class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: AreaPotionEffect? = null) : BaseAreaData(area) {
 
     override val type = AreaType.PUBLIC_AREA
 
@@ -29,7 +29,7 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val areaPotionEffect
 
         if (isEffectArea) {
             area.data = EffectAreaData(
-                area, areaAttackEvent.attackerTeam, areaPotionEffect!!
+                area, areaAttackEvent.attackerTeam, potionEffect!!
             )
         }
         else {

@@ -5,7 +5,6 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
 import org.bukkit.entity.Player
@@ -15,7 +14,7 @@ class EffectWarAreaData(
     ownerTeam: Team,
     attackerTeam: Team,
     timeLimitSec: Int,
-    val areaPotionEffect: AreaPotionEffect
+    val potionEffect: AreaPotionEffect
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, timeLimitSec) {
 
     override val type = AreaType.WAR_EFFECT_AREA
@@ -61,7 +60,7 @@ class EffectWarAreaData(
             )
         )
         area.data = EffectAreaData(
-            area, ownerTeam, areaPotionEffect
+            area, ownerTeam, potionEffect
         )
         area.enable()
     }
@@ -73,7 +72,7 @@ class EffectWarAreaData(
             )
         )
         area.data = EffectAreaData(
-            area, attackerTeam, areaPotionEffect
+            area, attackerTeam, potionEffect
         )
         area.enable()
     }

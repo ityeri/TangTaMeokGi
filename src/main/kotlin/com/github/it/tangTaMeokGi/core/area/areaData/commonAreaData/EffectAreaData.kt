@@ -10,7 +10,7 @@ import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 import org.bukkit.potion.PotionEffect
 
 open class EffectAreaData(area: Area, ownerTeam: Team,
-                          val areaPotionEffect: AreaPotionEffect
+                          val potionEffect: AreaPotionEffect
 ) : OwnerbleAreaData(area, ownerTeam) {
 
     data class AreaPotionEffect(val buffEffect: PotionEffect? = null, val debuffEffect: PotionEffect? = null)
@@ -36,7 +36,7 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
 
         area.data = EffectWarAreaData(
             area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime,
-            areaPotionEffect
+            potionEffect
         )
         area.enable()
 
