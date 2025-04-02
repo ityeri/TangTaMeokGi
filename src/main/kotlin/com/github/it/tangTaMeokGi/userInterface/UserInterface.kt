@@ -47,7 +47,6 @@ class UserInterface(val game: Game): GameEventListener {
 
     @GameEventHandler
     fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
-        println("점령 이벤트 발생")
         val area = areaOccupationEvent.area
 
         areaOccupationEvent.attacker.sendMessage(
