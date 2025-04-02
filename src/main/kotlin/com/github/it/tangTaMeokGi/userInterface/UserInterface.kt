@@ -7,8 +7,12 @@ import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.userInterface.command.GetAreaInfoCommand
 import com.github.it.tangTaMeokGi.userInterface.command.MapCommand
+import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.server.MapInitializeEvent
 
-class UserInterface(val game: Game): GameEventListener {
+class UserInterface(val game: Game): GameEventListener, Listener {
     fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
 
@@ -16,6 +20,8 @@ class UserInterface(val game: Game): GameEventListener {
         commandManager.registerCommand(MapCommand(game))
 
         game.eventDispatcher.register(this)
+
+        Bukkit.getPluginManager().registerEvents(this, game.plugin)
     }
 
     @GameEventHandler
@@ -101,5 +107,13 @@ class UserInterface(val game: Game): GameEventListener {
             attackerTeam.sendMessage("이걸 땅을 못뺐노 흐접")
             ownerTeam.sendMessage("땅 지켜냄 ㅅㄱ")
         }
+    }
+
+    @EventHandler
+    fun onMapInitialize(event: MapInitializeEvent) {
+        val map = event.map
+        for (renderer in map.renderers)
+            map.removeRenderer(renderer)
+        map.addRenderer(AreaMapRenderer(game.areaManager!!))
     }
 }
