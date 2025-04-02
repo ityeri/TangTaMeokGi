@@ -46,6 +46,15 @@ class UserInterface(val game: Game): GameEventListener {
     }
 
     @GameEventHandler
+    fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
+        val area = areaOccupationEvent.area
+
+        areaOccupationEvent.attacker.sendMessage(
+            "x ${area.x * area.size} z ${area.z * area.size} 쪽 땅 점령 성공함 =)"
+        )
+    }
+
+    @GameEventHandler
     fun onPlayerEnterArea(playerEnterAreaEvent: PlayerEnterAreaEvent) {
         val area = playerEnterAreaEvent.area
         val state = area.data
