@@ -19,6 +19,8 @@ class AreaMapRenderer(areaManager: AreaManager): MapRenderer(), Listener {
                 canvas.setPixelColor(x, y, Color.RED)
             }
         }
+
+        player.sendMessage("AreaManager.render")
     }
 
 
