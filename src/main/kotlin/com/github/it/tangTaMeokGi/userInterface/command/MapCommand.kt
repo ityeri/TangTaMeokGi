@@ -21,7 +21,20 @@ class MapCommand(val game: Game) : BaseCommand() {
     fun onCommand(sender: CommandSender) {
         when (sender) {
             is Player -> {
-                val map = sender.inventory.getItem(0)!!
+//                val map = sender.inventory.getItem(0)!!
+//                val view = (map.itemMeta as MapMeta).mapView!!
+//
+//                for (renderer in view.renderers) {
+//                    view.removeRenderer(renderer)
+//                }
+//
+//                view.addRenderer(AreaMapRenderer(game.areaManager!!))
+//
+//                println(view.renderers)
+
+                val map = ItemStack(Material.FILLED_MAP)
+                sender.inventory.addItem(map) // 유저에게 지도 지급
+
                 val view = (map.itemMeta as MapMeta).mapView!!
 
                 for (renderer in view.renderers) {
@@ -30,18 +43,7 @@ class MapCommand(val game: Game) : BaseCommand() {
 
                 view.addRenderer(AreaMapRenderer(game.areaManager!!))
 
-                println(view.renderers)
-
-//                val map = ItemStack(Material.FILLED_MAP)
-//                sender.inventory.addItem(map) // 유저에게 지도 지급
-//
-//                val view = (map.itemMeta as MapMeta).mapView!!
-//
-//                view.removeRenderer(view.renderers[0])
-//
-//                view.addRenderer(AreaMapRenderer(game.areaManager!!))
-//
-//                sender.sendMap(view)
+                sender.sendMap(view)
 
             }
 
