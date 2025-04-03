@@ -3,12 +3,12 @@ package com.github.it.tangTaMeokGi.userInterface
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.server.MapInitializeEvent
 import org.bukkit.map.*
 import java.awt.Color
 
-class AreaMapRenderer(areaManager: AreaManager): MapRenderer(true) {
+
+class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
+
     override fun render(mapView: MapView, canvas: MapCanvas, player: Player) {
         canvas.drawText(10, 10, MinecraftFont.Font, "Test!")
 
@@ -20,6 +20,13 @@ class AreaMapRenderer(areaManager: AreaManager): MapRenderer(true) {
         }
 
         player.sendMessage("AreaManager.render")
+    }
+
+    fun drawToMap(map: MapView) {
+        for (renderer in map.renderers) {
+            map.removeRenderer(renderer)
+        }
+        map.addRenderer(AreaMapRenderer(areaManager))
     }
 
 }
