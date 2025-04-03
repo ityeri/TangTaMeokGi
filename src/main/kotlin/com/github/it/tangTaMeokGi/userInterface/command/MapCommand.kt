@@ -27,11 +27,7 @@ class MapCommand(val game: Game) : BaseCommand() {
                 val map = ItemStack(Material.FILLED_MAP)
                 val view = Bukkit.createMap(sender.world)
 
-                for (mapRenderer in view.renderers) {
-                    view.removeRenderer(mapRenderer)
-                }
-
-                view.addRenderer(AreaMapRenderer(game.areaManager!!))
+                AreaMapRenderer.drawToMap(view, game.areaManager!!)
 
                 (map.itemMeta as MapMeta).mapView = view
 
