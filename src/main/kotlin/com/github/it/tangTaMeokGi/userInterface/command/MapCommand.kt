@@ -26,6 +26,8 @@ class MapCommand(val game: Game) : BaseCommand() {
 
                 view.removeRenderer(view.renderers[0])
 
+                view.addRenderer(AreaMapRenderer(game.areaManager!!))
+
                 println(view.renderers)
 
 //                val map = ItemStack(Material.FILLED_MAP)
