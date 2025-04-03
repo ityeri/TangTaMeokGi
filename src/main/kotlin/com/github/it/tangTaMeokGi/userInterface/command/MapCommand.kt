@@ -21,16 +21,21 @@ class MapCommand(val game: Game) : BaseCommand() {
     fun onCommand(sender: CommandSender) {
         when (sender) {
             is Player -> {
-                val map = ItemStack(Material.FILLED_MAP)
-                val view = Bukkit.createMap(sender.world)
+                val map = sender.inventory.getItem(0)!!
+                val view = (map.itemMeta as MapMeta).mapView!!
 
-                AreaMapRenderer.initRenderer(view, game.areaManager!!)
+                println(view.renderers)
 
-                (map.itemMeta as MapMeta).mapView = view
-
-                sender.inventory.addItem(map) // 유저에게 지도 지급
-
-                sender.sendMap(view)
+//                val map = ItemStack(Material.FILLED_MAP)
+//                val view = Bukkit.createMap(sender.world)
+//
+//                AreaMapRenderer.initRenderer(view, game.areaManager!!)
+//
+//                (map.itemMeta as MapMeta).mapView = view
+//
+//                sender.inventory.addItem(map) // 유저에게 지도 지급
+//
+//                sender.sendMap(view)
             }
 
             else -> {
