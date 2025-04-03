@@ -9,6 +9,15 @@ import java.awt.Color
 
 class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
 
+    companion object {
+        fun drawToMap(map: MapView, areaManager: AreaManager) {
+            for (renderer in map.renderers) {
+                map.removeRenderer(renderer)
+            }
+            map.addRenderer(AreaMapRenderer(areaManager))
+        }
+    }
+
     override fun render(mapView: MapView, canvas: MapCanvas, player: Player) {
         canvas.drawText(10, 10, MinecraftFont.Font, "Test!")
 
@@ -20,13 +29,6 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
         }
 
         player.sendMessage("AreaManager.render")
-    }
-
-    fun drawToMap(map: MapView) {
-        for (renderer in map.renderers) {
-            map.removeRenderer(renderer)
-        }
-        map.addRenderer(AreaMapRenderer(areaManager))
     }
 
 }
