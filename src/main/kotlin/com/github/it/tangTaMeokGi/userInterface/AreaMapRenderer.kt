@@ -1,6 +1,5 @@
 package com.github.it.tangTaMeokGi.userInterface
 
-import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import org.bukkit.entity.Player
 import org.bukkit.map.*
@@ -10,7 +9,7 @@ import java.awt.Color
 class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
 
     companion object {
-        fun drawToMap(map: MapView, areaManager: AreaManager) {
+        fun initRenderer(map: MapView, areaManager: AreaManager) {
             for (renderer in map.renderers) {
                 map.removeRenderer(renderer)
             }
