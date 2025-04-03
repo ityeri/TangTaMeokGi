@@ -24,20 +24,22 @@ class MapCommand(val game: Game) : BaseCommand() {
                 val map = sender.inventory.getItem(0)!!
                 val view = (map.itemMeta as MapMeta).mapView!!
 
-                view.removeRenderer(view.renderers[0])
+                for (renderer in view.renderers) {
+                    view.removeRenderer(renderer)
+                }
 
                 view.addRenderer(AreaMapRenderer(game.areaManager!!))
 
                 println(view.renderers)
 
 //                val map = ItemStack(Material.FILLED_MAP)
-//                val view = Bukkit.createMap(sender.world)
-//
-//                AreaMapRenderer.initRenderer(view, game.areaManager!!)
-//
-//                (map.itemMeta as MapMeta).mapView = view
-//
 //                sender.inventory.addItem(map) // 유저에게 지도 지급
+//
+//                val view = (map.itemMeta as MapMeta).mapView!!
+//
+//                view.removeRenderer(view.renderers[0])
+//
+//                view.addRenderer(AreaMapRenderer(game.areaManager!!))
 //
 //                sender.sendMap(view)
 
