@@ -25,7 +25,7 @@ class MapCommand(val game: Game) : BaseCommand() {
         when (sender) {
             is Player -> {
                 val map = sender.inventory.getItem(0)!!
-                val view = Bukkit.createMap(sender.world)
+                val view = (map.itemMeta as MapMeta).mapView!!
 
                 AreaMapRenderer.drawToMap(view, game.areaManager!!)
 
