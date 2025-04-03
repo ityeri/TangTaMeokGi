@@ -30,9 +30,11 @@ class MapCommand(val game: Game) : BaseCommand() {
                 for (mapRenderer in view.renderers) {
                     view.removeRenderer(mapRenderer)
                 }
+
                 view.addRenderer(AreaMapRenderer(game.areaManager!!))
 
-                println(view.renderers)
+                (map.itemMeta as MapMeta).mapView = view
+
                 sender.inventory.addItem(map) // 유저에게 지도 지급
 
                 sender.sendMap(view)
