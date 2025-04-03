@@ -24,6 +24,8 @@ class MapCommand(val game: Game) : BaseCommand() {
                 val map = sender.inventory.getItem(0)!!
                 val view = (map.itemMeta as MapMeta).mapView!!
 
+                view.removeRenderer(view.renderers[0])
+
                 println(view.renderers)
 
 //                val map = ItemStack(Material.FILLED_MAP)
@@ -36,6 +38,7 @@ class MapCommand(val game: Game) : BaseCommand() {
 //                sender.inventory.addItem(map) // 유저에게 지도 지급
 //
 //                sender.sendMap(view)
+
             }
 
             else -> {
