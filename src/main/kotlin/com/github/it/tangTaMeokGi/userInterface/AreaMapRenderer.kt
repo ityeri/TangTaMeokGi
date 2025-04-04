@@ -1,9 +1,11 @@
 package com.github.it.tangTaMeokGi.userInterface
 
 import com.github.it.tangTaMeokGi.core.area.AreaManager
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import org.bukkit.entity.Player
 import org.bukkit.map.*
 import java.awt.Color
+import kotlin.math.round
 
 
 class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
@@ -18,12 +20,28 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
     }
 
     override fun render(mapView: MapView, canvas: MapCanvas, player: Player) {
-        canvas.drawText(10, 10, MinecraftFont.Font, "Test!")
+        for (z in 0 until areaManager.mapSize) {
+            for (x in 0 until areaManager.mapSize) {
+                val canvasX = round(128.0 / areaManager.mapSize * x).toInt()
+                val canvasY = round(128.0 / areaManager.mapSize * z).toInt()
 
-        // 특정 위치에 색칠 (픽셀 단위)
-        for (x in 30..50) {
-            for (y in 30..50) {
-                canvas.setPixelColor(x, y, Color.WHITE)
+                val area = areaManager.getArea(x, z)!!
+                val areaData = area.data
+
+                val color: Color
+
+
+                when (areaData) {
+                    is OwnerbleAreaData -> {
+                        color = areaData.ownerTeam.teamColor
+                    }
+
+                    else -> {
+                        color = Color.WHITE
+                    }
+                }
+
+                canvas.setPixelColor(canvasX, canvasY, color)
             }
         }
     }
