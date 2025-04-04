@@ -38,6 +38,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
             warTimeSec = 10
         )
 
+        game.areaTypeGenerate(0.3)
+
         testArea = game.areaManager!!.getArea(1, 1)!!
 
         testTeam1 = Team("test1", "test1", Color.RED)
@@ -52,10 +54,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
-        testArea.data = PublicAreaData(
-            testArea, true, AreaPotionEffect()
-        )
-        testArea.enable()
+        game.start()
 
         userInterface.enable()
     }
