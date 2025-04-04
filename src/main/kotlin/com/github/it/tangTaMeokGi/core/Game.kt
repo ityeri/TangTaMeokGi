@@ -75,8 +75,7 @@ class Game(val plugin: JavaPlugin) {
             areaSize = setting!!.areaSize
         )
 
-        areaManager!!.generate()
-        areaManager!!.setWorldBorder()
+        areaManager!!.baseGenerate()
     }
 
     fun areaTypeGenerate(effectAreaProbability: Double) {

@@ -53,7 +53,7 @@ class AreaManager(
         world.worldBorder.warningTime = 0
     }
 
-    fun generate() {
+    fun baseGenerate() {
 
         for (z in 0 until  mapSize) {
             val currentLine = areaMap[z]
