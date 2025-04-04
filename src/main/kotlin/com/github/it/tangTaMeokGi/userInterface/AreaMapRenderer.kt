@@ -26,8 +26,6 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
                 canvas.setPixelColor(x, y, Color.WHITE)
             }
         }
-
-        player.sendMessage("AreaManager.render")
     }
 
 }

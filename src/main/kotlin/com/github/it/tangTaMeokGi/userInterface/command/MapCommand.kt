@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.MapMeta
+import org.bukkit.map.MapView
 
 @CommandAlias("map")
 @CommandPermission("op")
@@ -21,32 +22,24 @@ class MapCommand(val game: Game) : BaseCommand() {
     fun onCommand(sender: CommandSender) {
         when (sender) {
             is Player -> {
-//                val map = sender.inventory.getItem(0)!!
-//                val view = (map.itemMeta as MapMeta).mapView!!
-//
-//                for (renderer in view.renderers) {
-//                    view.removeRenderer(renderer)
-//                }
-//
-//                view.addRenderer(AreaMapRenderer(game.areaManager!!))
-//
-//                println(view.renderers)
-
-                val map = ItemStack(Material.FILLED_MAP)
-                sender.inventory.addItem(map) // 유저에게 지도 지급
+                val mapItem = ItemStack(Material.FILLED_MAP)
+                val mapMeta = (mapItem.itemMeta as MapMeta)
 
                 val view = Bukkit.createMap(sender.world)
-                println("${view.centerX}, ${view.centerZ}")
 
-//                for (renderer in view.renderers) {
-//                    view.removeRenderer(renderer)
-//                }
-//
-//                view.addRenderer(AreaMapRenderer(game.areaManager!!))
+                view.isTrackingPosition = true
+                view.isUnlimitedTracking = true
 
-                (map.itemMeta as MapMeta).mapView = view
+                for (renderer in view.renderers) {
+                    view.removeRenderer(renderer)
+                }
 
-                sender.sendMap(view)
+                view.addRenderer(AreaMapRenderer(game.areaManager!!))
+
+                mapMeta.mapView = view
+                mapItem.itemMeta = mapMeta
+
+                sender.inventory.addItem(mapItem)
 
             }
 
