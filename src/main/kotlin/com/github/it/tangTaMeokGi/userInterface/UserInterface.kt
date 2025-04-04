@@ -7,13 +7,16 @@ import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.userInterface.command.GetAreaInfoCommand
 import com.github.it.tangTaMeokGi.userInterface.command.MapCommand
+import com.github.it.tangTaMeokGi.userInterface.command.MapGenerateCommand
+import kotlinx.coroutines.CoroutineScope
 
-class UserInterface(val game: Game): GameEventListener {
+class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListener {
     fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
 
         commandManager.registerCommand(GetAreaInfoCommand(game))
         commandManager.registerCommand(MapCommand(game))
+        commandManager.registerCommand(MapGenerateCommand(game, scope))
 
         game.eventDispatcher.register(this)
     }
