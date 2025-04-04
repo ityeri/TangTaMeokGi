@@ -1,11 +1,14 @@
 package com.github.it.tangTaMeokGi.core
 
 import com.github.it.tangTaMeokGi.core.area.AreaManager
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
 import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.plugin.java.JavaPlugin
+import kotlin.random.Random
 
 class Game(val plugin: JavaPlugin) {
     var isGameRunning = false
@@ -74,6 +77,21 @@ class Game(val plugin: JavaPlugin) {
 
         areaManager!!.generate()
         areaManager!!.setWorldBorder()
+    }
+
+    fun areaTypeGenerate(effectAreaProbability: Double) {
+        for (area in areaManager!!.getAllArea()) {
+            if (Random.nextFloat() < effectAreaProbability) {
+                area.data = PublicAreaData(
+                    area, true, AreaPotionEffect()
+                )
+            }
+            else {
+                area.data = PublicAreaData(
+                    area, false
+                )
+            }
+        }
     }
 
     suspend fun mapGenerate() {
