@@ -47,3 +47,12 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
     }
 
 }
+
+
+fun MapCanvas.drawRect(x: Int, y: Int, width: Int, height: Int, color: Color) {
+    for (dy in y until y + height) {
+        for (dx in x until x + width) {
+            setPixelColor(dx, dy, color)
+        }
+    }
+}
