@@ -2,7 +2,7 @@ package com.github.it.tangTaMeokGi.core.team
 
 import com.mojang.brigadier.Message
 import org.bukkit.Bukkit
-import org.bukkit.Color
+import java.awt.Color
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.util.*
