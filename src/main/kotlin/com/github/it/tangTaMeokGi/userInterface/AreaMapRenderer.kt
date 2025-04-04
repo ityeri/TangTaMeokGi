@@ -2,6 +2,7 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -34,7 +35,7 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
                 val area = areaManager.getArea(x, z)!!
                 val areaData = area.data
 
-                val color: Color
+                var color: Color
 
 
                 when (areaData) {
@@ -52,8 +53,16 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
                         color = areaData.ownerTeam.teamColor
                     }
 
+                    is PublicAreaData -> {
+                        if (areaData.isEffectArea) {
+                            color = Color.WHITE
+                        } else {
+                            color = Color.LIGHT_GRAY
+                        }
+                    }
+
                     else -> {
-                        color = Color.WHITE
+                        color = Color.PINK
                     }
                 }
 
