@@ -3,6 +3,9 @@ package com.github.it.tangTaMeokGi.core.area
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
+import com.github.it.tangTaMeokGi.core.event.GameEventHandler
+import com.github.it.tangTaMeokGi.core.event.GameEventListener
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
@@ -16,7 +19,7 @@ class AreaManager(
     val game: Game,
     val mapSize: Int,
     val areaSize: Int
-) {
+): GameEventListener {
 
     val plugin = game.plugin
     val world = game.world
@@ -182,5 +185,12 @@ class AreaManager(
         }
 
         return areas.toList()
+    }
+
+
+
+    @GameEventHandler
+    fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
+        // TODO 닫힌 형태로 땅을 먹을시 안쪽도 전부 채워서 먹는거 구현 ㄱㄱ
     }
 }
