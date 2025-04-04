@@ -47,11 +47,10 @@ class BukkitSyncTaskBatch(val plugin: Plugin, val timeOutMillis: Int, val maxQue
     fun open() { isOpen = true }
     fun close() { isOpen = false }
 
-    fun join() {
-        // 쓰레드나 비동기 관련 이슈로 더미코드가 있어야 전역 블로킹이 안걸림
-        var i = 0
+    suspend fun join() {
+        // while 문이 비어있으면 미친 와일문이 cpu 를 점유해가지고 10밀리초 정도 적당히 딜레이 넣어야함
         while (0 < taskQue.size) {
-            i = 0
+            delay(10)
         }
     }
 
