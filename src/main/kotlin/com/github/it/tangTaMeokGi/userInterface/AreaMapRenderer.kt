@@ -2,6 +2,8 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.map.*
 import java.awt.Color
@@ -36,6 +38,15 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
 
 
                 when (areaData) {
+                    is BaseWarAreaData -> {
+                        if (Bukkit.getServer().currentTick % 20 < 10) {
+                            color = areaData.ownerTeam.teamColor
+                        }
+                        else {
+                            color = areaData.attackerTeam.teamColor
+                        }
+                    }
+
                     is OwnerbleAreaData -> {
                         color = areaData.ownerTeam.teamColor
                     }
