@@ -2,8 +2,6 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.UserInterface
@@ -20,7 +18,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
     val pluginScope = CoroutineScope(Dispatchers.Default + Job())
 
     val game = Game(this)
-    val userInterface = UserInterface(game)
+    val userInterface = UserInterface(game, pluginScope)
 
     lateinit var testPlayer1: Player
     lateinit var testPlayer2: Player
@@ -33,7 +31,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
 
         game.init(
-            mapSize = 16, areaSize = 16,
+            mapSize = 10, areaSize = 16,
             totalGameTimeMin = 60,
             warTimeSec = 10
         )
