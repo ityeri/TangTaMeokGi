@@ -3,9 +3,11 @@ package com.github.it.tangTaMeokGi.core.area
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventHandler
 import com.github.it.tangTaMeokGi.core.event.GameEventListener
+import com.github.it.tangTaMeokGi.core.team.Team
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
@@ -192,6 +194,61 @@ class AreaManager(
 
     @GameEventHandler
     fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
-        // TODO 닫힌 형태로 땅을 먹을시 안쪽도 전부 채워서 먹는거 구현 ㄱㄱ
+        val team = areaOccupationEvent.winningTeam
+        val checkedAreas: MutableSet<Area> = mutableSetOf()
+        val adjacentOffsets: List<List<Int>> = listOf(
+            listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
+        )
+
+        for (z in 0 until mapSize) {
+            for (x in 0 until mapSize) {
+                val seedArea = getArea(x, z)!!
+
+                if (seedArea in checkedAreas) { continue }
+
+                val currentCheckingAreas = mutableSetOf(seedArea)
+
+                while (true) {
+                    var isClosed = true
+
+                    for (currentCheckingArea in currentCheckingAreas) {
+                        for (adjacentOffset in adjacentOffsets) {
+                            // TODO
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    fun checkCloseSpaceFrom(x: Int, z: Int, team: Team): Pair<Boolean, Set<Area>> {
+        // TODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
+        val seedArea = getArea(x, z)!!
+        val checkedAreas = mutableSetOf<Area>()
+        val adjacentOffsets: List<List<Int>> = listOf(
+            listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
+        )
+
+        var currentCheckingAreas = mutableSetOf(seedArea)
+        var nextCheckingAreas = mutableSetOf<Area>()
+
+        while (true) {
+            // 이 와일문 한바퀴 돌때마다 플러드필 한바퀴 돈거인
+            for (currentCheckingArea in currentCheckingAreas) {
+                val areaX = currentCheckingArea.x
+                val areaZ = currentCheckingArea.z
+
+                for (adjacentOffset in adjacentOffsets) {
+                    val adjacentArea = getArea(areaX + adjacentOffset[0], areaZ + adjacentOffset[1])
+                    adjacentArea.let {
+                        checkedAreas.add(adjacentArea!!)
+                    }
+                    adjacentArea ?: {
+
+                    }
+                }
+            }
+        }
     }
 }
