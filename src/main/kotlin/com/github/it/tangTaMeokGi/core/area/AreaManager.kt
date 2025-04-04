@@ -83,7 +83,6 @@ class AreaManager(
 
         val batch = BukkitSyncTaskBatch(plugin, 50, 512)
         batch.start()
-        batch.open()
 
         val jobs: MutableList<Job> = mutableListOf()
 
@@ -111,13 +110,19 @@ class AreaManager(
 
                 val area = getArea(x, z)!!
 
-
+                batch.open()
                 val job = scope.launch {
                     area.batchGenerateFrom(batch, world,
                         Random.nextInt(-100000, 100000),
                         Random.nextInt(-100000, 100000)
                     )
                 }
+
+
+                job.join()
+
+                batch.close()
+                batch.join()
 
                 Bukkit.getScheduler().callSyncMethod(plugin) {
                     Bukkit.getServer().sendMessage(Component.text(
@@ -138,13 +143,6 @@ class AreaManager(
                 }
             }
         }
-
-        for (job in jobs) {
-            job.join()
-        }
-
-        batch.close()
-        batch.join()
 
         batch.stop()
 
