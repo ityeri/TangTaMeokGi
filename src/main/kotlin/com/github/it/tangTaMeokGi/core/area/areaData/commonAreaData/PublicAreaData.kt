@@ -21,12 +21,6 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
 
     override fun onAttack(areaAttackEvent: AreaAttackEvent) {
 
-        area.game.eventDispatcher.callEvent(
-            AreaOccupationEvent(area, null,
-                areaAttackEvent.attackerTeam,
-                areaAttackEvent.attacker)
-        )
-
         if (isEffectArea) {
             area.data = EffectAreaData(
                 area, areaAttackEvent.attackerTeam, potionEffect!!
@@ -37,6 +31,12 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
                 area, areaAttackEvent.attackerTeam
             )
         }
+
+        area.game.eventDispatcher.callEvent(
+            AreaOccupationEvent(area, null,
+                areaAttackEvent.attackerTeam,
+                areaAttackEvent.attacker)
+        )
 
         area.enable()
     }
