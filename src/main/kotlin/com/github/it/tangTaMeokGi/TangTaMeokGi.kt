@@ -2,7 +2,6 @@ package com.github.it.tangTaMeokGi
 
 import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.Game
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.event.*
@@ -11,7 +10,7 @@ import com.github.it.tangTaMeokGi.userInterface.UserInterface
 import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
-import org.bukkit.Color
+import java.awt.Color
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
