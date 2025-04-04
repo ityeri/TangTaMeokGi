@@ -5,6 +5,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import org.bukkit.entity.Player
 import org.bukkit.map.*
 import java.awt.Color
+import kotlin.math.ceil
 import kotlin.math.round
 
 
@@ -20,10 +21,13 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
     }
 
     override fun render(mapView: MapView, canvas: MapCanvas, player: Player) {
+
+        val size = 128.0 / areaManager.mapSize
+
         for (z in 0 until areaManager.mapSize) {
             for (x in 0 until areaManager.mapSize) {
-                val canvasX = round(128.0 / areaManager.mapSize * x).toInt()
-                val canvasY = round(128.0 / areaManager.mapSize * z).toInt()
+                val canvasX = round(size * x).toInt()
+                val canvasY = round(size * z).toInt()
 
                 val area = areaManager.getArea(x, z)!!
                 val areaData = area.data
@@ -41,7 +45,7 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
                     }
                 }
 
-                canvas.setPixelColor(canvasX, canvasY, color)
+                canvas.drawRect(canvasX, canvasY, ceil(size).toInt(), ceil(size).toInt(), color)
             }
         }
     }
