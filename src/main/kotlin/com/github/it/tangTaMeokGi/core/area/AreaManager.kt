@@ -278,10 +278,10 @@ class AreaManager(
                         is OwnerbleAreaData -> {
                             areaData.setOwner(team)
 
-                            area.game.eventDispatcher.callEvent(
-                                AreaOccupationEvent(area, null,
-                                    team, event.attacker)
-                            )
+//                            area.game.eventDispatcher.callEvent(
+//                                AreaOccupationEvent(area, null,
+//                                    team, event.attacker)
+//                            )
                         }
 
                         is PublicAreaData -> {
