@@ -23,7 +23,9 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
     }
 
     override fun setOwner(team: Team) {
-
+        area.data = GeneralWarAreaData(
+            area, ownerTeam, team, area.game.setting!!.warTime
+        )
     }
 
     override fun onAttack(event: AreaAttackEvent) {
@@ -33,6 +35,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
             return
         }
 
+        setOwner(event.attackerTeam)
         area.enable()
 
         area.game.eventDispatcher.callEvent(
