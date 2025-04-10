@@ -30,7 +30,7 @@ class Game(val plugin: JavaPlugin) {
     fun reset() {
 
         areaManager.let {
-            areaManager!!.disableAll()
+            areaManager!!.disable()
         }
 
         areaManager = null
@@ -105,6 +105,6 @@ class Game(val plugin: JavaPlugin) {
 
     fun start() {
         isGameRunning = true
-        areaManager!!.enableAll()
+        areaManager!!.enable()
     }
 }
