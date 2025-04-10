@@ -40,7 +40,6 @@ class AreaMapRenderer(val areaManager: AreaManager): MapRenderer(true) {
 
                 when (areaData) {
                     is BaseWarAreaData -> {
-                        println(Bukkit.getServer().currentTick % 20)
                         if (Bukkit.getServer().currentTick % 20 < 10) {
                             color = areaData.ownerTeam.teamColor
                         }
