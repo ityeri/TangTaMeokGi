@@ -197,13 +197,14 @@ class AreaManager(
 
     @GameEventHandler
     fun onAreaOccupation(event: AreaOccupationEvent) {
+
         val team = event.winningTeam
 //        val totalSearchedAreas: MutableSet<Area> = mutableSetOf()
         val adjacentOffsets: List<List<Int>> = listOf(
             listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
         )
 
-        for (seedArea in getAllArea()) {
+        for (seedArea in getAllArea()) run seedLoop@{
             var currentSearchingAreas = mutableSetOf(seedArea)
             val nextSearchingAreas = mutableSetOf<Area>()
 
@@ -230,7 +231,9 @@ class AreaManager(
                         // getArea 를 통해 찾은 adjacentArea 가 null 라는건,
                         // 해당 공간이 닫혀있지 않고, 벽끝까지 닿아있단 의미
                         adjacentArea ?: { isClosed = false }
-                        if (!isClosed) { break }
+                        if (!isClosed) {
+                            return@seedLoop
+                        }
 
                         val areaData = adjacentArea!!.data
 
@@ -254,11 +257,7 @@ class AreaManager(
                         }
                     }
 
-                    if (!isClosed) { break }
-
                 }
-
-                if (!isClosed) { break }
 
                 // 탐색 가능한 모든 공간을 찾아서 다음에 확인할 영역이 없을시
                 if (nextSearchingAreas.isEmpty()) {
@@ -290,7 +289,7 @@ class AreaManager(
                         }
                     }
                 }
-                break
+                return
             }
         }
     }
