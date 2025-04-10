@@ -27,6 +27,13 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
         // TODO "이펙 넣는거 추가 ㄱ"
     }
 
+    override fun setOwner(team: Team) {
+        area.data = EffectWarAreaData(
+            area, ownerTeam, team, area.game.setting!!.warTime,
+            potionEffect
+        )
+    }
+
     override fun onAttack(event: AreaAttackEvent) {
         // 자기 팀에 자기가 공격 시도했을 경우
         if (ownerTeam == event.attackerTeam) {
@@ -34,10 +41,7 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
             return
         }
 
-        area.data = EffectWarAreaData(
-            area, ownerTeam, event.attackerTeam, area.game.setting!!.warTime,
-            potionEffect
-        )
+        setOwner(event.attackerTeam)
         area.enable()
 
         area.game.eventDispatcher.callEvent(
