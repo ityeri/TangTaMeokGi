@@ -230,7 +230,7 @@ class AreaManager(
 
                         // getArea 를 통해 찾은 adjacentArea 가 null 라는건,
                         // 해당 공간이 닫혀있지 않고, 벽끝까지 닿아있단 의미
-                        adjacentArea ?: { isClosed = false }
+                        adjacentArea ?: run { isClosed = false }
                         if (!isClosed) {
                             return@seedLoop
                         }
