@@ -59,9 +59,7 @@ class EffectWarAreaData(
                 area, ownerTeam, attackerTeam, false
             )
         )
-        area.data = EffectAreaData(
-            area, ownerTeam, potionEffect
-        )
+        setOwner(ownerTeam)
         area.enable()
     }
 
@@ -71,9 +69,7 @@ class EffectWarAreaData(
                 area, ownerTeam, attackerTeam, true
             )
         )
-        area.data = EffectAreaData(
-            area, attackerTeam, potionEffect
-        )
+        setOwner(attackerTeam)
         area.enable()
     }
 
@@ -83,6 +79,13 @@ class EffectWarAreaData(
             onWarEnd()
         }
     }
+
+    override fun setOwner(team: Team) {
+        area.data = EffectAreaData(
+            area, team, potionEffect
+        )
+    }
+
     override fun onAttack(event: AreaAttackEvent) {
         // 공성전이 진행중인 땅에 공격을 할순 없음
         event.canceled = true
