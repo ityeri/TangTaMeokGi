@@ -3,11 +3,16 @@ package com.github.it.tangTaMeokGi.core.area
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventHandler
 import com.github.it.tangTaMeokGi.core.event.GameEventListener
-import com.github.it.tangTaMeokGi.core.team.Team
+import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
@@ -193,62 +198,103 @@ class AreaManager(
 
 
     @GameEventHandler
-    fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
-        val team = areaOccupationEvent.winningTeam
-        val checkedAreas: MutableSet<Area> = mutableSetOf()
+    fun onAreaOccupation(event: AreaOccupationEvent) {
+        val team = event.winningTeam
+//        val totalSearchedAreas: MutableSet<Area> = mutableSetOf()
         val adjacentOffsets: List<List<Int>> = listOf(
             listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
         )
 
-        for (z in 0 until mapSize) {
-            for (x in 0 until mapSize) {
-                val seedArea = getArea(x, z)!!
+        for (seedArea in getAllArea()) {
+            var currentSearchingAreas = mutableSetOf(seedArea)
+            val nextSearchingAreas = mutableSetOf<Area>()
 
-                if (seedArea in checkedAreas) { continue }
+            // allFinedAreas 와 totalSearchedAreas 햇갈리면 안됨
+            // allFinedAreas 는 현재 시드로부터 찾아진 모든 땅이고,
+            // totalSearchedAreas 는 현재 탐색한 모든 시드에 대해 찾아진 땅이 저장되는 곳임
+            val allFinedAreas = mutableSetOf(seedArea)
 
-                val currentCheckingAreas = mutableSetOf(seedArea)
+            var isClosed = true
 
-                while (true) {
-                    var isClosed = true
+            // 플러드필 루브 하나 (마름모 한칸)
+            while (true) {
+                // 현재 확인하는 모든 area 를 하나하나 순회 (겉면에 둘러져 있는 땅들)
+                for (area in currentSearchingAreas) {
 
-                    for (currentCheckingArea in currentCheckingAreas) {
-                        for (adjacentOffset in adjacentOffsets) {
-                            // TODO
+                    // area 와 인접한 상하좌우 영역 확인
+                    for (adjacentOffset in adjacentOffsets) {
+
+                        val adjacentArea = getArea(
+                            area.x + adjacentOffset[0],
+                            area.z + adjacentOffset[0]
+                        )
+
+                        // getArea 를 통해 찾은 adjacentArea 가 null 라는건,
+                        // 해당 공간이 닫혀있지 않고, 벽끝까지 닿아있단 의미
+                        adjacentArea ?: { isClosed = false }
+                        if (!isClosed) { break }
+
+                        val areaData = adjacentArea!!.data
+
+                        // 현재 탐색하는 인접한 땅이 현재 시드로 부터 찾은 땅에 이미 포함되 있으면 건너뛰기
+                        if (adjacentArea in allFinedAreas) { continue }
+
+                        // 순수 울팀 땅이면
+                        // 그니깐, OwnerbleAreaData 이면서, BaseWarAreaData 가 아니면서
+                        // 주인 팀이 점령 시도 팀과 동일할경우
+                        if (areaData is OwnerbleAreaData && areaData !is BaseWarAreaData
+                            && areaData.ownerTeam == team) {
+                            // 암것도 하지 않고 다음 인접땅 탐색으로 건너 뜀
+                            continue
+                        }
+                        // 순수 울팀땅이 아니면 (전쟁지역도 포함)
+                        else {
+                            // 현재 시드로 부터 찾아진 모든 땅에 이 인접땅 추가
+                            allFinedAreas += adjacentArea
+                            // 다음에 탐색할 땅 목록에 이 인접땅 추가
+                            nextSearchingAreas += adjacentArea
+                        }
+                    }
+
+                    if (!isClosed) { break }
+
+                }
+
+                if (!isClosed) { break }
+
+                // 탐색 가능한 모든 공간을 찾아서 다음에 확인할 영역이 없을시
+                if (nextSearchingAreas.isEmpty()) {
+                    break
+                }
+                else {
+                    currentSearchingAreas = nextSearchingAreas
+                    nextSearchingAreas.clear()
+                }
+
+            }
+
+            if (isClosed) {
+                for (area in allFinedAreas) {
+                    val areaData = area.data
+
+                    when (areaData) {
+                        is OwnerbleAreaData -> {
+                            areaData.setOwner(team)
+
+                            area.game.eventDispatcher.callEvent(
+                                AreaOccupationEvent(area, null,
+                                    team, event.attacker)
+                            )
                         }
 
+                        is PublicAreaData -> {
+                            area.onAttack(team, event.attacker)
+                        }
                     }
                 }
+                break
             }
         }
     }
-
-    fun checkCloseSpaceFrom(x: Int, z: Int, team: Team): Pair<Boolean, Set<Area>> {
-        // TODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
-        val seedArea = getArea(x, z)!!
-        val checkedAreas = mutableSetOf<Area>()
-        val adjacentOffsets: List<List<Int>> = listOf(
-            listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
-        )
-
-        var currentCheckingAreas = mutableSetOf(seedArea)
-        var nextCheckingAreas = mutableSetOf<Area>()
-
-        while (true) {
-            // 이 와일문 한바퀴 돌때마다 플러드필 한바퀴 돈거인
-            for (currentCheckingArea in currentCheckingAreas) {
-                val areaX = currentCheckingArea.x
-                val areaZ = currentCheckingArea.z
-
-                for (adjacentOffset in adjacentOffsets) {
-                    val adjacentArea = getArea(areaX + adjacentOffset[0], areaZ + adjacentOffset[1])
-                    adjacentArea.let {
-                        checkedAreas.add(adjacentArea!!)
-                    }
-                    adjacentArea ?: {
-
-                    }
-                }
-            }
-        }
-    }
+    
 }
