@@ -41,7 +41,7 @@ class AreaManager(
         }
     }
     fun disable() {
-        game.eventDispatcher.register(this)
+        game.eventDispatcher.unregister(this)
         for (area in getAllArea()) {
             area.disable()
         }
