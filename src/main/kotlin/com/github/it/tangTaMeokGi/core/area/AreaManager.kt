@@ -4,15 +4,11 @@ import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
-import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventHandler
 import com.github.it.tangTaMeokGi.core.event.GameEventListener
-import com.github.it.tangTaMeokGi.core.event.WarStartEvent
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.inventory.ItemStack
@@ -38,12 +34,12 @@ class AreaManager(
         return item.type == Material.IRON_AXE
     }
 
-    fun enableAll() {
+    fun enable() {
         for (area in getAllArea()) {
             area.enable()
         }
     }
-    fun disableAll() {
+    fun disable() {
         for (area in getAllArea()) {
             area.disable()
         }
