@@ -83,9 +83,9 @@ class GeneralWarAreaData(
             onWarEnd()
         }
     }
-    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
+    override fun onAttack(event: AreaAttackEvent) {
         // 공성전이 진행중인 땅에 공격을 할순 없음
-        areaAttackEvent.canceled = true
+        event.canceled = true
     }
 
 }

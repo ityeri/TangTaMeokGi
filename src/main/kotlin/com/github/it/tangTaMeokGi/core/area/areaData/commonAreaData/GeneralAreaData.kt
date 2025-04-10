@@ -22,20 +22,21 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
         // 일반땅은 효과 업을세디
     }
 
-    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
+    override fun setOwner(team: Team) {
+
+    }
+
+    override fun onAttack(event: AreaAttackEvent) {
         // 자기 팀에 자기가 공격 시도했을 경우
-        if (ownerTeam == areaAttackEvent.attackerTeam) {
-            areaAttackEvent.canceled = true
+        if (ownerTeam == event.attackerTeam) {
+            event.canceled = true
             return
         }
 
-        area.data = GeneralWarAreaData(
-            area, ownerTeam, areaAttackEvent.attackerTeam, area.game.setting!!.warTime
-        )
         area.enable()
 
         area.game.eventDispatcher.callEvent(
-            WarStartEvent(area, ownerTeam, areaAttackEvent.attackerTeam)
+            WarStartEvent(area, ownerTeam, event.attackerTeam)
         )
     }
 

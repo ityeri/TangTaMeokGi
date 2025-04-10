@@ -20,8 +20,8 @@ open class EmptyAreaData(
 
     override fun update() {}
 
-    override fun onAttack(areaAttackEvent: AreaAttackEvent) {
-        areaAttackEvent.attacker.sendMessage("[$type] 공격이 지원되지 않는 땅입니다.")
+    override fun onAttack(event: AreaAttackEvent) {
+        event.attacker.sendMessage("[$type] 공격이 지원되지 않는 땅입니다.")
     }
 
 }

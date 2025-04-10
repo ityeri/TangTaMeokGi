@@ -35,6 +35,6 @@ abstract class BaseAreaData(
 
     abstract fun update()
 
-    abstract fun onAttack(areaAttackEvent: AreaAttackEvent)
+    abstract fun onAttack(event: AreaAttackEvent)
 
 }
