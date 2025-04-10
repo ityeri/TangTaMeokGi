@@ -59,9 +59,7 @@ class GeneralWarAreaData(
                 area, ownerTeam, attackerTeam, false
             )
         )
-        area.data = GeneralAreaData(
-            area, ownerTeam
-        )
+        setOwner(ownerTeam)
         area.enable()
     }
 
@@ -71,9 +69,7 @@ class GeneralWarAreaData(
                 area, ownerTeam, attackerTeam, true
             )
         )
-        area.data = GeneralAreaData(
-            area, attackerTeam
-        )
+        setOwner(attackerTeam)
         area.enable()
     }
 
@@ -83,6 +79,13 @@ class GeneralWarAreaData(
             onWarEnd()
         }
     }
+
+    override fun setOwner(team: Team) {
+        area.data = GeneralAreaData(
+            area, team
+        )
+    }
+
     override fun onAttack(event: AreaAttackEvent) {
         // 공성전이 진행중인 땅에 공격을 할순 없음
         event.canceled = true
