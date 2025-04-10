@@ -205,6 +205,15 @@ class AreaManager(
         )
 
         for (seedArea in getAllArea()) run seedLoop@{
+            // 순수 울팀 땅이면
+            // 그니깐, OwnerbleAreaData 이면서, BaseWarAreaData 가 아니면서
+            // 주인 팀이 점령 시도 팀과 동일할경우
+            if (seedArea.data is OwnerbleAreaData && seedArea.data !is BaseWarAreaData
+                && (seedArea.data as OwnerbleAreaData).ownerTeam == team) {
+                // 암것도 안하고 다른 영역을 시드로 한 플러드필로 건너뜀
+                return@seedLoop
+            }
+
             var currentSearchingAreas = mutableSetOf(seedArea)
             val nextSearchingAreas = mutableSetOf<Area>()
 
@@ -215,7 +224,7 @@ class AreaManager(
 
             var isClosed = true
 
-            // 플러드필 루브 하나 (마름모 한칸)
+            // 플러드필 루프 하나 (마름모 한칸)
             while (true) {
                 // 현재 확인하는 모든 area 를 하나하나 순회 (겉면에 둘러져 있는 땅들)
                 for (area in currentSearchingAreas) {
