@@ -6,6 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
+import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
 import org.bukkit.entity.Player
 
@@ -54,23 +55,31 @@ class EffectWarAreaData(
     }
 
     override fun onOwnerTeamWin() {
+        setOwner(ownerTeam)
+        area.enable()
+
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
                 area, ownerTeam, attackerTeam, false
             )
         )
-        setOwner(ownerTeam)
-        area.enable()
     }
 
     override fun onAttackerTeamWin() {
+        setOwner(attackerTeam)
+        area.enable()
+
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
                 area, ownerTeam, attackerTeam, true
             )
         )
-        setOwner(attackerTeam)
-        area.enable()
+
+        game.eventDispatcher.callEvent(
+            AreaOccupationEvent(
+                area, ownerTeam, attackerTeam, null
+            )
+        )
     }
 
 
