@@ -33,7 +33,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.init(
             mapSize = 16, areaSize = 16,
             totalGameTimeMin = 60,
-            warTimeSec = 10
+            warTimeSec = 5
         )
 
         game.areaTypeGenerate(0.3)
