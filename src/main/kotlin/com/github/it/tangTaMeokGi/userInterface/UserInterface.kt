@@ -55,9 +55,11 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     fun onAreaOccupation(areaOccupationEvent: AreaOccupationEvent) {
         val area = areaOccupationEvent.area
 
-        areaOccupationEvent.attacker.sendMessage(
-            "x ${area.x * area.size} z ${area.z * area.size} 쪽 땅 점령 성공함 =)"
-        )
+        areaOccupationEvent.attacker.let {
+            areaOccupationEvent.attacker!!.sendMessage(
+                "x ${area.x * area.size} z ${area.z * area.size} 쪽 땅 점령 성공함 =)"
+            )
+        }
     }
 
     @GameEventHandler
