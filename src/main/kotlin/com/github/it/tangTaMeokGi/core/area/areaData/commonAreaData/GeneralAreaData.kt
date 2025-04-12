@@ -7,6 +7,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.GeneralWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarStartEvent
+import org.bukkit.entity.Player
 
 open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area, ownerTeam) {
 
@@ -22,9 +23,9 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
         // 일반땅은 효과 업을세디
     }
 
-    override fun setOwner(team: Team) {
-        area.data = GeneralWarAreaData(
-            area, ownerTeam, team, area.game.setting!!.warTime
+    override fun occupyBy(team: Team, attacker: Player, callEvent: Boolean) {
+        area.data = GeneralAreaData(
+            area, team
         )
     }
 
@@ -35,12 +36,15 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
             return
         }
 
-        setOwner(event.attackerTeam)
-        area.enable()
+        area.data = GeneralWarAreaData(
+            area, ownerTeam, event.attackerTeam, area.game.setting!!.warTime
+        )
 
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)
         )
+
+        area.enable()
     }
 
 }

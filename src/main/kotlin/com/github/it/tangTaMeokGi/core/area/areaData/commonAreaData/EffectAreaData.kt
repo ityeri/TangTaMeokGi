@@ -7,6 +7,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.EffectWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.WarStartEvent
+import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 
 open class EffectAreaData(area: Area, ownerTeam: Team,
@@ -27,10 +28,9 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
         // TODO "이펙 넣는거 추가 ㄱ"
     }
 
-    override fun setOwner(team: Team) {
-        area.data = EffectWarAreaData(
-            area, ownerTeam, team, area.game.setting!!.warTime,
-            potionEffect
+    override fun occupyBy(team: Team, attacker: Player, callEvent: Boolean) {
+        area.data = EffectAreaData(
+            area, team, potionEffect
         )
     }
 
@@ -41,12 +41,16 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
             return
         }
 
-        setOwner(event.attackerTeam)
-        area.enable()
+        area.data = EffectWarAreaData(
+            area, ownerTeam, event.attackerTeam, area.game.setting!!.warTime,
+            potionEffect
+        )
 
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)
         )
+
+        area.enable()
     }
 
 }
