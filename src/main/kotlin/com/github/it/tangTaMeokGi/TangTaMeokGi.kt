@@ -22,7 +22,6 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
     lateinit var testPlayer1: Player
     lateinit var testPlayer2: Player
-    lateinit var testArea: Area
     lateinit var testTeam1: Team
     lateinit var testTeam2: Team
 
@@ -38,8 +37,6 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         game.areaTypeGenerate(0.3)
 
-        testArea = game.areaManager!!.getArea(1, 1)!!
-
         testTeam1 = Team("test1", "test1", Color.RED)
         testTeam2 = Team("test2", "test2", Color.BLUE)
 
@@ -53,7 +50,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
         game.start()
-//
+
         userInterface.enable()
     }
 
