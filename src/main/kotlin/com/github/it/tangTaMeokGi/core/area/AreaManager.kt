@@ -3,7 +3,10 @@ package com.github.it.tangTaMeokGi.core.area
 import com.github.it.tangTaMeokGi.core.BukkitSyncTaskBatch
 import com.github.it.tangTaMeokGi.core.SubWorldUtils
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.areaData.OccupiableAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.warAreaData.BaseWarAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
@@ -199,34 +202,23 @@ class AreaManager(
     @GameEventHandler
     fun onAreaOccupation(event: AreaOccupationEvent) {
 
+        println("아리아오쿠파이셔내;ㅣㅁㄴㄹ;ㅣㅏㅁㄹㄴ;ㅣㅏㅁ니;ㅏㅁㄴㅇㄹ;ㅣㅁㄴㄹ;ㅣㅏㅁㄴㄹ;ㅣㅏㅁㄴㅇㄹ;ㅣㅁㄴ리;ㅏㅁㄴㄹ/ㅣㅏ")
+
         val team = event.winningTeam
         // val totalSearchedAreas: MutableSet<Area> = mutableSetOf()
-        val adjacentOffsets: List<List<Int>> = listOf(
-            listOf(-1, 0), listOf(1, 0), listOf(0, -1), listOf(0, 1)
-        )
+
 
         for (seedArea in getAllArea()) {
 
-            val areas = checkCloseSpace(seedArea.x, seedArea.z, team)
-
-            areas ?: run { return }
+            val areas = checkCloseSpace(seedArea.x, seedArea.z, team) ?: continue
 
             areas.let {
                 for (area in areas) {
                     val areaData = area.data
 
                     when (areaData) {
-                        is OwnerbleAreaData -> {
-                            areaData.setOwner(team)
-
-//                            area.game.eventDispatcher.callEvent(
-//                                AreaOccupationEvent(area, null,
-//                                    team, event.attacker)
-//                            )
-                        }
-
-                        is PublicAreaData -> {
-                            area.onAttack(team, event.attacker)
+                        is OccupiableAreaData -> {
+                            areaData.occupyBy(team, event.attacker, callEvent = false)
                         }
                     }
                 }
@@ -246,7 +238,7 @@ class AreaManager(
         // 주인 팀이 점령 시도 팀과 동일할경우
         if (seedArea.data is OwnerbleAreaData && seedArea.data !is BaseWarAreaData
             && (seedArea.data as OwnerbleAreaData).ownerTeam == team) {
-            // 암것도 안하고 다른 영역을 시드로 한 플러드필로 건너뜀
+            // 암것도 안하고 공간이 없다고만 반환
             return null
         }
 
@@ -307,12 +299,13 @@ class AreaManager(
                 break
             }
             else {
-                currentSearchingAreas = nextSearchingAreas
+                currentSearchingAreas = nextSearchingAreas.toMutableSet()
                 nextSearchingAreas.clear()
             }
 
         }
 
-        return allFinedAreas
+        return allFinedAreas.toSet()
+
     }
 }
