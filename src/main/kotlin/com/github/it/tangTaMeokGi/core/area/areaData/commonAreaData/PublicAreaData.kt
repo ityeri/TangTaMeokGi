@@ -21,7 +21,7 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
         // TODO potionEffect 로 해당 영역 내에 플레ㅔ이어 한테 효과 넣는거 구현 ㄱ
     }
 
-    override fun occupyBy(team: Team, attacker: Player, callEvent: Boolean) {
+    override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         if (isEffectArea) {
             area.data = EffectAreaData(
                 area, team, potionEffect!!
