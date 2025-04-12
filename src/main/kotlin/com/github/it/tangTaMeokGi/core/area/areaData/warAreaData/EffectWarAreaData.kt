@@ -5,6 +5,7 @@ import com.github.it.tangTaMeokGi.core.area.Area
 import com.github.it.tangTaMeokGi.core.area.AreaType
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
+import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.GeneralAreaData
 import com.github.it.tangTaMeokGi.core.event.AreaAttackEvent
 import com.github.it.tangTaMeokGi.core.event.AreaOccupationEvent
 import com.github.it.tangTaMeokGi.core.event.WarEndEvent
@@ -25,7 +26,22 @@ class EffectWarAreaData(
     override fun onEnable() {
         warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
     }
+
     override fun onDisable() {
+    }
+
+    override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
+        area.data = EffectAreaData(
+            area, team, potionEffect
+        )
+
+        if (callEvent) {
+            game.eventDispatcher.callEvent(
+                AreaOccupationEvent(
+                    area, null, team, attacker
+                )
+            )
+        }
     }
 
 
@@ -55,25 +71,19 @@ class EffectWarAreaData(
     }
 
     override fun onOwnerTeamWin() {
-        setOwner(ownerTeam)
+        occupyBy(ownerTeam, null)
         area.enable()
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
-                area, ownerTeam, attackerTeam, false
+                area, attackerTeam, ownerTeam, false
             )
         )
     }
 
     override fun onAttackerTeamWin() {
-        setOwner(attackerTeam)
+        occupyBy(attackerTeam, null)
         area.enable()
-
-        area.game.eventDispatcher.callEvent(
-            WarEndEvent(
-                area, ownerTeam, attackerTeam, true
-            )
-        )
 
         game.eventDispatcher.callEvent(
             AreaOccupationEvent(
@@ -87,12 +97,6 @@ class EffectWarAreaData(
         if (timeLeft <= 0) {
             onWarEnd()
         }
-    }
-
-    override fun setOwner(team: Team) {
-        area.data = EffectAreaData(
-            area, team, potionEffect
-        )
     }
 
     override fun onAttack(event: AreaAttackEvent) {

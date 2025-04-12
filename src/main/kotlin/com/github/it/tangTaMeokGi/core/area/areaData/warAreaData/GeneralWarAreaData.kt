@@ -28,6 +28,20 @@ class GeneralWarAreaData(
     override fun onDisable() {
     }
 
+    override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
+        area.data = GeneralAreaData(
+            area, team
+        )
+
+        if (callEvent) {
+            game.eventDispatcher.callEvent(
+                AreaOccupationEvent(
+                    area, null, team, attacker
+                )
+            )
+        }
+    }
+
 
     fun onWarEnd() {
         var isAttackerWin = true
@@ -55,29 +69,23 @@ class GeneralWarAreaData(
     }
 
     override fun onOwnerTeamWin() {
-        setOwner(ownerTeam)
+        occupyBy(ownerTeam, null)
         area.enable()
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
-                area, ownerTeam, attackerTeam, false
+                area, attackerTeam, ownerTeam, false
             )
         )
     }
 
     override fun onAttackerTeamWin() {
-        setOwner(attackerTeam)
+        occupyBy(attackerTeam, null)
         area.enable()
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
                 area, ownerTeam, attackerTeam, true
-            )
-        )
-
-        game.eventDispatcher.callEvent(
-            AreaOccupationEvent(
-                area, ownerTeam, attackerTeam, null
             )
         )
     }
@@ -87,12 +95,6 @@ class GeneralWarAreaData(
         if (timeLeft <= 0) {
             onWarEnd()
         }
-    }
-
-    override fun setOwner(team: Team) {
-        area.data = GeneralAreaData(
-            area, team
-        )
     }
 
     override fun onAttack(event: AreaAttackEvent) {
