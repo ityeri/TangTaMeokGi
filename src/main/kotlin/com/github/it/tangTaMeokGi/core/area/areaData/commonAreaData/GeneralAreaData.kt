@@ -23,7 +23,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
         // 일반땅은 효과 업을세디
     }
 
-    override fun occupyBy(team: Team, attacker: Player, callEvent: Boolean) {
+    override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = GeneralAreaData(
             area, team
         )

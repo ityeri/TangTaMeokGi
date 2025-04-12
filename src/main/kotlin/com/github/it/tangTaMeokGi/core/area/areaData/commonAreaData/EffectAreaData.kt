@@ -28,7 +28,7 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
         // TODO "이펙 넣는거 추가 ㄱ"
     }
 
-    override fun occupyBy(team: Team, attacker: Player, callEvent: Boolean) {
+    override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = EffectAreaData(
             area, team, potionEffect
         )
