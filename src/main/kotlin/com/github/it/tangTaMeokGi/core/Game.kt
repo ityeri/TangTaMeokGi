@@ -13,7 +13,7 @@ import kotlin.random.Random
 class Game(val plugin: JavaPlugin) {
     var isGameRunning = false
 
-    val world: World = Bukkit.getWorld("world")!!
+    var world: World? = null
 
     var areaManager: AreaManager? = null
     var teamManager: TeamManager? = null
@@ -43,6 +43,7 @@ class Game(val plugin: JavaPlugin) {
     }
 
     fun init(
+        world: World,
         mapSize: Int,
         areaSize: Int,
         totalGameTimeMin: Int,
@@ -56,6 +57,7 @@ class Game(val plugin: JavaPlugin) {
         )
 
         teamManager = TeamManager()
+        this.world = world
 
         initArea()
     }
