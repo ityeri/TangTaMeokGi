@@ -40,15 +40,9 @@ class AreaManager(
 
     fun enable() {
         game.eventDispatcher.register(this)
-        for (area in getAllArea()) {
-            area.enable()
-        }
     }
     fun disable() {
         game.eventDispatcher.unregister(this)
-        for (area in getAllArea()) {
-            area.disable()
-        }
     }
 
     fun setWorldBorder() {
@@ -215,7 +209,6 @@ class AreaManager(
                     when (areaData) {
                         is OccupiableAreaData -> {
                             areaData.occupyBy(team, event.attacker, callEvent = false)
-                            area.enable()
                         }
                     }
                 }
