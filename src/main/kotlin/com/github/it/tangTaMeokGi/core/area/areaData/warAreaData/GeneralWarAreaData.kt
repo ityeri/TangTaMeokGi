@@ -18,7 +18,7 @@ class GeneralWarAreaData(
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, warTime) {
 
     override val type = AreaType.WAR_GENERAL_AREA
-    override var warEndTime: Int? = null
+    override var warTimeLeft: Int? = null
 
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = GeneralAreaData(

@@ -8,10 +8,7 @@ abstract class BaseWarAreaData(area: Area, ownerTeam: Team, val attackerTeam: Te
                                val warTime: Int):
     OwnerbleAreaData(area, ownerTeam) {
 
-    abstract var warEndTime: Int?
-
-    val timeLeft: Int
-        get() = warEndTime!! - (System.currentTimeMillis()/1000).toInt()
+    abstract var warTimeLeft: Int?
 
     abstract fun onOwnerTeamWin()
     abstract fun onAttackerTeamWin()

@@ -20,7 +20,7 @@ class EffectWarAreaData(
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, timeLimitSec) {
 
     override val type = AreaType.WAR_EFFECT_AREA
-    override var warEndTime: Int? = null
+    override var warTimeLeft: Int? = null
 
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = EffectAreaData(
