@@ -50,11 +50,13 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.teamManager!!.getTeam("test1")!!.addPlayer(testPlayer1)
         game.teamManager!!.getTeam("test2")!!.addPlayer(testPlayer2)
 
+        userInterface.enable()
+
         game.start()
 
-        userInterface.enable()
     }
 
     override fun onDisable() {
+        userInterface.disable()
     }
 }
