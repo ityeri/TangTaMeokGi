@@ -32,7 +32,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         game.init(
             world = Bukkit.getWorld("world")!!,
             mapSize = 16, areaSize = 16,
-            totalGameTimeMin = 60,
+            totalGameTimeMin = 1,
             warTimeSec = 5
         )
 
