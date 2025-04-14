@@ -139,7 +139,7 @@ class Game(val plugin: JavaPlugin) {
     }
 
     fun end() {
-        if (isGameRunning || !isInitialized) { throw IllegalStateException() }
+        if (!isGameRunning || !isInitialized) { throw IllegalStateException() }
 
         isGameRunning = false
         areaManager!!.disable()
