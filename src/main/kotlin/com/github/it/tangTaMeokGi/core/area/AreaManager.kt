@@ -165,10 +165,8 @@ class AreaManager(
 
 
     fun update() {
-        for (z in 0 until  mapSize) {
-            for (x in 0 until mapSize) {
-                getArea(x, z)!!.update()
-            }
+        getAllArea().forEach { area ->
+            area.update()
         }
     }
 
@@ -201,8 +199,6 @@ class AreaManager(
 
     @GameEventHandler
     fun onAreaOccupation(event: AreaOccupationEvent) {
-
-        println("아리아오쿠파이셔내;ㅣㅁㄴㄹ;ㅣㅏㅁㄹㄴ;ㅣㅏㅁ니;ㅏㅁㄴㅇㄹ;ㅣㅁㄴㄹ;ㅣㅏㅁㄴㄹ;ㅣㅏㅁㄴㅇㄹ;ㅣㅁㄴ리;ㅏㅁㄴㄹ/ㅣㅏ")
 
         val team = event.winningTeam
         // val totalSearchedAreas: MutableSet<Area> = mutableSetOf()
