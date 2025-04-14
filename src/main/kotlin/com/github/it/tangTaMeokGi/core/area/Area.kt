@@ -29,8 +29,6 @@ class Area(
     val plugin = areaManager.plugin
     val world = areaManager.world
 
-    var isEnabled = false
-
     val minX = x * size
     val minZ = z * size
 
@@ -39,7 +37,6 @@ class Area(
 
     var type = AreaType.EMPTY_AREA
         set(newType) {
-            disable()
             field = newType
             if (type == data.type) { return }
             newType.setTypeThis(this)
@@ -47,7 +44,6 @@ class Area(
 
     var data: BaseAreaData = EmptyAreaData(this)
         set(newData) {
-            disable()
             field = newData
             if (type == data.type) { return }
             type = newData.type
@@ -63,24 +59,7 @@ class Area(
         type = AreaType.EMPTY_AREA
     }
 
-
-
-    fun enable() {
-        if (isEnabled) { return }
-
-        isEnabled = true
-        data.enable()
-    }
-    fun disable() {
-        if (!isEnabled) { return }
-
-        isEnabled = false
-        data.disable()
-    }
-
     fun update() {
-        if (!isEnabled) { return }
-
         data.update()
 
         val currentEntities = getEntities().toSet()

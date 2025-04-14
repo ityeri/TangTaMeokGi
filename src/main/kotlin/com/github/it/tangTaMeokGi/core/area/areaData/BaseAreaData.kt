@@ -15,21 +15,6 @@ abstract class BaseAreaData(
     val game = area.game
     abstract val type: AreaType
 
-    var isEnabled = false
-
-    fun enable() {
-        if (isEnabled) { return }
-        isEnabled = true
-        area.enable()
-        onEnable()
-    }
-    fun disable() {
-        if (!isEnabled) { return }
-        isEnabled = false
-        area.disable()
-        onDisable()
-    }
-
     protected abstract fun onEnable()
     protected abstract fun onDisable()
 
