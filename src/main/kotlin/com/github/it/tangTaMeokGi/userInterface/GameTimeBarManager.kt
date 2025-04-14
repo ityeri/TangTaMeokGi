@@ -1,6 +1,7 @@
 package com.github.it.tangTaMeokGi.userInterface
 
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.event.GameEndEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventHandler
 import com.github.it.tangTaMeokGi.core.event.GameEventListener
 import com.github.it.tangTaMeokGi.core.event.GameStartEvent
@@ -30,9 +31,16 @@ class GameTimeBarManager(val game: Game) : Listener, GameEventListener {
 
     @GameEventHandler
     fun onGameStart(event: GameStartEvent) {
+        gameTimeBar.isVisible = true
+
         Bukkit.getServer().onlinePlayers.forEach { player ->
             gameTimeBar.addPlayer(player)
         }
+    }
+
+    @GameEventHandler
+    fun onGameEnd(event: GameEndEvent) {
+        gameTimeBar.isVisible = false
     }
 
     fun update() {
