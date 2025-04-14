@@ -4,6 +4,7 @@ import com.github.it.tangTaMeokGi.core.area.AreaManager
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
+import com.github.it.tangTaMeokGi.core.event.GameStartEvent
 import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
@@ -12,6 +13,7 @@ import kotlin.random.Random
 
 class Game(val plugin: JavaPlugin) {
     var isGameRunning = false
+    var isInitialized = false
 
     var world: World? = null
 
@@ -21,13 +23,14 @@ class Game(val plugin: JavaPlugin) {
 
     var setting: GameSetting? = null
 
-    var gameStartTime: Int? = null
-    var gameEndTime: Int? = null
+    var gameTimeLeft: Int? = null
     // TODO
 
 
 
     fun reset() {
+        isInitialized = false
+        isGameRunning = false
 
         areaManager.let {
             areaManager!!.disable()
@@ -38,8 +41,7 @@ class Game(val plugin: JavaPlugin) {
 
         setting = null
 
-        gameStartTime = null
-        gameEndTime = null
+        gameTimeLeft = null
     }
 
     fun init(
@@ -60,6 +62,8 @@ class Game(val plugin: JavaPlugin) {
         this.world = world
 
         initArea()
+
+        isInitialized = true
     }
 
 
@@ -106,7 +110,21 @@ class Game(val plugin: JavaPlugin) {
 
 
     fun start() {
+        if (isGameRunning || !isInitialized) { throw IllegalStateException() }
+
         isGameRunning = true
         areaManager!!.enable()
+
+        gameTimeLeft = setting!!.totalGameTime
+
+        eventDispatcher.callEvent(GameStartEvent())
+
+    }
+
+    fun end() {
+        if (isGameRunning || !isInitialized) { throw IllegalStateException() }
+
+        isGameRunning = false
+        areaManager!!.disable()
     }
 }
