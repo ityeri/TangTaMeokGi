@@ -24,6 +24,8 @@ class Game(val plugin: JavaPlugin) {
     var setting: GameSetting? = null
 
     var gameTimeLeft: Int? = null
+
+    var updateTaskId: Int? = null
     // TODO
 
 
@@ -119,6 +121,9 @@ class Game(val plugin: JavaPlugin) {
 
         eventDispatcher.callEvent(GameStartEvent())
 
+        updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin,
+            Runnable { update() }, 1L, 1L).taskId
+
     }
 
     fun end() {
@@ -126,5 +131,11 @@ class Game(val plugin: JavaPlugin) {
 
         isGameRunning = false
         areaManager!!.disable()
+    }
+
+
+
+    fun update() {
+
     }
 }
