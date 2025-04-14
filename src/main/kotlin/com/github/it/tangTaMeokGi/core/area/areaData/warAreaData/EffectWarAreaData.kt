@@ -76,7 +76,7 @@ class EffectWarAreaData(
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
-                area, attackerTeam, ownerTeam, false
+                area, ownerTeam, attackerTeam, false
             )
         )
     }
