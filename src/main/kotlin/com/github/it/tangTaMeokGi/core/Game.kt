@@ -3,6 +3,7 @@ package com.github.it.tangTaMeokGi.core
 import com.github.it.tangTaMeokGi.core.area.AreaManager
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.EffectAreaData.AreaPotionEffect
 import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaData
+import com.github.it.tangTaMeokGi.core.event.GameEndEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
 import com.github.it.tangTaMeokGi.core.event.GameStartEvent
 import com.github.it.tangTaMeokGi.core.team.TeamManager
@@ -122,10 +123,10 @@ class Game(val plugin: JavaPlugin) {
         gameTimeLeft = setting!!.totalGameTime.toDouble()
         lastUpdateTime = System.currentTimeMillis() / 1000.0
 
-        eventDispatcher.callEvent(GameStartEvent())
-
         updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin,
             Runnable { update() }, 1L, 1L).taskId
+
+        eventDispatcher.callEvent(GameStartEvent())
     }
 
     fun pause() {
@@ -144,6 +145,8 @@ class Game(val plugin: JavaPlugin) {
         areaManager!!.disable()
 
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
+
+        eventDispatcher.callEvent(GameEndEvent())
     }
 
 
@@ -156,7 +159,9 @@ class Game(val plugin: JavaPlugin) {
 
         gameTimeLeft -= timeDelta
 
-
+        if (gameTimeLeft <= 0) {
+            end()
+        }
 
         lastUpdateTime = currentTime
     }
