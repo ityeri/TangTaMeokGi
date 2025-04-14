@@ -79,6 +79,8 @@ class Area(
         updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             update()
         }, 1L, 1L).taskId
+
+        println("[$x, $z] 영역 활성화 완료")
     }
     fun disable() {
         if (!isEnabled) {
@@ -138,7 +140,7 @@ class Area(
         val minY: Int
         val maxY: Int
 
-        if (targetWorld.minHeight < world.minHeight) minY = targetWorld.minHeight
+        if (targetWorld.minHeight < world!!.minHeight) minY = targetWorld.minHeight
         else minY = world.minHeight
 
         if (world.maxHeight < targetWorld.maxHeight) maxY = targetWorld.maxHeight
@@ -182,7 +184,7 @@ class Area(
         val minY: Int
         val maxY: Int
 
-        if (targetWorld.minHeight < world.minHeight) minY = targetWorld.minHeight
+        if (targetWorld.minHeight < world!!.minHeight) minY = targetWorld.minHeight
         else minY = world.minHeight
 
         if (world.maxHeight < targetWorld.maxHeight) maxY = targetWorld.maxHeight
@@ -259,7 +261,7 @@ class Area(
 
         for (chunkZ in minChunkZ until maxChunkZ) {
             for (chunkX in minChunkX until maxChunkX) {
-                for (entity in world.getChunkAt(chunkX, chunkZ).entities) {
+                for (entity in world!!.getChunkAt(chunkX, chunkZ).entities) {
 
                     if (isEntityInArea(entity)) {
                         entities.add(entity)

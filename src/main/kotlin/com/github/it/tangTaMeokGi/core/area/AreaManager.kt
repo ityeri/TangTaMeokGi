@@ -54,7 +54,7 @@ class AreaManager(
     fun setWorldBorder() {
         val totalMapSize: Int = mapSize * areaSize
 
-        world.worldBorder.setCenter(totalMapSize / 2.0, totalMapSize / 2.0)
+        world!!.worldBorder.setCenter(totalMapSize / 2.0, totalMapSize / 2.0)
 
         world.worldBorder.size = totalMapSize.toDouble()
         world.worldBorder.damageBuffer = 0.0
