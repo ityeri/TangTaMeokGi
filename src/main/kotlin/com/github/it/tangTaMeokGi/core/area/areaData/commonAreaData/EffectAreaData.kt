@@ -18,12 +18,6 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
 
     override val type = AreaType.EFFECT_AREA
 
-    override fun onEnable() {
-    }
-
-    override fun onDisable() {
-    }
-
     override fun update() {
         // TODO "이펙 넣는거 추가 ㄱ"
     }
@@ -49,8 +43,6 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)
         )
-
-        area.enable()
     }
 
 }

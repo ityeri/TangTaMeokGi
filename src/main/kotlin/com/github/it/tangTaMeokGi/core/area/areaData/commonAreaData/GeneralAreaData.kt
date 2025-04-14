@@ -13,15 +13,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
 
     override val type = AreaType.GENERAL_AREA
 
-    override fun onEnable() {
-    }
-
-    override fun onDisable() {
-    }
-
-    override fun update() {
-        // 일반땅은 효과 업을세디
-    }
+    override fun update() {}
 
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = GeneralAreaData(
@@ -43,8 +35,6 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)
         )
-
-        area.enable()
     }
 
 }

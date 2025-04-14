@@ -20,14 +20,6 @@ class GeneralWarAreaData(
     override val type = AreaType.WAR_GENERAL_AREA
     override var warEndTime: Int? = null
 
-
-    override fun onEnable() {
-        warEndTime = (System.currentTimeMillis()/1000).toInt() + warTime
-    }
-
-    override fun onDisable() {
-    }
-
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = GeneralAreaData(
             area, team
@@ -70,7 +62,6 @@ class GeneralWarAreaData(
 
     override fun onOwnerTeamWin() {
         occupyBy(ownerTeam, null)
-        area.enable()
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(
@@ -81,7 +72,6 @@ class GeneralWarAreaData(
 
     override fun onAttackerTeamWin() {
         occupyBy(attackerTeam, null)
-        area.enable()
 
         area.game.eventDispatcher.callEvent(
             WarEndEvent(

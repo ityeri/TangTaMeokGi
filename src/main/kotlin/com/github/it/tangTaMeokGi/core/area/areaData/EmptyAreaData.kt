@@ -15,9 +15,6 @@ open class EmptyAreaData(
 
     override val type = AreaType.EMPTY_AREA
 
-    override fun onEnable() {}
-    override fun onDisable() {}
-
     override fun update() {}
 
     override fun onAttack(event: AreaAttackEvent) {

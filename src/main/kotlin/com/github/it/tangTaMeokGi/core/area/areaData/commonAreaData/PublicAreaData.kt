@@ -14,9 +14,6 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
 
     override val type = AreaType.PUBLIC_AREA
 
-    override fun onEnable() {}
-    override fun onDisable() {}
-
     override fun update() {
         // TODO potionEffect 로 해당 영역 내에 플레ㅔ이어 한테 효과 넣는거 구현 ㄱ
     }
@@ -44,7 +41,6 @@ class PublicAreaData(area: Area, var isEffectArea: Boolean, val potionEffect: Ar
 
     override fun onAttack(event: AreaAttackEvent) {
         occupyBy(event.attackerTeam, event.attacker)
-        area.enable()
     }
 
 }
