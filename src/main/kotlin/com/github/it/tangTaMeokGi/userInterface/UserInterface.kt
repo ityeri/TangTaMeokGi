@@ -15,6 +15,8 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
 
     var updateTaskId: Int? = null
 
+    val gameTimeBarManager = GameTimeBarManager(game)
+
     fun enable() {
         // TODO.md 참조
         val commandManager = PaperCommandManager(game.plugin)
@@ -25,14 +27,28 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
 
         game.eventDispatcher.register(this)
 
-        updateTaskId = Bukkit.getScheduler().runTaskTimer(game.plugin, Runnable {
-            update()
-        }, 1L, 1L).taskId
+        gameTimeBarManager.enable()
 
     }
 
-    fun update() {
+    fun disable() {
+        gameTimeBarManager.disable()
+    }
 
+    @GameEventHandler
+    fun onGameStart(event: GameStartEvent) {
+        updateTaskId = Bukkit.getScheduler().runTaskTimer(game.plugin, Runnable {
+            update()
+        }, 1L, 1L).taskId
+    }
+
+    @GameEventHandler
+    fun onGameEnd(event: GameEndEvent) {
+        Bukkit.getScheduler().cancelTask(updateTaskId!!)
+    }
+
+    fun update() {
+        gameTimeBarManager.update()
     }
 
     @GameEventHandler
