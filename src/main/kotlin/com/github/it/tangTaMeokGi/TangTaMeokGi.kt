@@ -30,6 +30,7 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
         Bukkit.getServer().sendMessage(Component.text("탕타묵기"))
 
         game.init(
+            world = Bukkit.getWorld("world")!!,
             mapSize = 16, areaSize = 16,
             totalGameTimeMin = 60,
             warTimeSec = 5
