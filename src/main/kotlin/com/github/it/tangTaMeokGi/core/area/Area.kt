@@ -80,7 +80,6 @@ class Area(
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
-        println("[$x, $z] 공격시도 감지")
         // onAttack 은 한 틱당 한번만 가능
         if (lastAttackedTick == Bukkit.getServer().currentTick) {
             return
