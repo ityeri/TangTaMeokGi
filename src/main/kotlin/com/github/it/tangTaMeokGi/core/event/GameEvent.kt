@@ -13,6 +13,9 @@ interface GameEvent
 
 abstract class CancelableEvent: GameEvent { var canceled = false }
 
+class GameStartEvent: GameEvent
+class GameEndEvent: GameEvent
+
 class AreaAttackEvent(val area: Area,
                       val attackerTeam: Team,
                       val attacker: Player): CancelableEvent()
