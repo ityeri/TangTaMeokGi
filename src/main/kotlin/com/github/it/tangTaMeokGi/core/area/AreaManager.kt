@@ -219,6 +219,7 @@ class AreaManager(
                     when (areaData) {
                         is OccupiableAreaData -> {
                             areaData.occupyBy(team, event.attacker, callEvent = false)
+                            area.enable()
                         }
                     }
                 }
