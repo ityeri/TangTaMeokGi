@@ -10,15 +10,8 @@ import com.github.it.tangTaMeokGi.userInterface.command.MapCommand
 import com.github.it.tangTaMeokGi.userInterface.command.MapGenerateCommand
 import kotlinx.coroutines.CoroutineScope
 import org.bukkit.Bukkit
-import org.bukkit.Color
-import org.bukkit.boss.BarColor
-import org.bukkit.boss.BarStyle
 
 class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListener {
-
-    val gameTimeBar = Bukkit.createBossBar(
-        "남은 겜시간", BarColor.YELLOW, BarStyle.SOLID
-    )
 
     var updateTaskId: Int? = null
 
@@ -32,12 +25,6 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
 
         game.eventDispatcher.register(this)
 
-        gameTimeBar.isVisible = true
-
-        Bukkit.getServer().onlinePlayers.forEach { player ->
-            gameTimeBar.addPlayer(player)
-        }
-
         updateTaskId = Bukkit.getScheduler().runTaskTimer(game.plugin, Runnable {
             update()
         }, 1L, 1L).taskId
@@ -45,8 +32,7 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     }
 
     fun update() {
-        val gameTimeLeftPercent = game.gameTimeLeft / game.setting!!.totalGameTime
-        gameTimeBar.progress = gameTimeLeftPercent.coerceIn(0.0, 1.0)
+
     }
 
     @GameEventHandler
