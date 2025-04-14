@@ -23,9 +23,10 @@ class Game(val plugin: JavaPlugin) {
 
     var setting: GameSetting? = null
 
-    var gameTimeLeft: Int? = null
+    var gameTimeLeft: Double = -1.0
 
     var updateTaskId: Int? = null
+    var lastUpdateTime: Double = -1.0
     // TODO
 
 
@@ -43,7 +44,8 @@ class Game(val plugin: JavaPlugin) {
 
         setting = null
 
-        gameTimeLeft = null
+        gameTimeLeft = -1.0
+        lastUpdateTime = -1.0
     }
 
     fun init(
@@ -117,13 +119,22 @@ class Game(val plugin: JavaPlugin) {
         isGameRunning = true
         areaManager!!.enable()
 
-        gameTimeLeft = setting!!.totalGameTime
+        gameTimeLeft = setting!!.totalGameTime.toDouble()
+        lastUpdateTime = System.currentTimeMillis() / 1000.0
 
         eventDispatcher.callEvent(GameStartEvent())
 
         updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin,
             Runnable { update() }, 1L, 1L).taskId
+    }
 
+    fun pause() {
+        isGameRunning = false
+        areaManager!!.disable()
+    }
+    fun unpause() {
+        isGameRunning = true
+        areaManager!!.enable()
     }
 
     fun end() {
@@ -131,11 +142,22 @@ class Game(val plugin: JavaPlugin) {
 
         isGameRunning = false
         areaManager!!.disable()
+
+        Bukkit.getScheduler().cancelTask(updateTaskId!!)
     }
 
 
 
     fun update() {
+        if (!isGameRunning) { return }
 
+        val currentTime = System.currentTimeMillis() / 1000.0
+        val timeDelta = currentTime - lastUpdateTime
+
+        gameTimeLeft -= timeDelta
+
+
+
+        lastUpdateTime = currentTime
     }
 }
