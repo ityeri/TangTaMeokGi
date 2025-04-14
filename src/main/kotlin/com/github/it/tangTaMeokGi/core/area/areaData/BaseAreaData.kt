@@ -15,9 +15,6 @@ abstract class BaseAreaData(
     val game = area.game
     abstract val type: AreaType
 
-    protected abstract fun onEnable()
-    protected abstract fun onDisable()
-
     abstract fun update()
 
     abstract fun onAttack(event: AreaAttackEvent)
