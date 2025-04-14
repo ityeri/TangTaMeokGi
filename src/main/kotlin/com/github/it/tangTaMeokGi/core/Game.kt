@@ -59,7 +59,7 @@ class Game(val plugin: JavaPlugin) {
         setting = GameSetting(
             mapSize = mapSize,
             areaSize = areaSize,
-            totalGameTime = totalGameTimeMin * 60,
+            totalGameTime = 3,
             warTime = warTimeSec
         )
 
