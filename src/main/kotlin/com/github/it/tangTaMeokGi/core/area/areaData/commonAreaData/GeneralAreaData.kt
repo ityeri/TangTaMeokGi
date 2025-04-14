@@ -30,7 +30,7 @@ open class GeneralAreaData(area: Area, ownerTeam: Team) : OwnerbleAreaData(area,
 
         area.data = GeneralWarAreaData(
             area, ownerTeam, event.attackerTeam, area.game.setting!!.warTime
-        )
+        ).apply { warStart() }
 
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)

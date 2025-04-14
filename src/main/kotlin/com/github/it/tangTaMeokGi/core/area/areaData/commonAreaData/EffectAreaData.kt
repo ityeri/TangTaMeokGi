@@ -38,7 +38,7 @@ open class EffectAreaData(area: Area, ownerTeam: Team,
         area.data = EffectWarAreaData(
             area, ownerTeam, event.attackerTeam, area.game.setting!!.warTime,
             potionEffect
-        )
+        ).apply { warStart() }
 
         area.game.eventDispatcher.callEvent(
             WarStartEvent(area, ownerTeam, event.attackerTeam)
