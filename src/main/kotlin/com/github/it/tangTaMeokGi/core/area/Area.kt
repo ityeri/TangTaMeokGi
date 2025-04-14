@@ -79,8 +79,6 @@ class Area(
         updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             update()
         }, 1L, 1L).taskId
-
-        println("[$x, $z] 영역 활성화 완료")
     }
     fun disable() {
         if (!isEnabled) {
@@ -115,6 +113,7 @@ class Area(
     }
 
     fun onAttack(attackerTeam: Team, attacker: Player) {
+        println("[$x, $z] 공격시도 감지")
         // onAttack 은 한 틱당 한번만 가능
         if (lastAttackedTick == Bukkit.getServer().currentTick) {
             return
