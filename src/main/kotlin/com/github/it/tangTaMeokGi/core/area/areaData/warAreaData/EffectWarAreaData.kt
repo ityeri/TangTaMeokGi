@@ -20,7 +20,8 @@ class EffectWarAreaData(
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, timeLimitSec) {
 
     override val type = AreaType.WAR_EFFECT_AREA
-    override var warTimeLeft: Int? = null
+
+    var lastUpdateTime: Double = -1.0
 
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = EffectAreaData(
@@ -36,6 +37,12 @@ class EffectWarAreaData(
         }
     }
 
+    override fun warStart() {
+        warTimeLeft = area.game.setting!!.warTime.toDouble()
+        lastUpdateTime = System.currentTimeMillis() / 1000.0
+
+        isAtWar = true
+    }
 
     fun onWarEnd() {
         var isAttackerWin = true
@@ -84,7 +91,15 @@ class EffectWarAreaData(
 
 
     override fun update() {
-        if (timeLeft <= 0) {
+        if (!isAtWar) { return }
+
+        val currentTime = System.currentTimeMillis() / 1000.0
+        val timeDelta = currentTime - lastUpdateTime
+
+        warTimeLeft -= timeDelta
+
+        if (warTimeLeft <= 0) {
+            isAtWar = false
             onWarEnd()
         }
     }
