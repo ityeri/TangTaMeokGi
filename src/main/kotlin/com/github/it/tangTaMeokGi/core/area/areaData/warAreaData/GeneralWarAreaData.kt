@@ -18,7 +18,8 @@ class GeneralWarAreaData(
 ) : BaseWarAreaData(area, ownerTeam, attackerTeam, warTime) {
 
     override val type = AreaType.WAR_GENERAL_AREA
-    override var warTimeLeft: Int? = null
+
+    var lastUpdateTime: Double = -1.0
 
     override fun occupyBy(team: Team, attacker: Player?, callEvent: Boolean) {
         area.data = GeneralAreaData(
@@ -32,6 +33,13 @@ class GeneralWarAreaData(
                 )
             )
         }
+    }
+
+    override fun warStart() {
+        warTimeLeft = area.game.setting!!.warTime.toDouble()
+        lastUpdateTime = System.currentTimeMillis() / 1000.0
+
+        isAtWar = true
     }
 
 
@@ -82,7 +90,16 @@ class GeneralWarAreaData(
 
 
     override fun update() {
-        if (timeLeft <= 0) {
+
+        if (!isAtWar) { return }
+
+        val currentTime = System.currentTimeMillis() / 1000.0
+        val timeDelta = currentTime - lastUpdateTime
+
+        warTimeLeft -= timeDelta
+
+        if (warTimeLeft <= 0) {
+            isAtWar = false
             onWarEnd()
         }
     }
