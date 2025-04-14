@@ -55,7 +55,6 @@ class Area(
 
     var lastAttackedTick: Int = -1
 
-    var updateTaskId: Int? = null
     var recentEntities: Set<Entity> = setOf()
 
 
@@ -67,32 +66,21 @@ class Area(
 
 
     fun enable() {
-        if (isEnabled) {
-            return
-        }
+        if (isEnabled) { return }
 
         isEnabled = true
-
         data.enable()
-        Bukkit.getServer().pluginManager.registerEvents(this, plugin)
-
-        updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
-            update()
-        }, 1L, 1L).taskId
     }
     fun disable() {
-        if (!isEnabled) {
-            return
-        }
+        if (!isEnabled) { return }
 
         isEnabled = false
-
         data.disable()
-        HandlerList.unregisterAll(this)
-        Bukkit.getScheduler().cancelTask(updateTaskId!!)
     }
 
     fun update() {
+        if (!isEnabled) { return }
+
         data.update()
 
         val currentEntities = getEntities().toSet()
@@ -224,7 +212,6 @@ class Area(
 
 
 
-    @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
 
         if (isEntityInArea(event.player) &&
