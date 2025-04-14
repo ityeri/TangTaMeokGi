@@ -21,29 +21,52 @@ import kotlinx.coroutines.*
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
+import org.bukkit.event.EventHandler
+import org.bukkit.event.HandlerList
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 
 class AreaManager(
     val game: Game,
     val mapSize: Int,
     val areaSize: Int
-): GameEventListener {
+): GameEventListener, Listener {
 
     val plugin = game.plugin
     val world = game.world
+    var updateTaskId: Int? = null
+
+    var isEnabled = false
 
     val areaMap: MutableList<MutableList<Area>> = MutableList(mapSize) { mutableListOf() }
-    
+
     fun isGroundItem(item: ItemStack): Boolean {
         // TODO 이 매서드는 GameManager 로 옮기거나 암튼 더 합리적인 위치로 이동 ㄱ
         return item.type == Material.IRON_AXE
     }
 
     fun enable() {
+        if (isEnabled) { throw IllegalStateException() }
+        isEnabled = true
+
         game.eventDispatcher.register(this)
+        Bukkit.getPluginManager().registerEvents(this, plugin)
+
+        updateTaskId = Bukkit.getScheduler().runTaskTimer(plugin,
+            Runnable { update() }, 1L, 1L).taskId
     }
     fun disable() {
+        if (!isEnabled) { throw IllegalStateException() }
+        isEnabled = false
+
         game.eventDispatcher.unregister(this)
+        HandlerList.unregisterAll(this)
+
+        Bukkit.getScheduler().cancelTask(updateTaskId!!)
+        updateTaskId = null
     }
+
+
 
     fun setWorldBorder() {
         val totalMapSize: Int = mapSize * areaSize
@@ -297,5 +320,10 @@ class AreaManager(
 
         return allFinedAreas.toSet()
 
+    }
+
+    @EventHandler
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+        getAllArea().forEach { area -> area.onPlayerInteract(event) }
     }
 }
