@@ -60,13 +60,16 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
         if (winningTeams.size == game.teamManager!!.getAllTeam().size) {
             subTitleMessage += "무승부! 모든 팀의 땅 갯수가 일치합니다"
         }
+        else if (winningTeams.size == 1) {
+            subTitleMessage += "${winningTeams[0]} 팀 우승"
+        }
         else {
             for (team in winningTeams.subList(0, winningTeams.size - 1)) {
                 subTitleMessage += "${team.displayName}, "
             }
             subTitleMessage += winningTeams.last().displayName
 
-            subTitleMessage += "팀 승리"
+            subTitleMessage += " 팀 공동 우승"
         }
 
         Bukkit.getServer().onlinePlayers.forEach { player ->
