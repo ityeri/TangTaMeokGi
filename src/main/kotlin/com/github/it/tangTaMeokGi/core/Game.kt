@@ -6,6 +6,7 @@ import com.github.it.tangTaMeokGi.core.area.areaData.commonAreaData.PublicAreaDa
 import com.github.it.tangTaMeokGi.core.event.GameEndEvent
 import com.github.it.tangTaMeokGi.core.event.GameEventDispatcher
 import com.github.it.tangTaMeokGi.core.event.GameStartEvent
+import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.core.team.TeamManager
 import org.bukkit.Bukkit
 import org.bukkit.World
@@ -146,7 +147,22 @@ class Game(val plugin: JavaPlugin) {
 
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
 
-        eventDispatcher.callEvent(GameEndEvent())
+        var maxAreaCount = 0
+        val winningTeams = mutableSetOf<Team>()
+
+        teamManager!!.getAllTeam().forEach { team ->
+            if (maxAreaCount < team.getAllArea().size) {
+
+                maxAreaCount = team.getAllArea().size
+                winningTeams.clear()
+                winningTeams.add(team)
+            }
+            else if (maxAreaCount == team.getAllArea().size) {
+                winningTeams.add(team)
+            }
+        }
+
+        eventDispatcher.callEvent(GameEndEvent(winningTeams.toSet()))
     }
 
 
