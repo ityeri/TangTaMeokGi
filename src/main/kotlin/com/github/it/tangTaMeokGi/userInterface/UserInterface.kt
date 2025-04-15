@@ -40,11 +40,26 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
         updateTaskId = Bukkit.getScheduler().runTaskTimer(game.plugin, Runnable {
             update()
         }, 1L, 1L).taskId
+
+        Bukkit.getServer().onlinePlayers.forEach { player ->
+            player.sendTitle(
+                "탕타묵기 시작",
+                "시간안에 가능한한 많은 땅을 점령하세요!",
+                0, 60, 20
+            )
+        }
     }
 
     @GameEventHandler
     fun onGameEnd(event: GameEndEvent) {
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
+        Bukkit.getServer().onlinePlayers.forEach { player ->
+            player.sendTitle(
+                "탕타묵기 끝!",
+                "TODO 승자 표시 기능 만들어야함",
+                0, 60, 20
+            )
+        }
     }
 
     fun update() {
