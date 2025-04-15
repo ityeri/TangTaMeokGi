@@ -53,15 +53,23 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     @GameEventHandler
     fun onGameEnd(event: GameEndEvent) {
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
+
+        var subTitleMessage = "이긴 팀: "
+        val winningTeams = event.winningTeams
+
+        for (team in winningTeams.subList(0, winningTeams.size - 1)) {
+            subTitleMessage += "${team.displayName}, "
+        }
+
+        subTitleMessage += winningTeams.last().displayName
+
         Bukkit.getServer().onlinePlayers.forEach { player ->
             player.sendTitle(
                 "탕타묵기 끝!",
-                "TODO 승자 표시 기능 만들어야함",
+                subTitleMessage,
                 0, 60, 20
             )
         }
-
-        event.wi
     }
 
     fun update() {
