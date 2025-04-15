@@ -19,6 +19,10 @@ class TeamManager {
         return null
     }
 
+    fun getAllTeam() : Set<Team> {
+        return teamStore.values.toSet()
+    }
+
     fun addTeam(team: Team) {
         teamStore[team.id] = team
     }
