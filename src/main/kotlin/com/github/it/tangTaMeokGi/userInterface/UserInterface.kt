@@ -60,6 +60,8 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
                 0, 60, 20
             )
         }
+
+        event.wi
     }
 
     fun update() {
