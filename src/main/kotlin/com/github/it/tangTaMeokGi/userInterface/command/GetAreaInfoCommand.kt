@@ -1,6 +1,7 @@
 package com.github.it.tangTaMeokGi.userInterface.command
 
 import co.aikar.commands.BaseCommand
+import co.aikar.commands.PaperCommandManager
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
@@ -15,6 +16,11 @@ import org.bukkit.entity.Player
 @CommandAlias("areainfo")
 @CommandPermission("op")
 class GetAreaInfoCommand(val game: Game) : BaseCommand() {
+
+    fun enable() {
+        val commandManager = PaperCommandManager(game.plugin)
+        commandManager.registerCommand(this)
+    }
 
     @Default
     fun onCommand(sender: CommandSender) {
