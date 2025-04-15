@@ -54,14 +54,20 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     fun onGameEnd(event: GameEndEvent) {
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
 
-        var subTitleMessage = "이긴 팀: "
         val winningTeams = event.winningTeams
+        var subTitleMessage = String()
 
-        for (team in winningTeams.subList(0, winningTeams.size - 1)) {
-            subTitleMessage += "${team.displayName}, "
+        if (winningTeams.size == game.teamManager!!.getAllTeam().size) {
+            subTitleMessage += "무승부! 모든 팀의 땅 갯수가 일치합니다"
         }
+        else {
+            for (team in winningTeams.subList(0, winningTeams.size - 1)) {
+                subTitleMessage += "${team.displayName}, "
+            }
+            subTitleMessage += winningTeams.last().displayName
 
-        subTitleMessage += winningTeams.last().displayName
+            subTitleMessage += "팀 승리"
+        }
 
         Bukkit.getServer().onlinePlayers.forEach { player ->
             player.sendTitle(
