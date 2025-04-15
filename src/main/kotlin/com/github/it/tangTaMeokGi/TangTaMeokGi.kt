@@ -38,8 +38,8 @@ class TangTaMeokGi : JavaPlugin(), GameEventListener {
 
         game.areaTypeGenerate(0.3)
 
-        testTeam1 = Team("test1", "test1", Color.RED)
-        testTeam2 = Team("test2", "test2", Color.BLUE)
+        testTeam1 = Team(game, "test1", "test1", Color.RED)
+        testTeam2 = Team(game, "test2", "test2", Color.BLUE)
 
         game.teamManager!!.addTeam(testTeam1)
         game.teamManager!!.addTeam(testTeam2)
