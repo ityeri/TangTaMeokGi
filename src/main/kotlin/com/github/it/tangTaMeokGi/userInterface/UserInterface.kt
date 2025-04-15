@@ -61,7 +61,7 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
             subTitleMessage += "무승부! 모든 팀의 땅 갯수가 일치합니다"
         }
         else if (winningTeams.size == 1) {
-            subTitleMessage += "${winningTeams[0]} 팀 우승"
+            subTitleMessage += "${winningTeams[0].displayName} 팀 우승"
         }
         else {
             for (team in winningTeams.subList(0, winningTeams.size - 1)) {
