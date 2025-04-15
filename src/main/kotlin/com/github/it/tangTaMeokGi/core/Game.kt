@@ -147,7 +147,7 @@ class Game(val plugin: JavaPlugin) {
 
         Bukkit.getScheduler().cancelTask(updateTaskId!!)
 
-        var maxAreaCount = 0
+        var maxAreaCount = -1
         val winningTeams = mutableSetOf<Team>()
 
         teamManager!!.getAllTeam().forEach { team ->
