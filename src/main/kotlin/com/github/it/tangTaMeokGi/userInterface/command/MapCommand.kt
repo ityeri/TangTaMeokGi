@@ -17,9 +17,9 @@ import org.bukkit.map.MapView
 
 @CommandAlias("map")
 @CommandPermission("op")
-class MapCommand(val game: Game) : BaseCommand() {
+class MapCommand(val game: Game) : EnableableCommand() {
 
-    fun enable() {
+    override fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
         commandManager.registerCommand(this)
     }

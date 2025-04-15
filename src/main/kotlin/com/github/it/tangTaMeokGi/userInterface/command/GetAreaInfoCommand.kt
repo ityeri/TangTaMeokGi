@@ -15,9 +15,9 @@ import org.bukkit.entity.Player
 
 @CommandAlias("areainfo")
 @CommandPermission("op")
-class GetAreaInfoCommand(val game: Game) : BaseCommand() {
+class GetAreaInfoCommand(val game: Game) : EnableableCommand() {
 
-    fun enable() {
+    override fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
         commandManager.registerCommand(this)
     }

@@ -21,9 +21,9 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
         // TODO.md 참조
         val commandManager = PaperCommandManager(game.plugin)
 
-        commandManager.registerCommand(GetAreaInfoCommand(game))
-        commandManager.registerCommand(MapCommand(game))
-        commandManager.registerCommand(MapGenerateCommand(game, scope))
+        GetAreaInfoCommand(game).enable()
+        MapCommand(game).enable()
+        MapGenerateCommand(game, scope).enable()
 
         game.eventDispatcher.register(this)
 

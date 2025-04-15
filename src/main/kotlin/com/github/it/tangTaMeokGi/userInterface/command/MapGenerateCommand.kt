@@ -13,9 +13,9 @@ import org.bukkit.command.CommandSender
 
 @CommandAlias("mapgenerate")
 @CommandPermission("op")
-class MapGenerateCommand(val game: Game, val scope: CoroutineScope) : BaseCommand() {
+class MapGenerateCommand(val game: Game, val scope: CoroutineScope) : EnableableCommand() {
 
-    fun enable() {
+    override fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
         commandManager.registerCommand(this)
     }
