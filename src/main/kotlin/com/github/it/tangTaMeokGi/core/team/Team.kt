@@ -1,6 +1,8 @@
 package com.github.it.tangTaMeokGi.core.team
 
 import com.github.it.tangTaMeokGi.core.Game
+import com.github.it.tangTaMeokGi.core.area.Area
+import com.github.it.tangTaMeokGi.core.area.areaData.OwnerbleAreaData
 import com.mojang.brigadier.Message
 import org.bukkit.Bukkit
 import java.awt.Color
@@ -52,8 +54,27 @@ class Team(val game: Game,
     fun addPlayer(player: Player) {
         playerUUIDs.add(player.uniqueId)
     }
-
     fun rmPlayer(player: Player): Boolean {
         return playerUUIDs.remove(player.uniqueId)
+    }
+
+    fun getAllArea(): List<Area> {
+
+        val areas = mutableListOf<Area>()
+
+        game.areaManager!!.getAllArea().forEach { area ->
+            val areaData = area.data
+
+            when (areaData) {
+                is OwnerbleAreaData -> {
+                    if (areaData.ownerTeam == this) {
+                        areas.add(area)
+                    }
+                }
+            }
+
+        }
+
+        return areas.toList()
     }
 }
