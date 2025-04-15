@@ -44,7 +44,7 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
         Bukkit.getServer().onlinePlayers.forEach { player ->
             player.sendTitle(
                 "탕타묵기 시작",
-                "시간안에 가능한한 많은 땅을 점령하세요!",
+                "시간안에 가능한 많은 땅을 점령하세요!",
                 0, 60, 20
             )
         }
