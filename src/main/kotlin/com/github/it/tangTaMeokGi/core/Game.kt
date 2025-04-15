@@ -162,7 +162,7 @@ class Game(val plugin: JavaPlugin) {
             }
         }
 
-        eventDispatcher.callEvent(GameEndEvent(winningTeams.toSet()))
+        eventDispatcher.callEvent(GameEndEvent(winningTeams.toList()))
     }
 
 
