@@ -2,7 +2,7 @@ package com.github.it.tangTaMeokGi.userInterface
 
 import java.awt.Color
 
-enum class NamedColor(name: String, color: Color) {
+enum class NamedColor(val colorName: String, val color: Color) {
     BLACK("black", Color.BLACK),
     WHITE("white", Color.WHITE),
     RED("red", Color.RED),
