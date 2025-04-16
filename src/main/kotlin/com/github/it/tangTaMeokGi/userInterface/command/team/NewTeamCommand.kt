@@ -2,6 +2,7 @@ package com.github.it.tangTaMeokGi.userInterface.command.team
 
 import co.aikar.commands.PaperCommandManager
 import co.aikar.commands.annotation.CommandAlias
+import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Default
 import co.aikar.commands.annotation.Values
@@ -23,6 +24,7 @@ class NewTeamCommand(val game: Game) : EnableableCommand() {
     }
 
     @Default
+    @CommandCompletion("- 에토의_개쩌는팀 @color")
     fun onCommand(sender: CommandSender, teamId: String,
                   @Values("color") teamColorName: String) {
 
