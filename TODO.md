@@ -6,10 +6,25 @@
 * 먼 훗날 시간이 썩어 난다면? 용어 state 를 data 로 변경 했음
 * 유저인터페가 GameStartEvent 와 GameEndEvent 를 감지해서, 거기에 맞춰 이벤트 리스너 등록하고, 보스바 등등을 작업 하도록 변경 했음
 
+
 * 명령어 추가 하는중
-  * 팀 스폰포인트 설정
-  * 겜 시작, 정지, 일시정지
-  * 씨1ㅏㄹ 그어 워냐ㅣㅏㅓ
+  * 팀 명령어 추가 하는중
+    * newteam 하는중
+      * NewTeamCommand 에다가 커맨드 컴플리션 설정
+    * rmteam
+    
+    * teams 하는중
+    * setteamspawn 하는중
+    
+    * addteamplayer
+    * rmteamplayer
+    
+  * 게임 설정 관련
+    * start
+    * stop
+    * 그 외 세팅관련......
+    * 씨1ㅏㄹ 그어 워냐ㅣㅏㅓ
+
 
 * 유저 인터페 코드 정리
 * 유저 인터페에 영역 파티클 표시, 액션바 등등 부가기능 추가
