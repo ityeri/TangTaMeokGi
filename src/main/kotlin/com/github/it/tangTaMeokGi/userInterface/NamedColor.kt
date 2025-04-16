@@ -18,17 +18,19 @@ enum class NamedColor(name: String, color: Color) {
     DARK_GRAY("darkgray", Color.DARK_GRAY)
     ;
 
-    fun getColorFromName(name: String) : NamedColor? {
-        for (namedColor in entries) {
-            if (namedColor.name == name) {
-                return namedColor
+    companion object {
+        fun getColorFromName(name: String) : NamedColor? {
+            for (namedColor in entries) {
+                if (namedColor.name == name) {
+                    return namedColor
+                }
             }
+
+            return null
         }
 
-        return null
-    }
-
-    fun getColorNames() : List<String> {
-        return entries.map { namedColor -> namedColor.name }
+        fun getColorNames() : List<String> {
+            return entries.map { namedColor -> namedColor.name }
+        }
     }
 }
