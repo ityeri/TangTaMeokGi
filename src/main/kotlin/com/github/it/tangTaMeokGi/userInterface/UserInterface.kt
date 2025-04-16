@@ -22,7 +22,7 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
 
-        commandManager.commandCompletions.registerCompletion("teamColor") {
+        commandManager.commandCompletions.registerCompletion("team_color") {
             return@registerCompletion NamedColor.getColorNames()
         }
 
