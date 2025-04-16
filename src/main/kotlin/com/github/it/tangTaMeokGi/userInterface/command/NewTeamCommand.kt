@@ -19,10 +19,6 @@ class NewTeamCommand(val game: Game) : EnableableCommand() {
 
     override fun enable() {
         val commandManager = PaperCommandManager(game.plugin)
-        commandManager.commandCompletions.registerCompletion("color") {
-            return@registerCompletion NamedColor.getColorNames()
-        }
-
         commandManager.registerCommand(NewTeamCommand(game))
     }
 

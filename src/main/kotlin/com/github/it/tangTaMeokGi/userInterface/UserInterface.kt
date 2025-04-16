@@ -18,8 +18,11 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
     val gameTimeBarManager = GameTimeBarManager(game)
 
     fun enable() {
-        // TODO.md 참조
         val commandManager = PaperCommandManager(game.plugin)
+
+        commandManager.commandCompletions.registerCompletion("color") {
+            return@registerCompletion NamedColor.getColorNames()
+        }
 
         GetAreaInfoCommand(game).enable()
         MapCommand(game).enable()
