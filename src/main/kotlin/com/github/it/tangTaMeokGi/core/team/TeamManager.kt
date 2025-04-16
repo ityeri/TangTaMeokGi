@@ -24,6 +24,11 @@ class TeamManager {
     }
 
     fun addTeam(team: Team) {
+
+        if (team.id in getAllTeam().map { t -> t.id }) {
+            throw IllegalArgumentException("team.id 가 중복됩니다")
+        }
+
         teamStore[team.id] = team
     }
 }
