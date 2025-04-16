@@ -21,7 +21,7 @@ enum class NamedColor(val colorName: String, val color: Color) {
     companion object {
         fun getColorFromName(name: String) : NamedColor? {
             for (namedColor in entries) {
-                if (namedColor.name == name) {
+                if (namedColor.colorName == name) {
                     return namedColor
                 }
             }
@@ -30,7 +30,7 @@ enum class NamedColor(val colorName: String, val color: Color) {
         }
 
         fun getColorNames() : List<String> {
-            return entries.map { namedColor -> namedColor.name }
+            return entries.map { namedColor -> namedColor.colorName }
         }
     }
 }
