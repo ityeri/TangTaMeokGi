@@ -24,7 +24,7 @@ class NewTeamCommand(val game: Game) : EnableableCommand() {
     }
 
     @Default
-    @CommandCompletion("- @teamColor")
+    @CommandCompletion("@player @teamColor")
     fun onCommand(sender: CommandSender, teamId: String,
                   @Values("color") teamColorName: String) {
 
