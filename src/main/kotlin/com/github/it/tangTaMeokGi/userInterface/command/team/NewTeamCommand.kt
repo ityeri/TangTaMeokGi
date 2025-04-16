@@ -24,7 +24,7 @@ class NewTeamCommand(val game: Game) : EnableableCommand() {
     }
 
     @Default
-    @CommandCompletion("@player @teamColor")
+    @CommandCompletion("@players @teamColor")
     fun onCommand(sender: CommandSender, teamId: String,
                   teamColorName: String) {
 
@@ -33,8 +33,8 @@ class NewTeamCommand(val game: Game) : EnableableCommand() {
         val namedColor = NamedColor.getColorFromName(teamColorName)
         namedColor ?: run {
             sender.sendMessage("색상 이름이 잘못되었습니다!")
+            return
         }
-        namedColor!!
 
         val teamColor = namedColor.color
 
