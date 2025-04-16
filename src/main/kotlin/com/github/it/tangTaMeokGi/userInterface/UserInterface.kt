@@ -8,6 +8,8 @@ import com.github.it.tangTaMeokGi.core.event.*
 import com.github.it.tangTaMeokGi.userInterface.command.GetAreaInfoCommand
 import com.github.it.tangTaMeokGi.userInterface.command.MapCommand
 import com.github.it.tangTaMeokGi.userInterface.command.MapGenerateCommand
+import com.github.it.tangTaMeokGi.userInterface.command.team.NewTeamCommand
+import com.github.it.tangTaMeokGi.userInterface.command.team.TeamCheckCommand
 import kotlinx.coroutines.CoroutineScope
 import org.bukkit.Bukkit
 
@@ -23,6 +25,9 @@ class UserInterface(val game: Game, val scope: CoroutineScope): GameEventListene
         commandManager.commandCompletions.registerCompletion("color") {
             return@registerCompletion NamedColor.getColorNames()
         }
+
+        NewTeamCommand(game).enable()
+        TeamCheckCommand(game).enable()
 
         GetAreaInfoCommand(game).enable()
         MapCommand(game).enable()
