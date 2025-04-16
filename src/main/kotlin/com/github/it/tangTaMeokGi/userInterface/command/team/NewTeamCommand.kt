@@ -1,4 +1,4 @@
-package com.github.it.tangTaMeokGi.userInterface.command
+package com.github.it.tangTaMeokGi.userInterface.command.team
 
 import co.aikar.commands.PaperCommandManager
 import co.aikar.commands.annotation.CommandAlias
@@ -8,8 +8,8 @@ import co.aikar.commands.annotation.Values
 import com.github.it.tangTaMeokGi.core.Game
 import com.github.it.tangTaMeokGi.core.team.Team
 import com.github.it.tangTaMeokGi.userInterface.NamedColor
+import com.github.it.tangTaMeokGi.userInterface.command.EnableableCommand
 import org.bukkit.command.CommandSender
-import java.awt.Color
 
 @CommandAlias("newteam")
 @CommandPermission("op")
