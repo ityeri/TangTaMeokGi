@@ -1,14 +1,7 @@
-tasks {
-    jar {
-        destinationDirectory.set(file(".server\\plugins"))
-    }
-}
-
-
-
 plugins {
     kotlin("jvm") version "2.1.20-Beta1"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = "com.github.it"
@@ -37,14 +30,22 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.20-Beta1")
 
     // 패이퍼 / 스피갓 / 코틀린
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.7-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT")
 
     // CommandFramework
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
 
+}
 
+tasks {
+    runServer {
+        // Configure the Minecraft version for our task.
+        // This is the only required configuration besides applying the plugin.
+        // Your plugin's jar (or shadowJar if present) will be used automatically.
+        minecraftVersion("1.21.7")
+    }
 }
 
 val targetJavaVersion = 21
