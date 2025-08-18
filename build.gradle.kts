@@ -4,7 +4,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
-group = "com.github.it"
+group = "com.github.ityeri"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -58,8 +58,8 @@ tasks.build {
 }
 
 tasks.shadowJar {
-    relocate("co.aikar.commands", "com.github.it.tangTaMeokGi")
-    relocate("co.aikar.locales", "com.github.it.tangTaMeokGi")
+    relocate("co.aikar.commands", "com.github.ityeri.tangTaMeokGi")
+    relocate("co.aikar.locales", "com.github.ityeri.tangTaMeokGi")
 }
 
 tasks.processResources {

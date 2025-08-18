@@ -1,6 +1,6 @@
 name: TangTaMeokGi
 version: '1.0-SNAPSHOT'
-main: com.github.it.tangTaMeokGi.TangTaMeokGi
+main: com.github.ityeri.tangTaMeokGi.TangTaMeokGi
 api-version: '1.21.7'
 
 permissions:
