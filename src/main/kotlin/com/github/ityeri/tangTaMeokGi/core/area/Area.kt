@@ -161,23 +161,23 @@ class Area(
                     val thisWorldX = minX + x
                     val thisWorldZ = minZ + z
 
-                    val targetWorldX = targetX + x
-                    val targetWorldZ = targetZ + z
+                    val sourceWorldX = targetX + x
+                    val sourceWorldZ = targetZ + z
 
                     // targetWorld 로부터 복사할 블럭을 가져옴
-                    val targetBlock = sourceWorld.getBlockAt(targetWorldX, y, targetWorldZ)
+                    val sourceBlock = sourceWorld.getBlockAt(sourceWorldX, y, sourceWorldZ)
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
                     batch.addTask(Runnable {
-                        if (targetBlock.type == Material.VOID_AIR) {
+                        if (sourceBlock.type == Material.VOID_AIR) {
                             thisWorldBlock.type = Material.AIR
                         }
 
-                        thisWorldBlock.type = targetBlock.type
-                        thisWorldBlock.blockData = targetBlock.blockData
-                        thisWorldBlock.biome = targetBlock.biome
-                        targetBlock.state.copy(thisWorldBlock.location)
+                        thisWorldBlock.type = sourceBlock.type
+                        thisWorldBlock.blockData = sourceBlock.blockData
+                        thisWorldBlock.biome = sourceBlock.biome
+                        sourceBlock.state.copy(thisWorldBlock.location)
                     })
 
                 }

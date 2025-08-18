@@ -118,14 +118,14 @@ class AreaManager(
 
         for (z in 0 until  mapSize) {
             for (x in 0 until mapSize) {
-                val world: World
+                val sourceWorld: World
 
                 if (Random.nextFloat() < 0.7) {
-                    world = Bukkit.getScheduler().callSyncMethod(plugin) {
+                    sourceWorld = Bukkit.getScheduler().callSyncMethod(plugin) {
                         SubWorldUtils.getSubOverWorld()
                     }.get()
                 } else {
-                    world = Bukkit.getScheduler().callSyncMethod(plugin) {
+                    sourceWorld = Bukkit.getScheduler().callSyncMethod(plugin) {
                         SubWorldUtils.getSubNetherWorld()
                     }.get()
                 }
@@ -135,7 +135,7 @@ class AreaManager(
 
                 batch.open()
                 val job = scope.launch {
-                    area.batchGenerateFrom(batch, world,
+                    area.batchGenerateFrom(batch, sourceWorld,
                         Random.nextInt(-100000, 100000),
                         Random.nextInt(-100000, 100000)
                     )
@@ -161,7 +161,7 @@ class AreaManager(
                 if (worldUnloadInterval <= worldUnloadTimer) {
                     worldUnloadTimer = 0
                     Bukkit.getScheduler().callSyncMethod(plugin)  {
-                        Bukkit.unloadWorld(world, true)
+                        Bukkit.unloadWorld(sourceWorld, true)
                     }
                 }
             }
