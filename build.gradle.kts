@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.1.20-Beta1"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    kotlin("jvm") version "2.2.20-Beta2"
+    id("com.gradleup.shadow") version "8.3.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
@@ -32,7 +32,6 @@ dependencies {
     // 패이퍼 / 스피갓 / 코틀린
     compileOnly("io.papermc.paper:paper-api:1.21.7-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compileOnly("org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT")
 
     // CommandFramework
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
