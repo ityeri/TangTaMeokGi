@@ -11,8 +11,6 @@ import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import kotlin.math.ceil
@@ -144,15 +142,15 @@ class Area(
     }
 
     suspend fun batchGenerateFrom(batch: BukkitSyncTaskBatch,
-                          targetWorld: World, targetX: Int, targetZ: Int) {
+                                  sourceWorld: World, targetX: Int, targetZ: Int) {
 
         val minY: Int
         val maxY: Int
 
-        if (targetWorld.minHeight < world!!.minHeight) minY = targetWorld.minHeight
+        if (sourceWorld.minHeight < world!!.minHeight) minY = sourceWorld.minHeight
         else minY = world.minHeight
 
-        if (world.maxHeight < targetWorld.maxHeight) maxY = targetWorld.maxHeight
+        if (world.maxHeight < sourceWorld.maxHeight) maxY = sourceWorld.maxHeight
         else maxY = world.maxHeight
 
 
@@ -167,7 +165,7 @@ class Area(
                     val targetWorldZ = targetZ + z
 
                     // targetWorld 로부터 복사할 블럭을 가져옴
-                    val targetBlock = targetWorld.getBlockAt(targetWorldX, y, targetWorldZ)
+                    val targetBlock = sourceWorld.getBlockAt(targetWorldX, y, targetWorldZ)
                     // world 로부터 붙여넣을 블럭알 가져옴
                     val thisWorldBlock = world.getBlockAt(thisWorldX, y, thisWorldZ)
 
